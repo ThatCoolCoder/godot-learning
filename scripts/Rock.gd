@@ -15,3 +15,8 @@ func freeze():
 
 func unfreeze():
 	frozen = false
+
+func _on_Rock_body_entered(body):
+	print('body entered')
+	if body.is_in_group('rock_killer'):
+		queue_free()

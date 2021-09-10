@@ -13,7 +13,6 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func reset(_position: Vector2):
-	print('Player reset')
 	target_x = _position.x
 	position = Vector2(_position.x, _position.y)
 	$CollisionShape2D.set_deferred('disabled', false)
@@ -43,7 +42,6 @@ func _process(delta):
 		#$AnimatedSprite.animation = 'still'
 	
 func _on_Player_body_entered(body):
-	print('rip')
 	emit_signal('hit')
 	$CollisionShape2D.set_deferred('disabled', true)
 	# $AnimatedSprite.animation = 'die'
