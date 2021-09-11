@@ -8,12 +8,17 @@ export (float) var min_rock_scale = 1
 export (float) var max_rock_scale = 5
 export (float) var min_rock_rotation_speed = -PI / 2
 export (float) var max_rock_rotation_speed = PI / 2
+export (float) var starting_level_duration = 10
+export (float) var level_duration_multiplier = 0.9
 var score = 0
+var level = 1
 const score_increment = 1
 
 export (PackedScene) var Rock
 
 func _ready():
+	if OS.get_name()=="HTML5":
+		OS.set_window_maximized(true)
 	new_game()
 	
 func _process(delta):
@@ -26,10 +31,14 @@ func _process(delta):
 
 func new_game():
 	score = 0
+	level = 1
 	rock_speed = starting_rock_speed
-	$Player.reset($StartPosition.position)
+	$LevelTimer.wait_time = starting_level_duration
+	$LevelTimer.start()
 	$ScoreTimer.start()
 	$HUD/ScoreLabel.show()
+	$HUD/LevelLabel.show()
+	$Player.reset($StartPosition.position)
 
 func create_rock():
 	# Create a Mob instance and add it to the scene.
@@ -42,13 +51,13 @@ func create_rock():
 	var scale = rand_range(min_rock_scale, max_rock_scale)
 	rock.scale.x = scale
 	rock.scale.y = scale
-
 	rock.speed = rock_speed
 
 func game_over():
 	$ScoreTimer.stop()
 	$HUD/ScoreLabel.hide()
-	get_tree().call_group('rocks', 'freeze')
+	$HUD/LevelLabel.hide()
+	get_tree().set_group('rocks', 'frozen', true)
 	var timeout = $HUD.display_message(
 		'You lose\n' + 
 		'Your score: {score}'.format({'score' : int(score)}))
@@ -62,5 +71,9 @@ func _on_ScoreTimer_timeout():
 	score += score_increment * (rock_speed / starting_rock_speed)
 	$HUD.display_score(score)
 
-func _on_Floor_body_entered(body):
-	body.queue_free()
+
+func _on_LevelTimer_timeout():
+	level += 1
+	$HUD.display_level(level)
+	$LevelTimer.wait_time *= level_duration_multiplier
+	$LevelTimer.start()
