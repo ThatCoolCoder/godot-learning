@@ -6,10 +6,9 @@ export (int) var speed = 40
 
 var target_x = 0
 var screen_size
-var frozen = false
+var alive = true
 
 func _ready():
-	unfreeze()
 	screen_size = get_viewport_rect().size
 
 func reset(_position: Vector2):
@@ -17,9 +16,10 @@ func reset(_position: Vector2):
 	position = Vector2(_position.x, _position.y)
 	$CollisionShape2D.set_deferred('disabled', false)
 	$AnimatedSprite.animation = 'left'
+	alive = true
 
 func _process(delta):
-	if frozen:
+	if not alive:
 		return
 		
 	if Input.is_mouse_button_pressed(1):
@@ -32,25 +32,23 @@ func _process(delta):
 		 position.x += delta * speed * sign(position_difference)
 	position.x = constrain_value(position.x, 0, screen_size.x)
 	
+	var previous_animation = $AnimatedSprite.animation
 	if position_difference < 0:
 		$AnimatedSprite.animation = 'left'
 	elif position_difference > 0:
 		$AnimatedSprite.animation = 'right'
 	else:
-		pass
-		# Don't have still animation yet, so just leave it on previous animation
-		#$AnimatedSprite.animation = 'still'
+		$AnimatedSprite.animation = 'still'
+		
+	if $AnimatedSprite.animation != previous_animation:
+		$AnimatedSprite.play()
 	
 func _on_Player_body_entered(body):
 	emit_signal('hit')
+	alive = false
 	$CollisionShape2D.set_deferred('disabled', true)
-	# $AnimatedSprite.animation = 'die'
-
-func freeze():
-	frozen = true
-
-func unfreeze():
-	frozen = false
+	$AnimatedSprite.animation = 'die'
+	$AnimatedSprite.play()
 
 func constrain_value(value, min_value, max_value):
 	return min(max_value, max(min_value, value))

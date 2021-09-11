@@ -1,11 +1,19 @@
 extends Node2D
 
 export (float) var speed = 0
-var frozen = false
+export (float) var rotation_speed = 0
+export (bool) var frozen = false
+
+func _ready():
+	var animations = ['fall_1', 'fall_2', 'fall_3']
+	var animation = animations[randi() % len(animations)]
+	$AnimatedSprite.animation = animation
+	$AnimatedSprite.play()
 
 func _process(delta):
 	if not frozen:
 		position.y += speed * delta
+		rotation += rotation_speed * delta
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
