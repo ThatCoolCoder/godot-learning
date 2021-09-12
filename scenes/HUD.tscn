@@ -37,19 +37,4 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LevelLabel" type="Label" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -192.0
-margin_top = -50.0
-grow_horizontal = 2
-custom_fonts/font = ExtResource( 2 )
-text = "<Level>"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="timeout" from="MessageTimer" to="." method="_on_MessageTimer_timeout"]

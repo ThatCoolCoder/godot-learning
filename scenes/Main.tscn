@@ -25,9 +25,5 @@ position = Vector2( 200, 520 )
 [node name="ScoreTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="LevelTimer" type="Timer" parent="."]
-one_shot = true
-
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
-[connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]

@@ -1,18 +1,19 @@
 extends Node
 
-export (float) var rock_chance = 40
+const Utils = preload('res://scripts/Utils.gd')
+
+export (float) var rock_chance = 55
 export (float) var starting_rock_speed = 300
-export (float) var rock_speed_increment = 10
+export (float) var rock_speed_increment = 7
+export (float) var max_rock_speed = 1200
 var rock_speed
 export (float) var min_rock_scale = 1
 export (float) var max_rock_scale = 5
 export (float) var min_rock_rotation_speed = -PI / 2
 export (float) var max_rock_rotation_speed = PI / 2
-export (float) var starting_level_duration = 10
-export (float) var level_duration_multiplier = 0.9
+export (float) var score_speed = 10 # How fast the score goes up
+export (float) var score_speed_increment = 10 / 30 # How fast the score going up goes up
 var score = 0
-var level = 1
-const score_increment = 1
 
 export (PackedScene) var Rock
 
@@ -27,17 +28,16 @@ func _process(delta):
 		create_rock()
 	
 	rock_speed += rock_speed_increment * delta
+	rock_speed = min(rock_speed, max_rock_speed)
 	get_tree().set_group('rocks', 'speed', rock_speed)
+	
+	score_speed += score_speed_increment * delta
 
 func new_game():
 	score = 0
-	level = 1
 	rock_speed = starting_rock_speed
-	$LevelTimer.wait_time = starting_level_duration
-	$LevelTimer.start()
 	$ScoreTimer.start()
 	$HUD/ScoreLabel.show()
-	$HUD/LevelLabel.show()
 	$Player.reset($StartPosition.position)
 
 func create_rock():
@@ -56,11 +56,20 @@ func create_rock():
 func game_over():
 	$ScoreTimer.stop()
 	$HUD/ScoreLabel.hide()
-	$HUD/LevelLabel.hide()
 	get_tree().set_group('rocks', 'frozen', true)
-	var timeout = $HUD.display_message(
-		'You lose\n' + 
-		'Your score: {score}'.format({'score' : int(score)}))
+	
+	var high_score = Utils.load_high_score()
+	var message = ''
+	if score > high_score:
+		Utils.save_high_score(score)
+		message = 'Game over\n' + \
+			'You scored {score}\n'.format({'score' : int(score)}) + \
+			'New high score!'
+	else:
+		message = 'Game over\n' + \
+			'You scored {score}\n'.format({'score' : int(score)}) + \
+			'Your high score is {high_score}\n'.format({'high_score' : int(high_score)})
+	var timeout = $HUD.display_message(message)
 	yield(get_tree().create_timer(timeout), 'timeout')
 	
 	get_tree().call_group('rocks', 'queue_free')
@@ -68,12 +77,5 @@ func game_over():
 
 
 func _on_ScoreTimer_timeout():
-	score += score_increment * (rock_speed / starting_rock_speed)
+	score += score_speed * $ScoreTimer.wait_time
 	$HUD.display_score(score)
-
-
-func _on_LevelTimer_timeout():
-	level += 1
-	$HUD.display_level(level)
-	$LevelTimer.wait_time *= level_duration_multiplier
-	$LevelTimer.start()

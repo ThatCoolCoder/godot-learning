@@ -22,12 +22,12 @@ animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "left",
-"speed": 6.0
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "right",
-"speed": 6.0
+"speed": 8.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
