@@ -29,15 +29,15 @@ animations = [ {
 "name": "right",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "still",
-"speed": 4.0
-}, {
 "frames": [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 16 ) ],
 "loop": false,
 "name": "die",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "still",
+"speed": 4.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -46,7 +46,6 @@ height = 24.6173
 
 [node name="Player" type="Area2D"]
 script = ExtResource( 1 )
-speed = 300
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 4, 4 )

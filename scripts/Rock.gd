@@ -20,8 +20,9 @@ func _process(delta):
 		
 func _exit_tree():
 	var effect = ExplosionEffects.instance()
-	effect.position = position
 	effect.rock_scale = (scale.x + scale.y) / 2
+	effect.position = position
+	effect.position.y += $CollisionShape2D.shape.radius * effect.rock_scale / 2
 	get_parent().add_child(effect)
 
 func _on_VisibilityNotifier2D_screen_exited():

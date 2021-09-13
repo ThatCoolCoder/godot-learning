@@ -2,7 +2,8 @@ extends Node2D
 
 signal hit
 
-export (int) var speed = 40
+export (int) var base_speed = 300
+var speed = base_speed
 
 var target_x = 0
 var screen_size
@@ -17,6 +18,7 @@ func reset(_position: Vector2):
 	$CollisionShape2D.set_deferred('disabled', false)
 	$AnimatedSprite.animation = 'left'
 	alive = true
+	speed = base_speed
 
 func _process(delta):
 	if not alive:
