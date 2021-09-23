@@ -14,6 +14,9 @@ export (float) var max_rock_rotation_speed = PI / 2
 export (float) var score_speed = 10 # How fast the score goes up
 export (float) var score_speed_increment = 10 / 30 # How fast the score going up goes up
 var score = 0
+export (Array, PackedScene) var power_ups
+export (Array, int) var power_up_spawn_position_xs = [50, 350]
+export (float) var power_up_chance = 900
 
 export (PackedScene) var Rock
 
@@ -23,6 +26,9 @@ func _ready():
 	new_game()
 	
 func _process(delta):
+	if $Player.alive and randf() < 1 / power_up_chance:
+		create_power_up()
+	
 	var chance_multiplier =  starting_rock_speed / rock_speed
 	if $Player.alive and randf() < 1 / (rock_chance * chance_multiplier):
 		create_rock()
@@ -44,7 +50,7 @@ func create_rock():
 	# Create a Mob instance and add it to the scene.
 	var rock = Rock.instance()
 	add_child(rock)
-
+	
 	rock.position.x = randi() % 400
 	rock.rotation = rand_range(0, TAU)
 	rock.rotation_speed = rand_range(min_rock_rotation_speed, max_rock_rotation_speed)
@@ -52,6 +58,15 @@ func create_rock():
 	rock.scale.x = scale
 	rock.scale.y = scale
 	rock.speed = rock_speed
+
+func create_power_up():
+	var power_up = power_ups[randi() % power_ups.size()].instance()
+	
+	power_up.position.x = power_up_spawn_position_xs[randi() % \
+		power_up_spawn_position_xs.size()]
+	power_up.position.y = $StartPosition.position.y
+	
+	add_child(power_up)
 
 func game_over():
 	$ScoreTimer.stop()
