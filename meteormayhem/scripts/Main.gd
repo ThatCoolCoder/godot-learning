@@ -71,7 +71,6 @@ func create_power_up():
 func game_over():
 	$ScoreTimer.stop()
 	$HUD/ScoreLabel.hide()
-	get_tree().set_group('rocks', 'frozen', true)
 	
 	var high_score = Utils.load_high_score()
 	var message = ''

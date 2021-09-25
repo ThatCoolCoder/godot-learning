@@ -46,11 +46,14 @@ func _process(delta):
 		$AnimatedSprite.play()
 	
 func _on_Player_body_entered(body):
-	emit_signal('hit')
-	alive = false
-	$CollisionShape2D.set_deferred('disabled', true)
-	$AnimatedSprite.animation = 'die'
-	$AnimatedSprite.play()
+	if body.is_in_group('rocks'):
+		body.explode()
+		body.queue_free()
+		emit_signal('hit')
+		alive = false
+		$CollisionShape2D.set_deferred('disabled', true)
+	$	AnimatedSprite.animation = 'die'
+	$	AnimatedSprite.play()
 
 func constrain_value(value, min_value, max_value):
 	return min(max_value, max(min_value, value))

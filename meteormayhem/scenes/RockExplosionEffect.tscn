@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/RockExplosionEffect.gd" type="Script" id=1]
-[ext_resource path="res://art/rock_particle0000.png" type="Texture" id=2]
+[ext_resource path="res://art/animation_frames/rock_particle0000.png" type="Texture" id=2]
 [ext_resource path="res://sounds/rock_explosion.mp3" type="AudioStream" id=3]
 
 [node name="RockExplosionEffect" type="Node2D"]

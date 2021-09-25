@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/379464__vandale__wind1.mp3-bea2ad0c0fa36b134a1dceac7b42d3a5.mp3str"
+
+[deps]
+
+source_file="res://sounds/379464__vandale__wind1.mp3"
+dest_files=[ "res://.import/379464__vandale__wind1.mp3-bea2ad0c0fa36b134a1dceac7b42d3a5.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

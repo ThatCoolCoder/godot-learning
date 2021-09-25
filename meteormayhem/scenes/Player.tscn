@@ -1,21 +1,21 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://art/player_left0001.png" type="Texture" id=2]
-[ext_resource path="res://art/player_left0000.png" type="Texture" id=3]
-[ext_resource path="res://art/player_still0000.png" type="Texture" id=4]
-[ext_resource path="res://art/player_still0001.png" type="Texture" id=5]
-[ext_resource path="res://art/player_right0001.png" type="Texture" id=6]
-[ext_resource path="res://art/player_right0000.png" type="Texture" id=7]
-[ext_resource path="res://art/player_die0002.png" type="Texture" id=8]
-[ext_resource path="res://art/player_die0001.png" type="Texture" id=9]
-[ext_resource path="res://art/player_die0003.png" type="Texture" id=10]
-[ext_resource path="res://art/player_die0000.png" type="Texture" id=11]
-[ext_resource path="res://art/player_die0004.png" type="Texture" id=12]
-[ext_resource path="res://art/player_die0007.png" type="Texture" id=13]
-[ext_resource path="res://art/player_die0006.png" type="Texture" id=14]
-[ext_resource path="res://art/player_die0005.png" type="Texture" id=15]
-[ext_resource path="res://art/player_die0008.png" type="Texture" id=16]
+[ext_resource path="res://art/animation_frames/player_left0001.png" type="Texture" id=2]
+[ext_resource path="res://art/animation_frames/player_left0000.png" type="Texture" id=3]
+[ext_resource path="res://art/animation_frames/player_still0000.png" type="Texture" id=4]
+[ext_resource path="res://art/animation_frames/player_still0001.png" type="Texture" id=5]
+[ext_resource path="res://art/animation_frames/player_right0001.png" type="Texture" id=6]
+[ext_resource path="res://art/animation_frames/player_right0000.png" type="Texture" id=7]
+[ext_resource path="res://art/animation_frames/player_die0002.png" type="Texture" id=8]
+[ext_resource path="res://art/animation_frames/player_die0001.png" type="Texture" id=9]
+[ext_resource path="res://art/animation_frames/player_die0003.png" type="Texture" id=10]
+[ext_resource path="res://art/animation_frames/player_die0000.png" type="Texture" id=11]
+[ext_resource path="res://art/animation_frames/player_die0004.png" type="Texture" id=12]
+[ext_resource path="res://art/animation_frames/player_die0007.png" type="Texture" id=13]
+[ext_resource path="res://art/animation_frames/player_die0006.png" type="Texture" id=14]
+[ext_resource path="res://art/animation_frames/player_die0005.png" type="Texture" id=15]
+[ext_resource path="res://art/animation_frames/player_die0008.png" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -45,7 +45,7 @@ radius = 19.6046
 height = 24.6173
 
 [node name="Player" type="Area2D" groups=[
-"player",
+"players",
 ]]
 script = ExtResource( 1 )
 

@@ -18,7 +18,7 @@ func _process(delta):
 		position.y += speed * delta
 		rotation += rotation_speed * delta
 		
-func _exit_tree():
+func explode():
 	var effect = ExplosionEffects.instance()
 	effect.rock_scale = (scale.x + scale.y) / 2
 	effect.position = position

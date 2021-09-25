@@ -3,7 +3,7 @@
 [ext_resource path="res://images/tileset.png" type="Texture" id=1]
 
 [resource]
-0/name = "tiles"
+0/name = "Platforms"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
