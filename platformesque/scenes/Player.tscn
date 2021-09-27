@@ -1,32 +1,56 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://images/png_exports/player_walk_left0000.png" type="Texture" id=1]
-[ext_resource path="res://images/png_exports/player_walk_right0000.png" type="Texture" id=2]
+[ext_resource path="res://art/png_exports/player_idle0001.png" type="Texture" id=1]
+[ext_resource path="res://art/png_exports/player_idle0000.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=3]
+[ext_resource path="res://art/png_exports/player_walk0003.png" type="Texture" id=4]
+[ext_resource path="res://art/png_exports/player_walk0001.png" type="Texture" id=5]
+[ext_resource path="res://art/png_exports/player_walk0002.png" type="Texture" id=6]
+[ext_resource path="res://art/png_exports/player_walk0000.png" type="Texture" id=7]
+[ext_resource path="res://art/png_exports/player_jump0000.png" type="Texture" id=8]
+[ext_resource path="res://art/png_exports/player_fall0000.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "walk_left",
+"name": "idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "walk_right",
+"name": "jump",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 7.79766, 10.8328 )
+extents = Vector2( 6.31015, 8.21346 )
 
 [node name="Player" type="KinematicBody2D"]
-scale = Vector2( 4, 4 )
+scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "walk_right"
+animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 7.5
+editor_draw_drag_margin = true
