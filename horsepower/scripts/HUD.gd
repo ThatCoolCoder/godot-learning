@@ -24,3 +24,8 @@ func _process(delta):
 		$StuckText.hide()
 		
 	$SpeedLabel.text = '%s km/h' % int(car.linear_velocity.length() * speed_conversion_factor)
+
+
+func _on_PauseButton_pressed():
+	get_tree().paused = true
+	$PauseMenu.popup()

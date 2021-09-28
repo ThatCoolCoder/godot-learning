@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[node name="PauseMenu" type="PopupPanel"]
+pause_mode = 2
+visible = true
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 100.0
+margin_top = 50.0
+margin_right = -100.0
+margin_bottom = -50.0
+theme = ExtResource( 1 )
+popup_exclusive = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 816.0
+margin_bottom = 492.0
+theme = ExtResource( 1 )
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_left = 271.0
+margin_right = 545.0
+margin_bottom = 39.0
+size_flags_horizontal = 4
+text = "Useless pause menu"
+
+[node name="MaxSlopeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+margin_top = 59.0
+margin_right = 816.0
+margin_bottom = 75.0
+theme = ExtResource( 1 )
+max_value = 90.0
+tick_count = 18
+ticks_on_borders = true
+
+[node name="SlopeRandomnessSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+margin_top = 95.0
+margin_right = 816.0
+margin_bottom = 111.0
+theme = ExtResource( 1 )
+max_value = 90.0
+tick_count = 18
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointDistanceSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+margin_top = 131.0
+margin_right = 816.0
+margin_bottom = 147.0
+theme = ExtResource( 1 )
+min_value = 1.0
+max_value = 500.0
+value = 1.0
+exp_edit = true
+tick_count = 18
+ticks_on_borders = true
+
+[node name="UnpauseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_left = 342.0
+margin_top = 167.0
+margin_right = 474.0
+margin_bottom = 212.0
+size_flags_horizontal = 4
+text = "Unpause"
+
+[node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_left = 364.0
+margin_top = 232.0
+margin_right = 451.0
+margin_bottom = 277.0
+size_flags_horizontal = 4
+text = "Reset"
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MaxSlopeSlider" to="." method="_on_MaxSlopeSlider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SlopeRandomnessSlider" to="." method="_on_SlopeRandomnessSlider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/PointDistanceSlider" to="." method="_on_PointDistanceSlider_value_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/UnpauseButton" to="." method="_on_UnpauseButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]

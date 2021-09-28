@@ -12,7 +12,7 @@ friction = 0.1
 [sub_resource type="CircleShape2D" id=2]
 radius = 15.1442
 
-[node name="Car" type="RigidBody2D" groups=[
+[node name="BasicCar" type="RigidBody2D" groups=[
 "cars",
 ]]
 physics_material_override = SubResource( 1 )
