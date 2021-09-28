@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/Wheel.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Car.gd" type="Script" id=2]
+[ext_resource path="res://misc_resources/car_tyres.tres" type="PhysicsMaterial" id=3]
+[ext_resource path="res://art/suzuki_apv.svg" type="Texture" id=4]
+[ext_resource path="res://art/car_wheel.svg" type="Texture" id=5]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.1
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 15.1442
+
+[node name="SuzukiApv" type="RigidBody2D" groups=[
+"cars",
+]]
+physics_material_override = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_speed = 100.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -64, -32 )
+polygon = PoolVector2Array( -13.9872, 48.8227, -16.3469, 41.9796, -13.9872, 30.8891, -12.3354, 24.518, -6.20022, 0.685127, -3.84054, -5.21409, 79.4564, -4.50618, 90.7829, -2.61843, 98.5698, 1.629, 112.964, 12.7195, 120.987, 17.2029, 128.302, 20.0346, 132.549, 23.8101, 136.797, 35.3725, 136.089, 50.7105, 134.673, 51.8903, 122.639, 52.3623, 29.1951, 51.4184, -4.31247, 50.4745 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -8.8891, -20.1274 )
+scale = Vector2( 0.108948, 0.108948 )
+texture = ExtResource( 4 )
+
+[node name="FrontWheelHolder" type="PinJoint2D" parent="."]
+position = Vector2( 42.8114, 18.73 )
+node_a = NodePath("..")
+node_b = NodePath("Wheel")
+softness = 2.0
+
+[node name="Wheel" type="RigidBody2D" parent="FrontWheelHolder"]
+mass = 0.2
+physics_material_override = ExtResource( 3 )
+script = ExtResource( 1 )
+drive_torque = 70
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontWheelHolder/Wheel"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="FrontWheelHolder/Wheel"]
+scale = Vector2( 0.879472, 0.879472 )
+texture = ExtResource( 5 )
+
+[node name="RearWheelHolder" type="PinJoint2D" parent="."]
+position = Vector2( -52.787, 18.73 )
+node_a = NodePath("..")
+node_b = NodePath("Wheel")
+softness = 2.0
+
+[node name="Wheel" type="RigidBody2D" parent="RearWheelHolder"]
+mass = 0.2
+physics_material_override = ExtResource( 3 )
+script = ExtResource( 1 )
+drive_torque = 70
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RearWheelHolder/Wheel"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="RearWheelHolder/Wheel"]
+scale = Vector2( 0.879, 0.879 )
+texture = ExtResource( 5 )

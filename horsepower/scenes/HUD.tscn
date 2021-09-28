@@ -1,17 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=2]
-[ext_resource path="res://theme.tres" type="Theme" id=3]
 [ext_resource path="res://scenes/PauseMenu.tscn" type="PackedScene" id=4]
 
-[node name="Control" type="Control"]
+[node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 
 [node name="StuckText" type="Label" parent="."]
 anchor_left = 0.5
@@ -22,7 +27,6 @@ margin_left = -204.5
 margin_top = -39.0
 margin_right = 204.5
 grow_horizontal = 2
-theme = ExtResource( 3 )
 custom_fonts/font = ExtResource( 1 )
 text = "Press space to flip the car"
 align = 1
@@ -38,7 +42,6 @@ anchor_bottom = 1.0
 margin_left = -102.0
 margin_top = -39.0
 grow_horizontal = 0
-theme = ExtResource( 3 )
 custom_fonts/font = ExtResource( 1 )
 text = "X km/h"
 align = 2
@@ -53,14 +56,11 @@ margin_left = -91.0
 margin_bottom = 45.0
 grow_horizontal = 2
 focus_mode = 0
-theme = ExtResource( 3 )
 custom_fonts/font = ExtResource( 1 )
 enabled_focus_mode = 0
 text = "Pause"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="PauseMenu" parent="." instance=ExtResource( 4 )]
 
 [connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]

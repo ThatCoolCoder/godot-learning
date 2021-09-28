@@ -3,7 +3,7 @@ extends Control
 export (int) var car_flip_speed_threshold = 150
 export (int) var car_flip_angle_threshold_deg = 130
 var car_flip_angle_threshold
-export (float) var speed_conversion_factor = 0.045
+export (float) var speed_conversion_factor = 0.07
 
 func _ready():
 	$StuckText.hide()

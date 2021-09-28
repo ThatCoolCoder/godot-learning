@@ -24,13 +24,15 @@ func _process(delta):
 func spawn_new_points():
 	var max_slope = Utils.deg_to_rad(WorldSettings.ground_max_slope_deg)
 	var slope_randomness = Utils.deg_to_rad(WorldSettings.ground_slope_randomness_deg)
+	var ground_slope_bias = Utils.deg_to_rad(WorldSettings.ground_slope_bias_deg)
 	while upper_edge_points[-1].x - (car_position.x + screen_size.x / 2) < \
 		WorldSettings.ground_point_distance:
 		var new_point = Vector2()
 		new_point.x = upper_edge_points[-1].x + WorldSettings.ground_point_distance
 		var crnt_slope = (upper_edge_points[-1] - upper_edge_points[-2]).angle()
 		crnt_slope += rand_range(-slope_randomness, slope_randomness)
-		crnt_slope = clamp(crnt_slope, -max_slope, max_slope)
+		crnt_slope = clamp(crnt_slope, -max_slope + ground_slope_bias,
+			max_slope + ground_slope_bias)
 		var height_offset = WorldSettings.ground_point_distance * atan(crnt_slope)
 		new_point.y = upper_edge_points[-1].y + height_offset
 		upper_edge_points.append(new_point)
@@ -40,7 +42,8 @@ func spawn_new_points():
 		new_point.x = upper_edge_points[0].x - WorldSettings.ground_point_distance
 		var crnt_slope = -(upper_edge_points[1] - upper_edge_points[0]).angle()
 		crnt_slope += rand_range(-slope_randomness, slope_randomness)
-		crnt_slope = clamp(crnt_slope, -max_slope, max_slope)
+		crnt_slope = clamp(crnt_slope, -max_slope + ground_slope_bias,
+			max_slope + ground_slope_bias)
 		var height_offset = WorldSettings.ground_point_distance * atan(crnt_slope)
 		new_point.y = upper_edge_points[0].y + height_offset
 		upper_edge_points.push_front(new_point)
