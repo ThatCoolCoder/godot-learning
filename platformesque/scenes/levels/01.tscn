@@ -9,12 +9,12 @@
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 10, 300 )
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2( -115.966, -342.24 )
-scale = Vector2( 6, 6 )
+scale = Vector2( 2, 2 )
 tile_set = ExtResource( 1 )
-cell_size = Vector2( 8, 8 )
+cell_size = Vector2( 16, 16 )
 cell_quadrant_size = 4
 format = 1
 tile_data = PoolIntArray( 62, 0, 196614, 458758, 1, 0, 458759, 0, 0, 458760, 0, 2, 458761, 0, 2, 458762, 0, 2, 458763, 0, 2, 458764, 0, 2, 458765, 0, 2, 458766, 0, 6, 524293, 1, 0, 524294, 0, 0, 524295, 0, 65537, 589827, 1, 0, 589828, 0, 0, 589829, 0, 2, 589830, 0, 65537, 655360, 0, 65541, 655361, 0, 2, 655362, 0, 2, 655363, 0, 2, 655364, 0, 65537, 1441840, 0, 196614 )
