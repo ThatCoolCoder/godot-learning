@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/BasicCar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/VehicleButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://misc_resources/smaller_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scripts/VehicleSelectMenu.gd" type="Script" id=5]
+[ext_resource path="res://scenes/SusukiApv.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Tank.tscn" type="PackedScene" id=7]
 
 [node name="VehicleSelectMenu" type="PopupPanel"]
 anchor_right = 1.0
@@ -53,6 +55,16 @@ margin_bottom = 87.0
 margin_right = 14.0
 margin_bottom = 44.0
 vehicle = ExtResource( 2 )
+
+[node name="VehicleButton2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_right = 14.0
+margin_bottom = 44.0
+vehicle = ExtResource( 6 )
+
+[node name="VehicleButton3" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_right = 14.0
+margin_bottom = 44.0
+vehicle = ExtResource( 7 )
 
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_left = 377.0

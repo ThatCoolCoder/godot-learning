@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Wheel.gd" type="Script" id=1]
-[ext_resource path="res://scripts/Car.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Vehicle.gd" type="Script" id=2]
 [ext_resource path="res://misc_resources/car_tyres.tres" type="PhysicsMaterial" id=3]
 [ext_resource path="res://art/suzuki_apv.svg" type="Texture" id=4]
 [ext_resource path="res://art/car_wheel.svg" type="Texture" id=5]
@@ -15,8 +15,11 @@ radius = 15.1442
 [node name="SuzukiApv" type="RigidBody2D" groups=[
 "cars",
 ]]
+mass = 2.0
 physics_material_override = SubResource( 1 )
 script = ExtResource( 2 )
+vehicle_name = "Van"
+rotation_torque = 0.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -45,7 +48,9 @@ softness = 2.0
 mass = 0.2
 physics_material_override = ExtResource( 3 )
 script = ExtResource( 1 )
-drive_torque = 70
+drive_torque = 130
+brake_torque = 150
+max_rotation_speed_deg = 5000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontWheelHolder/Wheel"]
 shape = SubResource( 2 )
@@ -64,7 +69,9 @@ softness = 2.0
 mass = 0.2
 physics_material_override = ExtResource( 3 )
 script = ExtResource( 1 )
-drive_torque = 70
+drive_torque = 130
+brake_torque = 150
+max_rotation_speed_deg = 5000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RearWheelHolder/Wheel"]
 shape = SubResource( 2 )

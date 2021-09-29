@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 var first_point_height = 300
-var lower_edge_height = 1000
+var lower_edge_height = 3000
 var upper_edge_points = []
 var max_upper_edge_point_dist = 20000
 

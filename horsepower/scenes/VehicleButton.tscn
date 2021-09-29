@@ -5,6 +5,8 @@
 [node name="VehicleButton" type="Button"]
 margin_right = 100.0
 margin_bottom = 100.0
+focus_mode = 0
+enabled_focus_mode = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

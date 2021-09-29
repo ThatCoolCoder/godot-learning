@@ -3,10 +3,13 @@ extends KinematicBody2D
 const Utils = preload('res://scripts/Utils.gd')
 
 signal dead
+signal finished_level
 
 export (int) var max_move_speed = 300
 export (int) var move_acceleration = 700
 export (int) var stop_move_acceleration = 1000
+export (Array, String) var killer_tile_names
+export (String) var finish_tile_name
 var gravity = ProjectSettings.get_setting('physics/2d/default_gravity')
 export (int) var jump_speed = 500
 
@@ -48,8 +51,10 @@ func handle_collisions():
 			if tile_id == -1:
 				continue
 			var tile_name = collision.collider.tile_set.tile_get_name(tile_id)
-			if tile_name == 'Spike':
+			if tile_name in killer_tile_names: 
 				emit_signal('dead')
+			if tile_name == finish_tile_name:
+				emit_signal('finished_level')
 
 func _process(delta: float) -> void:
 	change_animation()

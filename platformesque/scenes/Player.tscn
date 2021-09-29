@@ -39,6 +39,8 @@ extents = Vector2( 6.31015, 8.21346 )
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
 script = ExtResource( 3 )
+killer_tile_names = [ "Spike" ]
+finish_tile_name = "Finish"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
