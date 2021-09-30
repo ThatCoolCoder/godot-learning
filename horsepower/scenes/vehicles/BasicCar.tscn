@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://art/car.svg" type="Texture" id=1]
+[ext_resource path="res://scripts/Vehicle.gd" type="Script" id=2]
+[ext_resource path="res://art/car_wheel.svg" type="Texture" id=3]
+[ext_resource path="res://scenes/vehicles/Wheel.tscn" type="PackedScene" id=6]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.1
+
+[node name="BasicCar" type="RigidBody2D" groups=[
+"cars",
+]]
+physics_material_override = SubResource( 1 )
+script = ExtResource( 2 )
+vehicle_name = "Basic car"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_speed = 100.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -64, -32 )
+polygon = PoolVector2Array( 2.28902, 30.9494, 5.82455, 23.5248, 10.0672, 18.9286, 24.5629, 13.9788, 51.4329, 7.26132, 72.6462, 11.504, 99.1627, 27.0603, 115.78, 27.4139, 126.386, 34.1314, 129.215, 47.92, 125.086, 53.131, 7.5, 54, 0.5, 47.5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.92, 0.92 )
+texture = ExtResource( 1 )
+
+[node name="FrontWheel" parent="." instance=ExtResource( 6 )]
+position = Vector2( 46.4697, 21.2256 )
+radius = 16.0
+texture = ExtResource( 3 )
+
+[node name="BackWheel" parent="." instance=ExtResource( 6 )]
+position = Vector2( -44.9049, 20.7257 )
+radius = 16.0
+texture = ExtResource( 3 )

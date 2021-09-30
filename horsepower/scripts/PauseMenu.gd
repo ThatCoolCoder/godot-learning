@@ -27,4 +27,3 @@ func _on_RestartButton_pressed():
 
 func _on_ChangeVehicleButton_pressed():
 	$MarginContainer/VBoxContainer/CenterContainer/VehicleSelectMenu.popup()
-

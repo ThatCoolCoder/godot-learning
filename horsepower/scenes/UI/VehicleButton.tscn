@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/VehicleButton.gd" type="Script" id=1]
+[ext_resource path="res://misc_resources/smaller_font.tres" type="DynamicFont" id=2]
 
 [node name="VehicleButton" type="Button"]
 margin_right = 100.0
 margin_bottom = 100.0
 focus_mode = 0
+custom_fonts/font = ExtResource( 2 )
 enabled_focus_mode = 0
+text = "<name goes here>"
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

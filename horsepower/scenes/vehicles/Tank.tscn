@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://art/car_wheel.svg" type="Texture" id=1]
+[ext_resource path="res://scenes/vehicles/Tank.gd" type="Script" id=2]
+[ext_resource path="res://art/tank.svg" type="Texture" id=3]
+[ext_resource path="res://scenes/vehicles/Wheel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/CannonShell.tscn" type="PackedScene" id=5]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.1
+
+[node name="Tank" type="RigidBody2D" groups=[
+"cars",
+]]
+mass = 10.0
+physics_material_override = SubResource( 1 )
+script = ExtResource( 2 )
+vehicle_name = "Tank"
+rotation_torque = 0.0
+projectile = ExtResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_speed = 100.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -64, -32 )
+polygon = PoolVector2Array( -42.9843, 49.8933, -75.1577, 40.3474, -87.532, 26.2052, -99.1993, 19.4877, -97.7851, 6.40623, -82.2287, -0.664833, -20.7104, 0.0422745, 3.68475, 4.28492, -18.2355, -3.84681, -36.1146, -17.6266, -35.3209, -30.3258, 28.9689, -29.1353, 59.5263, -36.6754, 116.276, -22.3888, 134.928, -22.3888, 142.468, -15.6424, 144.849, -12.4676, 228.585, -13.2613, 228.981, -8.10223, 145.643, -7.30853, 138.5, -0.562065, 110.323, 2.61273, 109.133, 6.97809, 201.996, 15.7088, 205.17, 21.6615, 190.09, 39.9167, 155.961, 45.8694 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -50.5413 )
+scale = Vector2( 0.232467, 0.232467 )
+texture = ExtResource( 3 )
+
+[node name="Wheel1" parent="." instance=ExtResource( 4 )]
+position = Vector2( 88.2636, 18.73 )
+drive_torque = 200
+max_rotation_speed_deg = 1400.0
+radius = 18.0
+texture = ExtResource( 1 )
+
+[node name="Wheel2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 47.9493, 18.73 )
+drive_torque = 200
+max_rotation_speed_deg = 1400.0
+radius = 18.0
+texture = ExtResource( 1 )
+
+[node name="Wheel3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 7.89743, 18.73 )
+drive_torque = 200
+max_rotation_speed_deg = 1400.0
+radius = 18.0
+texture = ExtResource( 1 )
+
+[node name="Wheel4" parent="." instance=ExtResource( 4 )]
+position = Vector2( -30.799, 18.73 )
+drive_torque = 200
+max_rotation_speed_deg = 1400.0
+radius = 18.0
+texture = ExtResource( 1 )
+
+[node name="Wheel5" parent="." instance=ExtResource( 4 )]
+position = Vector2( -71.7465, 18.73 )
+drive_torque = 200
+max_rotation_speed_deg = 1400.0
+radius = 18.0
+texture = ExtResource( 1 )
+
+[node name="Wheel6" parent="." instance=ExtResource( 4 )]
+position = Vector2( -112.064, 18.73 )
+drive_torque = 200
+max_rotation_speed_deg = 1400.0
+radius = 18.0
+texture = ExtResource( 1 )

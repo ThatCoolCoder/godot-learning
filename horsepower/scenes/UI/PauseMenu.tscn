@@ -1,15 +1,14 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://misc_resources/smaller_font.tres" type="DynamicFont" id=3]
-[ext_resource path="res://scenes/VehicleSelectMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/UI/VehicleSelectMenu.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
 [node name="PauseMenu" type="PopupPanel"]
 pause_mode = 2
-visible = true
 material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,7 +17,7 @@ margin_top = 50.0
 margin_right = -100.0
 margin_bottom = -50.0
 popup_exclusive = true
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,7 +46,7 @@ margin_left = 359.0
 margin_right = 456.0
 margin_bottom = 39.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Paused"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
@@ -181,10 +180,10 @@ margin_bottom = 459.0
 [node name="VehicleSelectMenu" parent="MarginContainer/VBoxContainer/CenterContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 310.0
-margin_top = -56.0
-margin_right = 505.0
-margin_bottom = 55.0
+margin_left = 112.0
+margin_top = -80.0
+margin_right = 704.0
+margin_bottom = 79.0
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/MaxSlopeSlider" to="." method="_on_MaxSlopeSlider_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/SlopeRandomnessSlider" to="." method="_on_SlopeRandomnessSlider_value_changed"]

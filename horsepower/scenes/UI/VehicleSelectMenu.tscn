@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scenes/BasicCar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/VehicleButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/vehicles/BasicCar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/UI/VehicleButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://misc_resources/smaller_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scripts/VehicleSelectMenu.gd" type="Script" id=5]
-[ext_resource path="res://scenes/SusukiApv.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/Tank.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/vehicles/Van.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/vehicles/Tank.tscn" type="PackedScene" id=7]
 
 [node name="VehicleSelectMenu" type="PopupPanel"]
 anchor_right = 1.0
@@ -35,6 +35,7 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_right = 816.0
 margin_bottom = 492.0
+custom_constants/separation = 20
 
 [node name="Heading" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 816.0
@@ -47,32 +48,45 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 43.0
+margin_top = 59.0
 margin_right = 816.0
-margin_bottom = 87.0
+margin_bottom = 95.0
+alignment = 1
 
 [node name="VehicleButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_right = 14.0
-margin_bottom = 44.0
+margin_left = 116.0
+margin_right = 308.0
+margin_bottom = 36.0
+focus_mode = 1
+enabled_focus_mode = 1
 vehicle = ExtResource( 2 )
 
 [node name="VehicleButton2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_right = 14.0
-margin_bottom = 44.0
+margin_left = 312.0
+margin_right = 504.0
+margin_bottom = 36.0
+focus_mode = 1
+enabled_focus_mode = 1
 vehicle = ExtResource( 6 )
 
 [node name="VehicleButton3" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
-margin_right = 14.0
-margin_bottom = 44.0
+margin_left = 508.0
+margin_right = 700.0
+margin_bottom = 36.0
+focus_mode = 1
+enabled_focus_mode = 1
 vehicle = ExtResource( 7 )
 
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_left = 377.0
-margin_top = 91.0
+margin_top = 115.0
 margin_right = 439.0
-margin_bottom = 127.0
+margin_bottom = 151.0
+focus_mode = 0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
 text = "Save"
 
+[connection signal="about_to_show" from="." to="." method="_on_VehicleSelectMenu_about_to_show"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SaveButton" to="." method="_on_SaveButton_pressed"]

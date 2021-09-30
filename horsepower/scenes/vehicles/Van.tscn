@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://art/car_wheel.svg" type="Texture" id=1]
+[ext_resource path="res://scripts/Vehicle.gd" type="Script" id=2]
+[ext_resource path="res://art/suzuki_apv.svg" type="Texture" id=3]
+[ext_resource path="res://scenes/vehicles/Wheel.tscn" type="PackedScene" id=4]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.1
+
+[node name="Van" type="RigidBody2D" groups=[
+"cars",
+]]
+mass = 2.0
+physics_material_override = SubResource( 1 )
+script = ExtResource( 2 )
+vehicle_name = "Van"
+rotation_torque = 0.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_speed = 100.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -64, -32 )
+polygon = PoolVector2Array( -13.9872, 48.8227, -16.3469, 41.9796, -13.9872, 30.8891, -12.3354, 24.518, -6.20022, 0.685127, -3.84054, -5.21409, 79.4564, -4.50618, 90.7829, -2.61843, 98.5698, 1.629, 112.964, 12.7195, 120.987, 17.2029, 128.302, 20.0346, 132.549, 23.8101, 136.797, 35.3725, 136.089, 50.7105, 134.673, 51.8903, 122.639, 52.3623, 29.1951, 51.4184, -4.31247, 50.4745 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -8.8891, -20.1274 )
+scale = Vector2( 0.108948, 0.108948 )
+texture = ExtResource( 3 )
+
+[node name="FrontWheel" parent="." instance=ExtResource( 4 )]
+position = Vector2( 46.8159, 18.73 )
+texture = ExtResource( 1 )
+
+[node name="RearWheel" parent="." instance=ExtResource( 4 )]
+position = Vector2( -51.5761, 18.73 )
+texture = ExtResource( 1 )
