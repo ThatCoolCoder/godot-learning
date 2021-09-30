@@ -6,6 +6,7 @@ export (int) var drive_torque = 100
 export (int) var brake_torque = 500
 export (float) var max_rotation_speed_deg = 360 * 30
 export (float) var radius = 15
+export (float) var _softness = 2
 export (StreamTexture) var texture
 var max_rotation_speed
 
@@ -15,9 +16,8 @@ func _ready():
 	max_rotation_speed = Utils.deg_to_rad(max_rotation_speed_deg)
 	add_to_group('wheels')
 	update_sprite()
-	update_collider()
-	$Wheel/Sprite.texture = texture
 	$Wheel/CollisionShape2D.shape.radius = radius
+	softness = _softness
 	node_a = get_parent().get_path()
 
 func _draw():
@@ -47,6 +47,3 @@ func update_sprite():
 	var scale = radius * 2 / $Wheel/Sprite.texture.get_width()
 	$Wheel/Sprite.scale.x = scale
 	$Wheel/Sprite.scale.y = scale
-	
-func update_collider():
-	$Wheel/CollisionShape2D.shape.radius = radius

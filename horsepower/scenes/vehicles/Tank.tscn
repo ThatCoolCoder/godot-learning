@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://art/car_wheel.svg" type="Texture" id=1]
 [ext_resource path="res://scenes/vehicles/Tank.gd" type="Script" id=2]
 [ext_resource path="res://art/tank.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/vehicles/Wheel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/CannonShell.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=6]
 
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.1
@@ -12,20 +13,14 @@ friction = 0.1
 [node name="Tank" type="RigidBody2D" groups=[
 "cars",
 ]]
-mass = 10.0
+mass = 60.0
 physics_material_override = SubResource( 1 )
 script = ExtResource( 2 )
 vehicle_name = "Tank"
 rotation_torque = 0.0
 projectile = ExtResource( 5 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-smoothing_speed = 100.0
-drag_margin_left = 0.1
-drag_margin_top = 0.1
-drag_margin_right = 0.1
-drag_margin_bottom = 0.1
+[node name="Camera2D" parent="." instance=ExtResource( 6 )]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -64, -32 )
@@ -38,42 +33,54 @@ texture = ExtResource( 3 )
 
 [node name="Wheel1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 88.2636, 18.73 )
-drive_torque = 200
+drive_torque = 1000
+brake_torque = 2000
 max_rotation_speed_deg = 1400.0
 radius = 18.0
+_softness = 0.5
 texture = ExtResource( 1 )
 
 [node name="Wheel2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 47.9493, 18.73 )
-drive_torque = 200
+drive_torque = 1000
+brake_torque = 2000
 max_rotation_speed_deg = 1400.0
 radius = 18.0
+_softness = 0.5
 texture = ExtResource( 1 )
 
 [node name="Wheel3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 7.89743, 18.73 )
-drive_torque = 200
+drive_torque = 1000
+brake_torque = 2000
 max_rotation_speed_deg = 1400.0
 radius = 18.0
+_softness = 0.5
 texture = ExtResource( 1 )
 
 [node name="Wheel4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -30.799, 18.73 )
-drive_torque = 200
+drive_torque = 1000
+brake_torque = 2000
 max_rotation_speed_deg = 1400.0
 radius = 18.0
+_softness = 0.5
 texture = ExtResource( 1 )
 
 [node name="Wheel5" parent="." instance=ExtResource( 4 )]
 position = Vector2( -71.7465, 18.73 )
-drive_torque = 200
+drive_torque = 1000
+brake_torque = 2000
 max_rotation_speed_deg = 1400.0
 radius = 18.0
+_softness = 0.5
 texture = ExtResource( 1 )
 
 [node name="Wheel6" parent="." instance=ExtResource( 4 )]
 position = Vector2( -112.064, 18.73 )
-drive_torque = 200
+drive_torque = 1000
+brake_torque = 2000
 max_rotation_speed_deg = 1400.0
 radius = 18.0
+_softness = 0.5
 texture = ExtResource( 1 )

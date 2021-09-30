@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/Vehicle.gd" type="Script" id=1]
+[ext_resource path="res://art/truck_cab.svg" type="Texture" id=2]
+[ext_resource path="res://scenes/vehicles/Wheel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art/car_wheel.svg" type="Texture" id=4]
+[ext_resource path="res://art/truck_trailer.svg" type="Texture" id=5]
+[ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=6]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.1
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 213.571, 47.3988 )
+
+[node name="Truck" type="RigidBody2D" groups=[
+"cars",
+]]
+mass = 20.0
+physics_material_override = SubResource( 1 )
+script = ExtResource( 1 )
+vehicle_name = "Truck"
+rotation_torque = 0.0
+
+[node name="Camera2D" parent="." instance=ExtResource( 6 )]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -64, -34 )
+polygon = PoolVector2Array( -55.9356, 63.6447, -54.4491, 44.6174, -39.8813, 40.1579, -2.18526, 41.8587, 69.5258, 41.6444, 70.4177, -24.3566, 69.2285, -31.7892, 74.2826, -56.4652, 87.3639, -55.276, 101.932, -46.9516, 126.608, -42.7893, 139.689, -31.4919, 145.04, -29.4108, 147.122, -21.3836, 143.554, -19.8971, 154.554, 39.5632, 151.082, 57.4178, 128.986, 62.4555, 128.094, 60.3743, 76.2449, 59.4976, 75.6149, 62.6474 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -8.8891, -27.057 )
+scale = Vector2( 0.13, 0.13 )
+texture = ExtResource( 2 )
+
+[node name="FrontWheel" parent="." instance=ExtResource( 3 )]
+position = Vector2( 42.7766, 25.2193 )
+drive_torque = 1000
+brake_torque = 1500
+radius = 18.0
+_softness = 0.25
+texture = ExtResource( 4 )
+
+[node name="RearWheel" parent="." instance=ExtResource( 3 )]
+position = Vector2( -98.6716, 25.2193 )
+drive_torque = 1000
+brake_torque = 1500
+radius = 18.0
+_softness = 0.25
+texture = ExtResource( 4 )
+
+[node name="TrailerJoint" type="PinJoint2D" parent="."]
+position = Vector2( -56.9357, 7.10119 )
+node_a = NodePath("..")
+node_b = NodePath("Trailer")
+disable_collision = false
+
+[node name="Trailer" type="RigidBody2D" parent="TrailerJoint"]
+position = Vector2( -214.96, -34.6482 )
+mass = 14.0
+
+[node name="Sprite" type="Sprite" parent="TrailerJoint/Trailer"]
+scale = Vector2( 0.13, 0.13 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrailerJoint/Trailer"]
+position = Vector2( 8.24069, -23.2238 )
+shape = SubResource( 2 )
+
+[node name="Wheel" parent="TrailerJoint/Trailer" instance=ExtResource( 3 )]
+position = Vector2( -130.243, 52.7664 )
+drive_torque = 0
+brake_torque = 100
+radius = 19.0
+_softness = 1.0
+texture = ExtResource( 4 )
+
+[node name="Wheel2" parent="TrailerJoint/Trailer" instance=ExtResource( 3 )]
+position = Vector2( -89.2431, 52.7664 )
+drive_torque = 0
+brake_torque = 100
+radius = 19.0
+_softness = 1.0
+texture = ExtResource( 4 )
+
+[node name="Wheel3" parent="TrailerJoint/Trailer" instance=ExtResource( 3 )]
+position = Vector2( -49.2431, 52.7664 )
+drive_torque = 0
+brake_torque = 100
+radius = 19.0
+_softness = 1.0
+texture = ExtResource( 4 )
