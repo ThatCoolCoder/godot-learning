@@ -36,17 +36,15 @@ texture = ExtResource( 2 )
 [node name="FrontWheel" parent="." instance=ExtResource( 3 )]
 position = Vector2( 42.7766, 25.2193 )
 drive_torque = 1000
-brake_torque = 1500
 radius = 18.0
-_softness = 0.25
+_softness = 0.17
 texture = ExtResource( 4 )
 
 [node name="RearWheel" parent="." instance=ExtResource( 3 )]
 position = Vector2( -98.6716, 25.2193 )
 drive_torque = 1000
-brake_torque = 1500
 radius = 18.0
-_softness = 0.25
+_softness = 0.17
 texture = ExtResource( 4 )
 
 [node name="TrailerJoint" type="PinJoint2D" parent="."]
