@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/Vehicle..gd" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 2 )
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 10.0257, 0.0316157, 11.9683 )
+
+[sub_resource type="PlaneMesh" id=4]
+
+[node name="Main" type="Spatial"]
+
+[node name="Vehicle" type="VehicleBody" parent="."]
+script = ExtResource( 1 )
+engine_force_value = 40000
+
+[node name="VehicleWheel" type="VehicleWheel" parent="Vehicle"]
+transform = Transform( 1, 0, -8.74228e-08, 0, -1, 0, 8.74228e-08, 0, 1, 1.2841, -1.11805, 1.73157 )
+
+[node name="VehicleWheel2" type="VehicleWheel" parent="Vehicle"]
+transform = Transform( 1, 0, -8.74228e-08, 0, -1, 0, 8.74228e-08, 0, 1, -1.28571, -1.11805, 1.73157 )
+
+[node name="VehicleWheel3" type="VehicleWheel" parent="Vehicle"]
+transform = Transform( 1, 0, -8.74228e-08, 0, -1, 0, 8.74228e-08, 0, 1, 0.100128, -1.11805, -2.75039 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Vehicle"]
+shape = SubResource( 1 )
+
+[node name="BodyMesh" type="MeshInstance" parent="Vehicle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2.03535, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.50909, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 0.264565, 0, 0, 0, 0.930982, 0, -0.12581, 0 )
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 9.8871, 0, 0, 0, 9.8871, 0, 0, 0, 9.8871, 0, 0, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.999988, 0.00175608, -0.0046365, 0.000129241, 0.92562, 0.378455, 0.00495623, -0.378451, 0.925608, -0.562, 5.275, 15.406 )
