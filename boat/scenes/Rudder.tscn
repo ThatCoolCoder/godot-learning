@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/Rudder.gd" type="Script" id=1]
+
+[node name="Rudder" type="Node2D"]
+position = Vector2( -16.5186, 0 )
+script = ExtResource( 1 )
