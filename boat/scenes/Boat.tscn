@@ -22,4 +22,4 @@ zoom = Vector2( 0.3, 0.3 )
 
 [node name="Rudder" parent="." instance=ExtResource( 3 )]
 position = Vector2( -16.1313, -0.389042 )
-area = 0.2
+body_path = NodePath("..")

@@ -12,3 +12,11 @@ func _physics_process(delta):
 	if Input.is_action_pressed("drive_backward"):
 		pass
 		apply_central_impulse(Vector2(-backward_motor_power, 0).rotated(rotation))
+
+	
+	var steering_force := Vector2.ZERO
+	if Input.is_action_pressed("turn_left"):
+		steering_force += 1 * Vector2(0, 1)
+	if Input.is_action_pressed("turn_right"):
+		steering_force += 1 * Vector2(0, -1)
+	apply_impulse(position, steering_force)
