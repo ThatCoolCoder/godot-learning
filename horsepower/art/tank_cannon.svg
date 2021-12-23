@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="114.19765mm"
+   height="14.40935mm"
+   viewBox="0 0 114.19765 14.40935"
+   version="1.1"
+   id="svg1116"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20, custom)"
+   sodipodi:docname="tank_turret.svg.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1118"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.8030864"
+     inkscape:cx="190.50668"
+     inkscape:cy="9.1509757"
+     inkscape:window-width="1366"
+     inkscape:window-height="694"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1113">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect970"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect1073"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-68.50987,-161.25189)">
+    <path
+       style="fill:#808080;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 69.01194,162.73406 c 0,0 26.01881,-0.0722 26.01881,-0.0722 0,0 6.85969,4.60654 6.85969,4.60654 0,0 -33.38057,-0.19039 -33.38057,-0.19039 0.167357,-1.44798 0.334687,-2.89573 0.418378,-3.61983 0.08369,-0.7241 0.08369,-0.72412 0.08369,-0.72412 z"
+       id="path968"
+       inkscape:path-effect="#path-effect970"
+       inkscape:original-d="m 69.01194,162.73406 c 0,0 26.01881,-0.0722 26.01881,-0.0722 0,0 6.85969,4.60654 6.85969,4.60654 0,0 -33.38057,-0.19039 -33.38057,-0.19039 0,0 0.33499,-2.89569 0.50207,-4.34393 z" />
+    <path
+       style="fill:#999999;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 121.14064,166.27841 c 1.13337,-0.98689 3.40009,-2.96065 5.66683,-4.93442 0,0 18.26218,-0.0921 18.26218,-0.0921 0,0 4.54014,4.28954 4.54014,4.28954 0,0 10.06155,7.3494 10.06155,7.3494 0,0 -5.93775,2.77041 -5.93775,2.77041 0,0 -30.2418,-0.10314 -30.2418,-0.10314 0,0 -4.23465,-4.17474 -4.23465,-4.17474 0.25004,-1.37267 0.50004,-2.74514 0.62508,-3.43158 0.12504,-0.68644 0.12504,-0.68648 1.25842,-1.67337 z"
+       id="path1071"
+       inkscape:original-d="m 120.00726,167.2653 c 2.267,-1.9735 6.80021,-5.92131 6.80021,-5.92131 0,0 18.26218,-0.0921 18.26218,-0.0921 0,0 4.54014,4.28954 4.54014,4.28954 0,0 10.06155,7.3494 10.06155,7.3494 0,0 -5.93775,2.77041 -5.93775,2.77041 0,0 -30.2418,-0.10314 -30.2418,-0.10314 0,0 -4.23465,-4.17474 -4.23465,-4.17474 0,0 0.50035,-2.74508 0.75012,-4.11802 z"
+       inkscape:path-effect="#path-effect1073" />
+    <rect
+       style="fill:#999999;stroke-width:3"
+       id="rect933"
+       width="109.37254"
+       height="6.1235037"
+       x="73.334976"
+       y="166.78546" />
+  </g>
+</svg>
