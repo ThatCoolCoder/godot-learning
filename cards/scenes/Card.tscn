@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/Card.cs" type="Script" id=1]
+[ext_resource path="res://assets/card_background.svg" type="Texture" id=2]
+[ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/card_front.svg" type="Texture" id=4]
+[ext_resource path="res://assets/card_back.svg" type="Texture" id=5]
+
+[node name="Card" type="Sprite"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+centered = false
+script = ExtResource( 1 )
+FrontSideUp = false
+FrontTexture = ExtResource( 4 )
+BackTexture = ExtResource( 5 )
+TextPath = NodePath("Text")
+
+[node name="Text" type="Label" parent="."]
+margin_left = 17.4043
+margin_top = 150.319
+margin_right = 209.404
+margin_bottom = 189.319
+grow_horizontal = 2
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "Text goes here"
+align = 1
