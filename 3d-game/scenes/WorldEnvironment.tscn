@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Art/kloppenheim_05_4k.exr" type="Texture" id=1]
+
+[sub_resource type="PanoramaSky" id=5]
+panorama = ExtResource( 1 )
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+background_sky = SubResource( 5 )
+tonemap_mode = 2
+tonemap_exposure = 1.1
+tonemap_white = 5.0
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource( 6 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.712199, 0.515583, -0.47639, -0.376863, 0.853374, 0.360176, 0.592239, -0.0769831, 0.802076, 0.0203104, 7.65394, 0.0172873 )
+shadow_enabled = true
