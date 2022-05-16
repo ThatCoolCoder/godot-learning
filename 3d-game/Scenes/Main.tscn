@@ -26,6 +26,8 @@ extents = Vector3( 9.8905, 0.075763, 9.997 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.651449, 0 )
+maxLookDown = -1.2
+maxLookUp = 1.2
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 4.87426, 0, 0, 0, 1.05504, 0, 0, 0, 4.87426, 0, -2.48862, 0 )
@@ -51,3 +53,7 @@ margin_bottom = 14.0
 text = "We can have UI too"
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 2 )]
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.5366 )
+use_collision = true

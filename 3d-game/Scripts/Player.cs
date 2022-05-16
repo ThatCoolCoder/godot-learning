@@ -30,6 +30,8 @@ public class Player : KinematicBody
 		head = GetNode<Spatial>("Head");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		Input.SetMouseMode(Input.MouseMode.Captured);
+
+		animationPlayer.CurrentAnimation = "head_bobbing";
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -94,9 +96,9 @@ public class Player : KinematicBody
 	
 	private void UpdateAnimation()
 	{
-		if (velocity.LengthSquared() == 0 || ! IsOnFloor())
+		if (velocity.LengthSquared() < 0.001 || ! IsOnFloor())
 		{
-			//animationPlayer.Seek(0);
+			animationPlayer.Seek(0);
 			animationPlayer.PlaybackActive = false;
 		}
 		else
