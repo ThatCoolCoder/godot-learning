@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/WorldEnvironment.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/CameraHolder.cs" type="Script" id=3]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -27,22 +26,17 @@ extents = Vector3( 9.8905, 0.075763, 9.997 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.651449, 0 )
-cameraPath = NodePath("../CameraHolder")
+headPath = NodePath("Camera")
 
-[node name="CameraHolder" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.651449, 0 )
-script = ExtResource( 3 )
-playerPath = NodePath("../Player")
-
-[node name="Camera" type="Camera" parent="CameraHolder"]
-transform = Transform( -1, -2.45539e-08, 8.59693e-08, 0, 0.96155, 0.274631, -8.9407e-08, 0.274631, -0.96155, 0, 2.06412, -4.9955 )
+[node name="Camera" type="Camera" parent="Player"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0165516, 1.01574 )
 current = true
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.48862, 0 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Floor"]
-transform = Transform( 9.94771, 0, 0, 0, 9.94771, 0, 0, 0, 9.94771, 0, 0, 0 )
+transform = Transform( 9.94771, 0, 0, 0, 9.94771, 0, 0, 0, 9.94771, -0.914139, -0.173245, 0.607243 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
