@@ -26,14 +26,9 @@ extents = Vector3( 9.8905, 0.075763, 9.997 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.651449, 0 )
-headPath = NodePath("Camera")
-
-[node name="Camera" type="Camera" parent="Player"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0165516, 1.01574 )
-current = true
 
 [node name="Floor" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.48862, 0 )
+transform = Transform( 4.87426, 0, 0, 0, 1.05504, 0, 0, 0, 4.87426, 0, -2.48862, 0 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Floor"]
 transform = Transform( 9.94771, 0, 0, 0, 9.94771, 0, 0, 0, 9.94771, -0.914139, -0.173245, 0.607243 )

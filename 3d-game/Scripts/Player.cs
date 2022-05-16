@@ -1,6 +1,13 @@
 using Godot;
 using System;
 
+enum PlayerState
+{
+	Static,
+	Walking,
+	Midair
+}
+
 public class Player : KinematicBody
 {
 	// 1st person player controller
@@ -9,17 +16,19 @@ public class Player : KinematicBody
 	[Export] private float walkAcceleration = 20;
 	[Export] private float walkFriction = 40;
 	[Export] private float jumpSpeed = 40;
-	[Export] private NodePath headPath;
 	[Export] private Vector2 mouseSensitivity = Vector2.One * 0.002f;
 	[Export] private float maxLookDown = -1.2f;
 	[Export] private float maxLookUp = 1.2f;
 	private Spatial head;
+	private AnimationPlayer animationPlayer;
 	private Vector3 velocity;
 	private float gravity = (float) ProjectSettings.GetSetting("physics/3d/default_gravity");
+	private PlayerState state;
 
 	public override void _Ready()
 	{
-		head = GetNode<Spatial>(headPath);
+		head = GetNode<Spatial>("Head");
+		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		Input.SetMouseMode(Input.MouseMode.Captured);
 	}
 
@@ -34,6 +43,8 @@ public class Player : KinematicBody
 		FeelFloorFriction(acceleration, delta);
 
 		velocity = MoveAndSlide(velocity, Vector3.Up);
+		
+		UpdateAnimation();
 	}
 
 	public override void _UnhandledInput(InputEvent _event)
@@ -79,5 +90,19 @@ public class Player : KinematicBody
 		var horizontalVelocity = new Vector2(velocity.x, velocity.z);
 		horizontalVelocity = horizontalVelocity.Clamped(maxWalkSpeed);
 		velocity = new Vector3(horizontalVelocity.x, velocity.y, horizontalVelocity.y);
+	}
+	
+	private void UpdateAnimation()
+	{
+		if (velocity.LengthSquared() == 0 || ! IsOnFloor())
+		{
+			//animationPlayer.Seek(0);
+			animationPlayer.PlaybackActive = false;
+		}
+		else
+		{
+			animationPlayer.PlaybackActive = true;
+		}
+		
 	}
 }
