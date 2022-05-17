@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/WorldEnvironment.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Art/Tree.glb" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/SpawnAlongPath.cs" type="Script" id=4]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -22,23 +24,28 @@ shader_param/color = Color( 0.141176, 0.270588, 0.141176, 1 )
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 9.8905, 0.075763, 9.997 )
 
+[sub_resource type="Curve3D" id=5]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -47.6773, -0.171962, -48.1774, 0, 0, 0, 0, 0, 0, 48.3441, -0.171962, -48.1774, 0, 0, 0, 0, 0, 0, 48.3441, -0.171962, 48.5108, 0, 0, 0, 0, 0, 0, -48.0107, -0.171962, 48.8442, 0, 0, 0, 0, 0, 0, -47.6773, -0.171962, -48.1774 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
+}
+
 [node name="Main" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.651449, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.39349, 0 )
 maxLookDown = -1.2
 maxLookUp = 1.2
 
 [node name="Floor" type="StaticBody" parent="."]
-transform = Transform( 4.87426, 0, 0, 0, 1.05504, 0, 0, 0, 4.87426, 0, -2.48862, 0 )
+transform = Transform( 7.38415, 0, 0, 0, 1.59831, 0, 0, 0, 7.38415, 0, 0, 0 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Floor"]
-transform = Transform( 9.94771, 0, 0, 0, 9.94771, 0, 0, 0, 9.94771, -0.914139, -0.173245, 0.607243 )
+transform = Transform( 9.94771, 0, 0, 0, 9.94771, 0, 0, 0, 9.94771, 0, 0, 0 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor"]
-transform = Transform( 1.00152, 0, 0, 0, 1.00152, 0, 0, 0, 1.00152, 0, 0, 0 )
 shape = SubResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -55,5 +62,15 @@ text = "We can have UI too"
 [node name="WorldEnvironment" parent="." instance=ExtResource( 2 )]
 
 [node name="CSGBox" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.5366 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70922, 11.5366 )
 use_collision = true
+
+[node name="TreeSpawner" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171962, 0 )
+script = ExtResource( 4 )
+pathPath = NodePath("Path")
+itemCount = 40
+itemPrefab = ExtResource( 3 )
+
+[node name="Path" type="Path" parent="TreeSpawner"]
+curve = SubResource( 5 )
