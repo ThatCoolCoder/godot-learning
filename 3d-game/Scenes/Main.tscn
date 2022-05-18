@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/WorldEnvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Art/Tree.glb" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/SpawnAlongPath.cs" type="Script" id=4]
+[ext_resource path="res://Art/Terrain.glb" type="PackedScene" id=5]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -39,6 +40,7 @@ maxLookUp = 1.2
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 7.38415, 0, 0, 0, 1.59831, 0, 0, 0, 7.38415, 0, 0, 0 )
+visible = false
 
 [node name="CSGMesh" type="CSGMesh" parent="Floor"]
 transform = Transform( 9.94771, 0, 0, 0, 9.94771, 0, 0, 0, 9.94771, 0, 0, 0 )
@@ -74,3 +76,6 @@ itemPrefab = ExtResource( 3 )
 
 [node name="Path" type="Path" parent="TreeSpawner"]
 curve = SubResource( 5 )
+
+[node name="Terrain" parent="." instance=ExtResource( 5 )]
+transform = Transform( 16.9572, 0.295989, 0, -0.295989, 16.9572, 0, 0, 0, 16.9598, 0, 0, 0 )

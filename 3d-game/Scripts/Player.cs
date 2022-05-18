@@ -1,29 +1,25 @@
 using Godot;
 using System;
 
-enum PlayerState
-{
-	Static,
-	Walking,
-	Midair
-}
-
 public class Player : KinematicBody
 {
 	// 1st person player controller
-
+	
+	[Export] private float sprintMultiplier = 2.0f;
 	[Export] private float maxWalkSpeed = 10;
 	[Export] private float walkAcceleration = 20;
 	[Export] private float walkFriction = 40;
+	
 	[Export] private float jumpSpeed = 40;
+	
 	[Export] private Vector2 mouseSensitivity = Vector2.One * 0.002f;
 	[Export] private float maxLookDown = -1.2f;
 	[Export] private float maxLookUp = 1.2f;
+	
 	private Spatial head;
 	private AnimationPlayer animationPlayer;
 	private Vector3 velocity;
 	private float gravity = (float) ProjectSettings.GetSetting("physics/3d/default_gravity");
-	private PlayerState state;
 
 	public override void _Ready()
 	{
@@ -89,14 +85,15 @@ public class Player : KinematicBody
 
 	private void ClampHorizontalVelocity()
 	{
+		var currentSprintMultiplier = Input.IsActionPressed("sprint") ? sprintMultiplier : 1.0f;
 		var horizontalVelocity = new Vector2(velocity.x, velocity.z);
-		horizontalVelocity = horizontalVelocity.Clamped(maxWalkSpeed);
+		horizontalVelocity = horizontalVelocity.Clamped(maxWalkSpeed * currentSprintMultiplier);
 		velocity = new Vector3(horizontalVelocity.x, velocity.y, horizontalVelocity.y);
 	}
 	
 	private void UpdateAnimation()
 	{
-		if (velocity.LengthSquared() < 0.001 || ! IsOnFloor())
+		if (velocity.LengthSquared() < 0.01 || ! IsOnFloor())
 		{
 			animationPlayer.Seek(0);
 			animationPlayer.PlaybackActive = false;
