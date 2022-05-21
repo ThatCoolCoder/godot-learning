@@ -25,7 +25,7 @@ tracks/0/keys = {
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 2 )
 maxLookDown = -1.0
-maxLookUp = 1.0
+maxLookUp = 1.5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -1.06235, 0 )
@@ -41,6 +41,18 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0
 current = true
 far = 8192.0
 
+[node name="GrappleRayCast" type="RayCast" parent="Head"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.0441674 )
+cast_to = Vector3( 0, -100, 0 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
 anims/head_bobbing = SubResource( 3 )
+
+[node name="DashFinishTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DashRechargeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
