@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Art/Objects/SpikeBall.glb" type="PackedScene" id=1]
+
+[sub_resource type="SphereShape" id=1]
+radius = 1.74588
+
+[node name="SpikeBall" type="StaticBody" groups=["KillsPlayer"]]
+
+[node name="Model" parent="." instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )

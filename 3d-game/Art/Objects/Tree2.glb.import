@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Tree.glb-eb66c646b2ce056b6a96269200171eee.scn"
+path="res://.import/Tree2.glb-1af81b3f8ea88523d2fbd09f1483b092.scn"
 
 [deps]
 
-source_file="res://Art/Trees/Tree.glb"
-dest_files=[ "res://.import/Tree.glb-eb66c646b2ce056b6a96269200171eee.scn" ]
+source_file="res://Art/Objects/Tree2.glb"
+dest_files=[ "res://.import/Tree2.glb-1af81b3f8ea88523d2fbd09f1483b092.scn" ]
 
 [params]
 

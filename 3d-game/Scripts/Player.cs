@@ -36,6 +36,7 @@ public class Player : KinematicBody
 	public PlayerState State = PlayerState.OnGround;
 	private Vector3 grappleAnchorPosition = Vector3.Zero;
 	private Vector3 velocity;
+	private Vector3 previousVelocity; // velocity last frame
 	private float gravity = (float) ProjectSettings.GetSetting("physics/3d/default_gravity");
 
 	// Node references
@@ -85,18 +86,55 @@ public class Player : KinematicBody
 		acceleration.y -= gravity;
 		velocity += acceleration * delta;
 		velocity = MoveAndSlide(velocity, Vector3.Up);
+		HandleSlideCollisions();
 		
 		UpdateAnimation();
+		previousVelocity = velocity;
 	}
 
 	private void ResetState()
 	{
 		State = IsOnFloor() ? PlayerState.OnGround : PlayerState.FreeFall;
 	}
+	
+	private void UpdateAnimation()
+	{
+		if (velocity.LengthSquared() < 0.01 || ! IsOnFloor())
+		{
+			animationPlayer.Seek(0);
+			animationPlayer.PlaybackActive = false;
+		}
+		else
+		{
+			animationPlayer.PlaybackActive = true;
+		}
+		
+	}
+
+	private void HandleSlideCollisions()
+	{
+		for (int i = 0; i < GetSlideCount(); i ++) HandleCollision(GetSlideCollision(i));
+	}
+
+	private void HandleCollision(KinematicCollision collision)
+	{
+		if (collision.Collider is Spatial)
+		{
+			var collider = (Spatial) collision.Collider;
+			if (collider is IBouncy)
+			{
+				velocity = previousVelocity - 2 * previousVelocity.Dot(collision.Normal) * collision.Normal;
+				velocity = velocity * ((IBouncy) collider).Restitution;
+			}
+			if (collider.IsInGroup("KillsPlayer")) SceneManager.RestartCurrentLevel();
+		}
+	}
 
 	#region Actions
 	private Vector3 OnGroundAction(float delta)
 	{
+		ResetState();
+
 		var acceleration = CheckWalkKeybinds();
 		CheckJumpKeybinds();
 		ClampHorizontalVelocity();
@@ -108,7 +146,7 @@ public class Player : KinematicBody
 
 	private Vector3 FreeFallAction(float delta)
 	{
-		if (IsOnFloor()) State = PlayerState.OnGround;
+		ResetState();
 		
 		var acceleration = CheckWalkKeybinds();
 		ClampHorizontalVelocity();
@@ -192,7 +230,8 @@ public class Player : KinematicBody
 		if (Input.IsActionJustPressed("dash") && dashRechargeTimer.TimeLeft == 0)
 		{
 			State = PlayerState.Dashing;
-			velocity = Vector3.Back.Rotated(Vector3.Up, Rotation.y) * dashSpeed;
+			var newVelocity = Vector3.Back.Rotated(Vector3.Up, Rotation.y) * dashSpeed;
+			velocity = new Vector3(newVelocity.x, velocity.y, newVelocity.z);
 			dashFinishTimer.Start();
 		}
 	}
@@ -220,18 +259,4 @@ public class Player : KinematicBody
 	}
 
 	#endregion UsedByActions
-	
-	private void UpdateAnimation()
-	{
-		if (velocity.LengthSquared() < 0.01 || ! IsOnFloor())
-		{
-			animationPlayer.Seek(0);
-			animationPlayer.PlaybackActive = false;
-		}
-		else
-		{
-			animationPlayer.PlaybackActive = true;
-		}
-		
-	}
 }

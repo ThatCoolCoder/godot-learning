@@ -44,6 +44,7 @@ far = 8192.0
 [node name="GrappleRayCast" type="RayCast" parent="Head"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.0441674 )
 cast_to = Vector3( 0, -100, 0 )
+collision_mask = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0

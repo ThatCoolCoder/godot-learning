@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Tree2.glb-704bb016772003f5a32b4ab0a2322161.scn"
+path="res://.import/SpikeBall.glb-54782c9c7172af11f8b1d5df406b2e05.scn"
 
 [deps]
 
-source_file="res://Art/Trees/Tree2.glb"
-dest_files=[ "res://.import/Tree2.glb-704bb016772003f5a32b4ab0a2322161.scn" ]
+source_file="res://Art/Objects/SpikeBall.glb"
+dest_files=[ "res://.import/SpikeBall.glb-54782c9c7172af11f8b1d5df406b2e05.scn" ]
 
 [params]
 

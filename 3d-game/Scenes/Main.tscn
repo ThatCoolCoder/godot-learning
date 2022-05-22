@@ -1,15 +1,19 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/kloppenheim_05_4k.exr" type="Texture" id=2]
-[ext_resource path="res://Art/Trees/Tree2.glb" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Objects/Tree2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/SpawnAlongPath.cs" type="Script" id=4]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=5]
 [ext_resource path="res://Art/Terrain/data.hterrain" type="Resource" id=6]
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/BlurOnRuntime.cs" type="Script" id=8]
-[ext_resource path="res://Scripts/HUD.cs" type="Script" id=9]
-[ext_resource path="res://Art/Trees/Tree.glb" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/UI/HUD.cs" type="Script" id=9]
+[ext_resource path="res://Scenes/Objects/Tree.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Objects/Bouncer.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Objects/Hook.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Objects/SpikeBall.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/SceneManager.tscn" type="PackedScene" id=14]
 
 [sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 2 )
@@ -41,11 +45,6 @@ textures = [ [  ], [  ] ]
 
 [node name="Main" type="Spatial"]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.39349, 0 )
-maxLookDown = -1.2
-maxLookUp = 1.6
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
@@ -69,6 +68,13 @@ margin_left = -7.0
 margin_top = -7.0
 margin_right = 7.0
 margin_bottom = 7.0
+
+[node name="SceneManager" parent="." instance=ExtResource( 14 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.39349, 0 )
+maxLookDown = -1.2
+maxLookUp = 1.6
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
@@ -107,34 +113,34 @@ render_layers = 1
 [node name="Objects" type="Spatial" parent="."]
 
 [node name="Tree" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( -0.122025, 0, 0.992527, 0, 1, 0, -0.992527, 0, -0.122025, 1.12504, 17.8144, 10.5538 )
-
-[node name="Tree9" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( -0.122025, 0, 0.992527, 0, 1, 0, -0.992527, 0, -0.122025, 1.12504, 89.0241, 3.47343 )
-
-[node name="Tree10" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( 0.579523, 0, 0.814956, 0, 1, 0, -0.814956, 0, 0.579523, -17.7838, 105.816, -11.0637 )
-
-[node name="Tree5" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( 0.841643, 0, 0.540035, 0, 1, 0, -0.540035, 0, 0.841643, -19.0996, 39.3456, -6.78946 )
-
-[node name="Tree6" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( 0.944273, 0, 0.329163, 0, 1, 0, -0.329163, 0, 0.944273, 28.723, 46.7265, -6.78946 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6426, 3.18885e-06, 14.7281 )
 
 [node name="Tree2" parent="Objects" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.949121, 10.5529, -4.1525 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8545, -7.39098e-06, 13.5362 )
 
 [node name="Tree3" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6684, 21.674, -0.501965 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1744, 0.800049, -7.28093 )
 
-[node name="Tree7" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( 0.487997, 0, -0.872845, 0, 1, 0, 0.872845, 0, 0.487997, 9.95097, 63.2134, 5.02092 )
+[node name="Bouncer" parent="Objects" instance=ExtResource( 11 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0.161002, 0.994001, 11.989 )
 
-[node name="Tree11" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( -0.109942, 0, -0.993938, 0, 1, 0, 0.993938, 0, -0.109942, 15.9181, 113.609, 5.02092 )
+[node name="Hook" parent="Objects" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.81192, 23.5748, 9.52618 )
 
-[node name="Tree4" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( 0.111244, 0, -0.993793, 0, 1, 0, 0.993793, 0, 0.111244, 0.981024, 25.8505, -19.1398 )
+[node name="Hook2" parent="Objects" instance=ExtResource( 12 )]
+transform = Transform( -0.689316, 0, 0.724461, 0, 1, 0, -0.724461, 0, -0.689316, 2.81192, 33.6859, -6.80072 )
 
-[node name="Tree8" parent="Objects" instance=ExtResource( 10 )]
-transform = Transform( -0.46904, 0, -0.883177, 0, 1, 0, 0.883177, 0, -0.46904, 0.981024, 59.1674, -16.9485 )
+[node name="Hook4" parent="Objects" instance=ExtResource( 12 )]
+transform = Transform( -0.987474, 0, -0.157779, 0, 1, 0, 0.157779, 0, -0.987474, 12.5906, 57.836, -6.80072 )
+
+[node name="Hook5" parent="Objects" instance=ExtResource( 12 )]
+transform = Transform( -0.374704, 0, -0.927145, 0, 1, 0, 0.927145, 0, -0.374704, -12.7144, 83.3837, 32.3824 )
+
+[node name="Hook3" parent="Objects" instance=ExtResource( 12 )]
+transform = Transform( 0.964461, 0, -0.264227, 0, 1, 0, 0.264227, 0, 0.964461, 16.2987, 2.70322, -0.876236 )
+
+[node name="SpikeBall" parent="Objects" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8719, 2.87669, 4.07221 )
+
+[node name="SpikeBall2" parent="Objects" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.18191, 11.8001, -3.64046 )
