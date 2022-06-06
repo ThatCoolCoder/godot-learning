@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/vehicles/BasicCar.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/vehicles/Van.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/vehicles/Tank.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/vehicles/Truck.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/vehicles/FastCar.tscn" type="PackedScene" id=9]
 
 [node name="VehicleSelectMenu" type="PopupPanel"]
 anchor_right = 1.0
@@ -34,7 +35,7 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 816.0
+margin_right = 976.0
 margin_bottom = 492.0
 custom_constants/separation = 20
 
@@ -69,6 +70,14 @@ margin_bottom = 36.0
 focus_mode = 1
 enabled_focus_mode = 1
 vehicle = ExtResource( 6 )
+
+[node name="VehicleButton5" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
+margin_left = 312.0
+margin_right = 504.0
+margin_bottom = 36.0
+focus_mode = 1
+enabled_focus_mode = 1
+vehicle = ExtResource( 9 )
 
 [node name="VehicleButton3" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 3 )]
 margin_left = 508.0

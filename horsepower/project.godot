@@ -20,6 +20,11 @@ WorldSettings="*res://scripts/WorldSettings.gd"
 Utils="*res://scripts/Utils.gd"
 VehicleSettings="*res://scripts/VehicleSettings.gd"
 
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [input]
 
 drive_forward={
