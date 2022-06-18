@@ -7,7 +7,7 @@
    viewBox="0 0 60 90"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
    sodipodi:docname="card_back.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -27,14 +27,16 @@
      showguides="false"
      inkscape:snap-page="false"
      inkscape:zoom="1.1224747"
-     inkscape:cx="-24.499438"
-     inkscape:cy="204.90439"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:cx="-24.499439"
+     inkscape:cy="204.9044"
+     inkscape:window-width="2560"
+     inkscape:window-height="1365"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2" />
   <g
@@ -42,7 +44,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#3dba22;stroke:none;stroke-width:0.963276;fill-opacity:1"
+       style="fill:#3dba22;stroke:#329b1e;stroke-width:0.963276;fill-opacity:1;stroke-opacity:1"
        id="rect846"
        width="57.171429"
        height="87.64286"

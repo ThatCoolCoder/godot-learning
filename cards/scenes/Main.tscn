@@ -1,18 +1,63 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/KlondikeGame.cs" type="Script" id=1]
 [ext_resource path="res://scenes/CardStack.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node2D"]
 
-[node name="Card" parent="." instance=ExtResource( 1 )]
-position = Vector2( 58, 86 )
-FrontSideUp = false
+[node name="CardTable" type="Node2D" parent="." groups=["GameManager"]]
+scale = Vector2( 0.3, 0.3 )
+script = ExtResource( 1 )
 
-[node name="Card2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 186, 85 )
-Rank = 5
-Suit = 2
+[node name="Deck" parent="CardTable" instance=ExtResource( 2 )]
+position = Vector2( 233.333, 1770 )
+OffsetCards = false
+CardOffset = Vector2( 50, 0 )
 
-[node name="CardStack" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 191 )
+[node name="FoundationStacks" type="Node2D" parent="CardTable"]
+
+[node name="Stack1" parent="CardTable/FoundationStacks" instance=ExtResource( 2 )]
+position = Vector2( 2086.33, 220 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack2" parent="CardTable/FoundationStacks" instance=ExtResource( 2 )]
+position = Vector2( 2383, 220 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack3" parent="CardTable/FoundationStacks" instance=ExtResource( 2 )]
+position = Vector2( 2689.67, 220 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack4" parent="CardTable/FoundationStacks" instance=ExtResource( 2 )]
+position = Vector2( 2996.33, 220 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="MainStacks" type="Node2D" parent="CardTable"]
+
+[node name="Stack1" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 653, 643.333 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack2" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 959.667, 643.333 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack3" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 1266.33, 643.333 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack4" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 1566.33, 643.333 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack5" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 1863, 643.333 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack6" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 2169.67, 643.333 )
+CardOffset = Vector2( 0, 50 )
+
+[node name="Stack7" parent="CardTable/MainStacks" instance=ExtResource( 2 )]
+position = Vector2( 2476.33, 643.333 )
+CardOffset = Vector2( 0, 50 )

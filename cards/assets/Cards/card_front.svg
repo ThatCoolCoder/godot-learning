@@ -7,8 +7,8 @@
    viewBox="0 0 60 90"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04, custom)"
-   sodipodi:docname="card_background.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   sodipodi:docname="card_front.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,15 +26,17 @@
      width="50mm"
      showguides="false"
      inkscape:snap-page="false"
-     inkscape:zoom="1.1224747"
-     inkscape:cx="-24.499438"
-     inkscape:cy="204.90439"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:zoom="2.2449494"
+     inkscape:cx="51.003377"
+     inkscape:cy="110.02475"
+     inkscape:window-width="2560"
+     inkscape:window-height="1365"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2" />
   <g
@@ -42,7 +44,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffffff;stroke:none;stroke-width:0.963276"
+       style="fill:#ffffff;stroke:#f9f9f9;stroke-width:0.963276"
        id="rect846"
        width="57.171429"
        height="87.64286"

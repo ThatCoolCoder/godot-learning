@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 public enum Suit
@@ -8,6 +9,12 @@ public enum Suit
 	Clubs,
 	Diamonds,
 	Spades
+}
+
+public enum SuitColor
+{
+	Red,
+	Black
 }
 
 public enum Rank
@@ -28,40 +35,13 @@ public enum Rank
 	Joker
 }
 
-static class CardHelpers
-{
-	public static readonly Dictionary<Rank, string> RankToLetter = new()
-	{
-		{Rank.Ace, "A"},
-		{Rank.Two, "2"},
-		{Rank.Three, "3"},
-		{Rank.Four, "4"},
-		{Rank.Five, "5"},
-		{Rank.Six, "6"},
-		{Rank.Seven, "7"},
-		{Rank.Eight, "8"},
-		{Rank.Nine, "9"},
-		{Rank.Ten, "10"},
-		{Rank.King, "11"},
-		{Rank.Queen, "12"},
-		{Rank.Joker, "13"},
-	};
-
-	public static readonly Dictionary<Suit, string> SuitToLetter = new()
-	{
-		{Suit.Hearts, "H"},
-		{Suit.Clubs, "C"},
-		{Suit.Diamonds, "D"},
-		{Suit.Spades, "S"},
-	};
-}
-
-public class Card : Sprite
+public class Card : Area2D
 {
 	[Export] public Rank Rank;
 	[Export] public Suit Suit;
 	[Export] public bool FrontSideUp = true;
 
+	#region Textures
 	private Texture frontTexture = ResourceLoader.Load<Texture>("res://assets/Cards/card_front.svg");
 	private Texture backTexture = ResourceLoader.Load<Texture>("res://assets/Cards/card_back.svg");
 	private Dictionary<Suit, Texture> suitToTexture = new()
@@ -71,7 +51,11 @@ public class Card : Sprite
 		{Suit.Spades, ResourceLoader.Load<Texture>("res://assets/Cards/Suits/spades.svg")},
 		{Suit.Diamonds, ResourceLoader.Load<Texture>("res://assets/Cards/Suits/diamonds.svg")}
 	};
+	#endregion Textures
 
+	#region NodeReferences
+	private IGameManager gameManager;
+	private Sprite mainSprite;
 	private Node2D labelHolder;
 
 	// (Top left and bottom right)
@@ -80,9 +64,12 @@ public class Card : Sprite
 
 	private Sprite topLeftSuit;
 	private Sprite bottomRightSuit;
+	#endregion NodeReferences
 
 	public override void _Ready()
 	{
+		gameManager = GetTree().GetNodesInGroup("GameManager").Cast<Node>().First() as IGameManager;
+		mainSprite = GetNode<Sprite>("MainSprite");
 		labelHolder = GetNode<Node2D>("LabelHolder");
 		topLeftLabel = GetNode<Label>("LabelHolder/TopLeftLabel");
 		bottomRightLabel = GetNode<Label>("LabelHolder/BottomRightLabel");
@@ -93,7 +80,8 @@ public class Card : Sprite
 
 	private new void Update()
 	{
-		Texture = FrontSideUp ? frontTexture : backTexture;
+		// todo: is overriding CanvasItem.Update bad in any way?
+		mainSprite.Texture = FrontSideUp ? frontTexture : backTexture;
 		if (FrontSideUp) labelHolder.Show();
 		else labelHolder.Hide();
 
@@ -102,4 +90,94 @@ public class Card : Sprite
 		topLeftSuit.Texture = suitToTexture[Suit];
 		bottomRightSuit.Texture = suitToTexture[Suit];
 	}
+
+	#region GameLogic
+
+	public CardStack ParentStack { get { return GetParent<CardStack>(); } }
+
+	private bool CanBePickedUp()
+	{
+		return gameManager.CanPickUpCard(this);
+	}
+
+	private void OnDropped()
+	{
+		ZIndex -= 100; // todo: proper system for raising cards
+
+		var spaceState = GetWorld2d().DirectSpaceState;
+		var cardStack = GetTree().GetNodesInGroup("CardStackDropArea").Cast<Area2D>().Where(area => {
+			var shape = area.ShapeOwnerGetShape(0, 0);
+			if (shape is RectangleShape2D rectShape)
+			{
+				var rect = new Rect2(area.GlobalPosition - rectShape.Extents / 2, rectShape.Extents);
+				if (rect.HasPoint(GlobalPosition)) return true;
+			}
+			return false;
+		}).Select(x => x.GetParent()).Cast<CardStack>().FirstOrDefault();
+		if (cardStack != null && gameManager.CanPutDownCard(this, cardStack))
+		{
+			ParentStack.RemoveCard(this);
+			cardStack.AddTopCard(this);
+		}
+		else ParentStack.UpdateCardPosition(this);
+	}
+
+	#endregion GameLogic
+
+	#region Dragging
+
+	private bool beingDragged = false;
+	private Vector2 touchPosition = Vector2.Zero;
+
+	public override void _Input(InputEvent _event)
+	{
+		if (! beingDragged) return;
+
+		if (_event.IsActionReleased("ui_touch"))
+		{
+			beingDragged = false;
+			OnDropped();
+		}
+
+		if (_event is InputEventMouseMotion eventMouseMotion)
+		{
+			Position -= (touchPosition - eventMouseMotion.Position) / Utils.AverageOfVector(GlobalScale);
+			touchPosition = eventMouseMotion.Position;
+		}
+	}
+
+	private void OnInputEvent(Viewport _viewport, InputEvent _event, int _shapeIdx)
+	{
+		if (_event is InputEventMouseButton eventMouseButton)
+		{
+			if (eventMouseButton.IsActionPressed("ui_touch") && IsOnTop() && CanBePickedUp())
+			{
+				ZIndex += 100; // todo: proper system for raising cards
+				beingDragged = true;
+				touchPosition = eventMouseButton.Position;
+			}
+		}
+	}
+
+	private bool IsOnTop()
+	{
+		foreach (var node in GetTree().GetNodesInGroup("HoveredCard").Cast<Node2D>())
+		{
+			if (node.ZIndex > ZIndex) return false;
+		}
+		return true;
+	}
+
+	private void OnMouseEntered()
+	{
+		AddToGroup("HoveredCard");
+	}
+
+	private void OnMouseExited()
+	{
+		RemoveFromGroup("HoveredCard");
+	}
+
+
+	#endregion Dragging
 }

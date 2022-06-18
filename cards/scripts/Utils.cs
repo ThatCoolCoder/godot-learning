@@ -1,4 +1,6 @@
+using Godot;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 public static class Utils
@@ -13,5 +15,10 @@ public static class Utils
             int k = random.Next(n + 1);
             (list[k], list[n]) = (list[n], list[k]);
         }
+    }
+
+    public static float AverageOfVector(Vector2 vector)
+    {
+        return (vector.x + vector.y) / 2;
     }
 }
