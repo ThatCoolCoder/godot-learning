@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/card_background.svg-9064298f15ca0975a4e93c3c4e23d33e.stex"
+path="res://.import/spades.svg-549baeade42f98fd4747c6d8a907209b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/card_background.svg"
-dest_files=[ "res://.import/card_background.svg-9064298f15ca0975a4e93c3c4e23d33e.stex" ]
+source_file="res://assets/Cards/Suits/spades.svg"
+dest_files=[ "res://.import/spades.svg-549baeade42f98fd4747c6d8a907209b.stex" ]
 
 [params]
 

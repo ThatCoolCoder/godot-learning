@@ -1,28 +1,51 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/Card.cs" type="Script" id=1]
-[ext_resource path="res://assets/card_background.svg" type="Texture" id=2]
+[ext_resource path="res://assets/Cards/Suits/clubs.svg" type="Texture" id=2]
 [ext_resource path="res://misc_resources/basic_font.tres" type="DynamicFont" id=3]
-[ext_resource path="res://assets/card_front.svg" type="Texture" id=4]
-[ext_resource path="res://assets/card_back.svg" type="Texture" id=5]
+[ext_resource path="res://assets/Cards/card_front.svg" type="Texture" id=4]
 
 [node name="Card" type="Sprite"]
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
-centered = false
+texture = ExtResource( 4 )
 script = ExtResource( 1 )
-FrontSideUp = false
-FrontTexture = ExtResource( 4 )
-BackTexture = ExtResource( 5 )
-TextPath = NodePath("Text")
 
-[node name="Text" type="Label" parent="."]
-margin_left = 17.4043
-margin_top = 150.319
-margin_right = 209.404
-margin_bottom = 189.319
+[node name="LabelHolder" type="Node2D" parent="."]
+
+[node name="TopLeftLabel" type="Label" parent="LabelHolder"]
+margin_left = -108.0
+margin_top = -156.0
+margin_right = -67.0
+margin_bottom = -126.0
 grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
-text = "Text goes here"
+text = "X"
 align = 1
+
+[node name="BottomRightLabel" type="Label" parent="LabelHolder"]
+margin_left = 105.0
+margin_top = 158.511
+margin_right = 146.0
+margin_bottom = 188.511
+grow_horizontal = 2
+rect_rotation = -180.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 3 )
+text = "X"
+align = 1
+
+[node name="TopLeftSuit" type="Sprite" parent="LabelHolder"]
+position = Vector2( -88, -110 )
+scale = Vector2( 0.544444, 0.544445 )
+texture = ExtResource( 2 )
+
+[node name="BottomRightSuit" type="Sprite" parent="LabelHolder"]
+position = Vector2( 85, 110.511 )
+rotation = 3.14159
+scale = Vector2( 0.544444, 0.544445 )
+texture = ExtResource( 2 )

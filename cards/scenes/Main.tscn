@@ -6,12 +6,13 @@
 [node name="Main" type="Node2D"]
 
 [node name="Card" parent="." instance=ExtResource( 1 )]
+position = Vector2( 58, 86 )
+FrontSideUp = false
 
 [node name="Card2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 123, -2 )
+position = Vector2( 186, 85 )
 Rank = 5
 Suit = 2
-FrontSideUp = true
 
 [node name="CardStack" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 191 )
