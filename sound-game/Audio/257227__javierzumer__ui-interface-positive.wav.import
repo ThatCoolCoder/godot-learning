@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/257227__javierzumer__ui-interface-positive.wav-c2ede6f61479b6f7202b414928c28eaa.sample"
+
+[deps]
+
+source_file="res://Audio/257227__javierzumer__ui-interface-positive.wav"
+dest_files=[ "res://.import/257227__javierzumer__ui-interface-positive.wav-c2ede6f61479b6f7202b414928c28eaa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

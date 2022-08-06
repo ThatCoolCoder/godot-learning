@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Audio/580114__annyew__danger-alarm.wav" type="AudioStream" id=1]
+[ext_resource path="res://Scripts/Enemy.cs" type="Script" id=2]
+[ext_resource path="res://Audio/178875__rocotilos__you-lose-evil.wav" type="AudioStream" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.614184
+
+[node name="Enemy" type="Area" groups=["Enemy"]]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="AmbientSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 1 )
+unit_size = 13.5
+pitch_scale = 1.59
+autoplay = true
+
+[node name="CSGCylinder" type="CSGCylinder" parent="."]
+radius = 0.589224
+height = 2.17352
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="CollisionSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+unit_db = 15.15
+
+[connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/240210__shahabazkhan__welcome-to-the-game.mp3-54a6b7c5e70da735204fc111c83c370b.mp3str"
+
+[deps]
+
+source_file="res://Audio/240210__shahabazkhan__welcome-to-the-game.mp3"
+dest_files=[ "res://.import/240210__shahabazkhan__welcome-to-the-game.mp3-54a6b7c5e70da735204fc111c83c370b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

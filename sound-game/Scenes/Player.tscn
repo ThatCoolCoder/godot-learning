@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Player.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/PlayerGuidance.cs" type="Script" id=2]
+[ext_resource path="res://Audio/346573__inspectorj__train-door-beep-a.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/582644__ironcross32__long-rising-tones-05.wav" type="AudioStream" id=4]
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 0.668733
+height = 1.31075
+
+[sub_resource type="SpatialMaterial" id=3]
+params_specular_mode = 4
+params_cull_mode = 2
+albedo_color = Color( 0, 0, 0, 1 )
+
+[node name="Player" type="KinematicBody" groups=["Player"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0999396, 1.34075, 3.77512 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.273604, 0 )
+shape = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10006, -0.160179 )
+
+[node name="CSGBox" type="CSGBox" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.349639 )
+invert_faces = true
+depth = 1.31477
+material = SubResource( 3 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1.18403, 0, 0, 0, -5.17554e-08, 1.18403, 0, -1.18403, -5.17554e-08, 0, 0.273604, 0 )
+shape = SubResource( 2 )
+
+[node name="Guidance" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0999396, 1.12153, -0.183989 )
+script = ExtResource( 2 )
+
+[node name="MainPlayer" type="AudioStreamPlayer3D" parent="Guidance"]
+stream = ExtResource( 3 )
+unit_size = 4.0
+autoplay = true
+
+[node name="VeryClosePlayer" type="AudioStreamPlayer3D" parent="Guidance"]
+stream = ExtResource( 4 )
+unit_db = -7.273
+unit_size = 4.0
+
+[node name="CSGSphere" type="CSGSphere" parent="Guidance"]
+
+[connection signal="area_entered" from="Area" to="." method="OnBodyEntered"]
+[connection signal="body_entered" from="Area" to="." method="OnBodyEntered"]

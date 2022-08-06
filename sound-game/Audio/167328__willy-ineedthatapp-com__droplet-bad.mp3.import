@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/167328__willy-ineedthatapp-com__droplet-bad.mp3-b4ccd9760b79a3de14aef6448bae9311.mp3str"
+
+[deps]
+
+source_file="res://Audio/167328__willy-ineedthatapp-com__droplet-bad.mp3"
+dest_files=[ "res://.import/167328__willy-ineedthatapp-com__droplet-bad.mp3-b4ccd9760b79a3de14aef6448bae9311.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

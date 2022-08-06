@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/580114__annyew__danger-alarm.wav-87ad0cf74ea4477ef0eee2ba2010d1d6.sample"
+
+[deps]
+
+source_file="res://Audio/580114__annyew__danger-alarm.wav"
+dest_files=[ "res://.import/580114__annyew__danger-alarm.wav-87ad0cf74ea4477ef0eee2ba2010d1d6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

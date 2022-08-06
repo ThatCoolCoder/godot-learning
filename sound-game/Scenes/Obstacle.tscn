@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/AudibleCollision.cs" type="Script" id=1]
+[ext_resource path="res://Audio/621145__gavin6049__bonk.mp3" type="AudioStream" id=2]
+
+[node name="Obstacle" type="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69591, 0 )
+use_collision = true
+script = ExtResource( 1 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 2 )

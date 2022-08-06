@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/621145__gavin6049__bonk.mp3-aa71ff0b904069163ec4913aa2b1a95c.mp3str"
+
+[deps]
+
+source_file="res://Audio/621145__gavin6049__bonk.mp3"
+dest_files=[ "res://.import/621145__gavin6049__bonk.mp3-aa71ff0b904069163ec4913aa2b1a95c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
