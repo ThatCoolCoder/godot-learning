@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/BaseLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Obstacle.tscn" type="PackedScene" id=2]
+
+[node name="Level3" instance=ExtResource( 1 )]
+enemyChance = 0.0
+
+[node name="Player" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.269302, 1.34075, 10.8089 )
+
+[node name="Goal" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.170897, 6.18936, -36.0364 )
+
+[node name="Walls" type="Spatial" parent="." index="7"]
+
+[node name="Obstacle" parent="Walls" index="0" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13625, 0.958585, 0 )
+width = 6.26085
+depth = 1.23997
+
+[node name="Obstacle4" parent="Walls" index="1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32925, 2.53507, -17.896 )
+width = 6.26085
+height = 4.81618
+depth = 14.7257
+
+[node name="Obstacle2" parent="Walls" index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.90994, 1.02149, -1.21749 )
+width = 1.00835
+depth = 18.6847
+
+[node name="Obstacle3" parent="Walls" index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76444, 1.02149, -1.21749 )
+width = 1.00835
+depth = 18.6847
+
+[node name="TallBit" type="CSGBox" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00232506, 2.42458, -36.9802 )
+use_collision = true
+width = 23.2524
+height = 5.10088
+depth = 23.7018
+
+[node name="Ramp" type="CSGBox" parent="." index="9"]
+transform = Transform( 1, 0, 0, 0, 0.944857, -0.327482, 0, 0.327482, 0.944857, -2.49042, 1.8512, -18.4321 )
+use_collision = true
+width = 3.76085
+height = 1.50772
+depth = 15.2893
+
+[node name="Side" parent="Ramp" index="0" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, -5.96046e-08, 0, 5.96046e-08, 1, -2.59134, 1.51518, -0.517569 )
+width = 1.17576
+depth = 16.5404

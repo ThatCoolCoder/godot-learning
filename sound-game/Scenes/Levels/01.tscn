@@ -4,3 +4,6 @@
 
 [node name="Level1" instance=ExtResource( 1 )]
 enemyChance = 0.0
+
+[node name="Player" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0999396, 5.61042, 3.77512 )

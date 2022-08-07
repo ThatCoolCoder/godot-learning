@@ -3,4 +3,6 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>SoundGame</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
 </Project>

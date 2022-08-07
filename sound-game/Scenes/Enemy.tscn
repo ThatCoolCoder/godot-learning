@@ -31,6 +31,8 @@ autostart = true
 
 [node name="CollisionSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
-unit_db = 15.15
+unit_db = 25.447
+unit_size = 10.7
+max_db = 6.0
 
 [connection signal="timeout" from="DeathTimer" to="." method="OnDeathTimerTimeout"]
