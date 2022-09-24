@@ -23,7 +23,7 @@ public class Rudder : Node2D
 				steeringForce += 1 * Vector2.Right * DebugSteeringForce;
 			if (Input.IsActionPressed("turn_right"))
 				steeringForce += 1 * Vector2.Left * DebugSteeringForce;
-			body.ApplyImpulse(Position, steeringForce);
+			body.ApplyImpulse(Position.Rotated(GlobalRotation), steeringForce.Rotated(GlobalRotation));
 		}
 
 		base._PhysicsProcess(delta);
