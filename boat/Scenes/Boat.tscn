@@ -1,8 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Physics/Boat.cs" type="Script" id=1]
 [ext_resource path="res://Art/boat.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Rudder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Forcers/Drag.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Curve" id=1]
+max_value = 2.0
+_data = [ Vector2( 0, 0.51227 ), 0.0, 0.556798, 0, 0, Vector2( 0.748947, 1.46626 ), -0.158376, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.751053, 1 ), 0.0, -3.64264, 0, 0, Vector2( 1, 0 ), -4.11098, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), -4.11098, 0.0, 0, 0, Vector2( 0.254211, 1 ), 0.0, -3.64264, 0, 0 ]
 
 [node name="Boat" type="RigidBody2D"]
 mass = 100.0
@@ -11,11 +22,9 @@ can_sleep = false
 script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-rotation = -1.57079
 polygon = PoolVector2Array( -10.6413, -8.06568, -15.7487, -3.21047, -15.6307, 2.80673, -10.7817, 7.9294, 3.03866, 7.99955, 16.0873, 0.984166, 16.0873, -0.909988, 2.89835, -7.99553 )
 
 [node name="Sprite" type="Sprite" parent="."]
-rotation = -1.57079
 texture = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -23,6 +32,18 @@ current = true
 zoom = Vector2( 0.3, 0.3 )
 
 [node name="Rudder" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, 16 )
+position = Vector2( -16, 0 )
 UseDebugSteering = true
 BodyPath = NodePath("..")
+
+[node name="Drag" parent="." instance=ExtResource( 4 )]
+position = Vector2( 16, 0 )
+AoaToCoefficient = SubResource( 1 )
+AoaToAreaProportion = SubResource( 2 )
+AreaMultiplier = 0.1
+
+[node name="Drag2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -16, 0 )
+AoaToCoefficient = SubResource( 1 )
+AoaToAreaProportion = SubResource( 3 )
+AreaMultiplier = 0.1
