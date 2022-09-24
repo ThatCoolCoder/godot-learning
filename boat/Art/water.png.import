@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/boat.png-21ae4bebb83a58c1e77eaf3af8f91754.stex"
+path="res://.import/water.png-7c0d2c85244204c356b27ff616aefb0f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/boat.png"
-dest_files=[ "res://.import/boat.png-21ae4bebb83a58c1e77eaf3af8f91754.stex" ]
+source_file="res://Art/water.png"
+dest_files=[ "res://.import/water.png-7c0d2c85244204c356b27ff616aefb0f.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

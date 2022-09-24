@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Boat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Art/water.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/BackgroundTiling.cs" type="Script" id=3]
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32000, 32000 )
+script = ExtResource( 3 )
+
+[node name="Boat" parent="." instance=ExtResource( 1 )]

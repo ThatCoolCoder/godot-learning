@@ -1,25 +1,28 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://art/boat.png" type="Texture" id=1]
-[ext_resource path="res://scenes/Boat.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Rudder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Boat.cs" type="Script" id=1]
+[ext_resource path="res://Art/boat.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Rudder.tscn" type="PackedScene" id=3]
 
 [node name="Boat" type="RigidBody2D"]
 mass = 100.0
 gravity_scale = 0.0
 can_sleep = false
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = -1.57079
 polygon = PoolVector2Array( -10.6413, -8.06568, -15.7487, -3.21047, -15.6307, 2.80673, -10.7817, 7.9294, 3.03866, 7.99955, 16.0873, 0.984166, 16.0873, -0.909988, 2.89835, -7.99553 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+rotation = -1.57079
+texture = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.3, 0.3 )
 
 [node name="Rudder" parent="." instance=ExtResource( 3 )]
-position = Vector2( -16.1313, -0.389042 )
-body_path = NodePath("..")
+position = Vector2( 0, 16 )
+UseDebugSteering = true
+BodyPath = NodePath("..")

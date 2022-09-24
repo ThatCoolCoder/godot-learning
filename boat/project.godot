@@ -11,12 +11,8 @@ config_version=4
 [application]
 
 config/name="Boat"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-Wind="*res://scripts/Wind.gd"
 
 [input]
 
