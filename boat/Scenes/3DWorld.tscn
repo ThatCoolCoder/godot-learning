@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/3DBoat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 20, 20 )
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="OpenSimplexNoise" id=3]
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+noise = SubResource( 3 )
+
+[sub_resource type="OpenSimplexNoise" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+as_normalmap = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+shader_param/color = Color( 0.25098, 0.266667, 0.360784, 1 )
+shader_param/height_scale = 2.36
+shader_param/size = 20.0
+shader_param/noise = SubResource( 4 )
+shader_param/normal_map = SubResource( 6 )
+
+[node name="3DWorld" type="Spatial"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.905176, 0.425037, 0, -0.425037, -0.905176, 0, 4.29994, 0 )
+
+[node name="Boat" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0289258, 0 )
+
+[node name="Water" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59283, 12.3847 )

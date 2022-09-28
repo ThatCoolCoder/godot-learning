@@ -10,10 +10,10 @@ max_value = 2.0
 _data = [ Vector2( 0, 0.51227 ), 0.0, 0.556798, 0, 0, Vector2( 0.748947, 1.46626 ), -0.158376, 0.0, 0, 0 ]
 
 [sub_resource type="Curve" id=2]
-_data = [ Vector2( 0.751053, 1 ), 0.0, -3.64264, 0, 0, Vector2( 1, 0 ), -4.11098, 0.0, 0, 0 ]
+_data = [ Vector2( 0.751053, 1 ), 0.0, -3.64264, 0, 0, Vector2( 1, 0.254601 ), -4.11098, 0.0, 0, 0 ]
 
 [sub_resource type="Curve" id=3]
-_data = [ Vector2( 0, 0 ), -4.11098, 0.0, 0, 0, Vector2( 0.254211, 1 ), 0.0, -3.64264, 0, 0 ]
+_data = [ Vector2( 0, 0.291411 ), -4.11098, 0.0, 0, 0, Vector2( 0.254211, 1 ), 0.0, -3.64264, 0, 0 ]
 
 [node name="Boat" type="RigidBody2D"]
 mass = 100.0
