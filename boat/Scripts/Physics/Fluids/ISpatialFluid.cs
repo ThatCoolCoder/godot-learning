@@ -1,6 +1,8 @@
+using Godot;
+
 namespace Physics.Fluids
 {
-    public interface I3DFluid
+    public interface ISpatialFluid
     {
         // 3D fluid that extends downwards to infinity but does have an upper bound.
         // All values passed in and out should be in global space

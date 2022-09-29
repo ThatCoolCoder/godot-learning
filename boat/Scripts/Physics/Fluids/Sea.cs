@@ -13,7 +13,7 @@ namespace Physics.Fluids
 
         public float HeightAtPoint(Vector3 point)
         {
-            return GlobalPosition.y;
+            return GlobalTransform.origin.y;
         }
 
         public float DensityAtPoint(Vector3 point)
@@ -21,7 +21,7 @@ namespace Physics.Fluids
             return BaseDensity;
         }
 
-        public float VelocityAtPoint(Vector3 point)
+        public Vector3 VelocityAtPoint(Vector3 point)
         {
             return Flow;
         }

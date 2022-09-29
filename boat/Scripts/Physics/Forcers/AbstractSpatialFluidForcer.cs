@@ -3,7 +3,7 @@ using Godot;
 
 namespace Physics.Forcers
 {
-    public class AbstractSpatialFluidForcer : Spatial
+    public abstract class AbstractSpatialFluidForcer : Spatial
     {
         // Path to the target of this forcer. If parent is a SpatialFluidEffectable and path is null, then parent is used
         public NodePath TargetPath { get; set; }
