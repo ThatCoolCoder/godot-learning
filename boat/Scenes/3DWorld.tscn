@@ -4,13 +4,16 @@
 [ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
 
 [sub_resource type="PlaneMesh" id=1]
-size = Vector2( 1000, 1000 )
-subdivide_width = 500
-subdivide_depth = 500
+size = Vector2( 500, 500 )
+subdivide_width = 199
+subdivide_depth = 199
 
 [sub_resource type="OpenSimplexNoise" id=3]
+period = 22.3
 
 [sub_resource type="NoiseTexture" id=4]
+width = 200
+height = 200
 seamless = true
 noise = SubResource( 3 )
 
@@ -41,11 +44,14 @@ noise = SubResource( 11 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 2 )
-shader_param/color = Color( 0.188235, 0.219608, 0.317647, 1 )
+shader_param/color = Color( 0.352941, 0.411765, 0.568627, 1 )
 shader_param/scale = 200.0
-shader_param/height_scale = 5.609
-shader_param/wave_speed = 0.045
-shader_param/wave_height_scale = 1.275
+shader_param/vertex_distance = 2.0
+shader_param/height_scale = 10.0
+shader_param/noise_size = 200
+shader_param/wave_map_size = 512.0
+shader_param/wave_speed = 20.0
+shader_param/wave_height_scale = 8.0
 shader_param/noise = SubResource( 4 )
 shader_param/normal_map = SubResource( 6 )
 shader_param/wave_height_1 = SubResource( 8 )
@@ -58,7 +64,7 @@ shader_param/wave_height_3 = SubResource( 12 )
 transform = Transform( 1, 0, 0, 0, -0.905176, 0.425037, 0, -0.425037, -0.905176, 0, 4.29994, 0 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.93194, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.91808, 0 )
 
 [node name="Water" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
@@ -66,3 +72,6 @@ material/0 = SubResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59283, 12.3847 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01789, 0, 0 )
