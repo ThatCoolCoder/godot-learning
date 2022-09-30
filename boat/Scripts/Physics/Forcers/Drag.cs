@@ -9,9 +9,9 @@ namespace Physics.Forcers
 
         [Export] public float AreaMultiplier = 1;
 
-        public override Vector2 CalculateForce()
+        public override Vector2 CalculateForce(Fluids.IFluid fluid)
         {
-            var fluidVelocity = target.Fluid.VelocityAtPoint(Vector2.Zero);
+            var fluidVelocity = fluid.VelocityAtPoint(Vector2.Zero);
             var velocity = target.GetPointVelocity(GlobalPosition) + fluidVelocity;
             var relativeVelocity = velocity - fluidVelocity;
 

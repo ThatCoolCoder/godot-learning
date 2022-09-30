@@ -10,7 +10,7 @@ namespace Physics
 
 		public override void _Ready()
 		{
-			Fluid =  new Fluids.UniformFluid();
+			Fluids.Add(new Fluids.UniformFluid());
 		}
 
 		public override void _PhysicsProcess(float delta)

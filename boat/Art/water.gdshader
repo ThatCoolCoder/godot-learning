@@ -3,22 +3,20 @@ render_mode diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 color: hint_color;
 uniform float scale = 200.0;
-uniform float vertex_distance = 1.0;
 
 uniform float height_scale = 1;
 uniform sampler2D noise;
 uniform float noise_size = 512.0;
-uniform sampler2D normal_map;
 
-
+uniform float global_time = 0.;
 uniform float wave_map_size = 512.0;
 uniform sampler2D wave_height_1;
 uniform sampler2D wave_height_2;
 uniform sampler2D wave_height_3;
 
-const vec2 wave_angle_1 = vec2(1, 0);
-const vec2 wave_angle_2 = vec2(0.5, 0.866);
-const vec2 wave_angle_3 = vec2(-0.5, 0.866);
+uniform vec2 wave_angle_1 = vec2(1, 0);
+uniform vec2 wave_angle_2 = vec2(0.5, 0.866);
+uniform vec2 wave_angle_3 = vec2(-0.5, 0.866);
 uniform float wave_speed = 1;
 uniform float wave_height_scale = 0.1;
 
@@ -54,7 +52,7 @@ float height_at_pos(vec2 pos, float time) {
 
 void vertex() {
     vec2 pos = VERTEX.xz;
-    float height = height_at_pos(pos, TIME);
+    float height = height_at_pos(pos, global_time);
     VERTEX.y += height;
 }
 
@@ -69,4 +67,5 @@ void fragment() {
     ROUGHNESS = 0.01 * (1.0 - fresnel);
     // ROUGHNESS = 0.3;
     ALBEDO = color.rgb + (0.1 * fresnel);
+    ALPHA = 0.96;
 }

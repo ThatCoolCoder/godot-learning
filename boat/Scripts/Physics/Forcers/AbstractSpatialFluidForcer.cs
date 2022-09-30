@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System.Linq;
 
 namespace Physics.Forcers
 {
@@ -16,10 +16,12 @@ namespace Physics.Forcers
             base._Ready();
         }
 
-        public abstract Vector3 CalculateForce();
+        public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid);
 
         public override void _PhysicsProcess(float delta)
         {
+            var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector3.Zero, (s, d) => s + d);
+            target.ApplyImpulse(Translation, totalForce); // todo: figure out which locality the force needs to be in
             base._PhysicsProcess(delta);
         }
     }

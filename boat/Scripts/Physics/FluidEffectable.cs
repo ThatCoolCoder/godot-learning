@@ -8,8 +8,7 @@ namespace Physics
     {
         // Object which can be effected by fluids
 
-        public Fluids.IFluid Fluid { get; set; }
-
+        public List<Fluids.IFluid> Fluids { get; set; }
 
         public Vector2 GetPointVelocity(Vector2 worldPoint)
         {

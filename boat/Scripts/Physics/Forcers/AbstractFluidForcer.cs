@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 
 namespace Physics.Forcers
 {
@@ -16,10 +17,11 @@ namespace Physics.Forcers
             base._Ready();
         }
 
-        public abstract Vector2 CalculateForce();
+        public abstract Vector2 CalculateForce(Fluids.IFluid fluid);
         public override void _PhysicsProcess(float delta)
         {
-            target.ApplyImpulse(Position.Rotated(GlobalRotation), CalculateForce());
+            var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector2.Zero, (s, d) => s + d);
+            target.ApplyImpulse(Position.Rotated(GlobalRotation), totalForce);
             base._PhysicsProcess(delta);
         }
     }

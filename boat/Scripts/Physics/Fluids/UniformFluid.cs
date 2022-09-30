@@ -17,5 +17,7 @@ namespace Physics.Fluids
         {
             return Velocity;
         }
+
+        public FluidType Type { get; set; } = FluidType.Liquid;
     }
 }
