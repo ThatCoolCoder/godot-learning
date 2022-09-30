@@ -3,10 +3,10 @@ using Godot;
 
 namespace Physics.Fluids
 {
-    public class Sea : Spatial, ISpatialFluid
+    public class Sea : MeshInstance, ISpatialFluid
     {
         // Pretty ordinary sea. 
-        // Currently has no waves.
+        // Currently has no waves, we need to port the code from the shader over
 
         [Export] public float BaseDensity { get; set; } = 1.0f;
         [Export] public Vector3 Flow { get; set; } = Vector3.Zero;
