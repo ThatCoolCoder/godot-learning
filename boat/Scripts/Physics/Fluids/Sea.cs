@@ -39,7 +39,6 @@ namespace Physics.Fluids
 			noise = (material.GetShaderParam("noise") as Texture).GetData();
 			// (we do not need to fetch time from the shader)
 			waveMap1 = (material.GetShaderParam("wave_height_1") as NoiseTexture).GetData();
-			GD.Print((material.GetShaderParam("wave_height_1") as NoiseTexture).GetData());
 			waveMap2 = (material.GetShaderParam("wave_height_2") as Texture).GetData();
 			waveMap3 = (material.GetShaderParam("wave_height_3") as Texture).GetData();
 			waveAngle1 = (Vector2) material.GetShaderParam("wave_angle_1");
@@ -62,13 +61,13 @@ namespace Physics.Fluids
 			if (time < 1)
 			{
 				InitStuff();
-				return 0;
+				return GlobalTransform.origin.y;
 			}
 
 			float ReadPixelValue(Image image, Vector2 uv)
 			{
-				var x = uv.x / image.GetWidth();
-				var y = uv.y / image.GetHeight();
+				var x = Mathf.PosMod(uv.x, 1) * image.GetWidth();
+				var y = Mathf.PosMod(uv.y, 1) * image.GetHeight();
 				image.Lock();
 				var pixel = image.GetPixel((int) x, (int) y);
 				image.Unlock();
@@ -89,7 +88,7 @@ namespace Physics.Fluids
 				pos += movement;
 				var normalizedPos = pos / heightMap.GetSize().x;
 
-				var height = ReadPixelValue(heightMap, pos);
+				var height = ReadPixelValue(heightMap, normalizedPos);
 				height *= height;
 				height *= waveHeightScale / heightScale;
 				return height;

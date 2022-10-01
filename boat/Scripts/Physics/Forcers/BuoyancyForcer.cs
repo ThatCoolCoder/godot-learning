@@ -12,6 +12,7 @@ namespace Physics.Forcers
 		// todo: port this over: https://github.com/saurus/Buoyancy.
 		// or possibly this to start: https://godotforums.org/d/27725-creating-a-water-buoyancy-system/33
 
+		[Export] public float DragCoefficient { get; set; } = 0.5f;
 		private MeshInstance mesh;
 
 		public override void _Ready()
@@ -36,6 +37,7 @@ namespace Physics.Forcers
 				immersion = Mathf.Max(0, waterLevel - bottom) / boundingBoxSize.y;
 			}
 			var buoyantForce = Vector3.Zero;
+			GD.Print(immersion);
 			buoyantForce.y = boundingBox.GetArea() * immersion * waterDensity;
 
 			var dragForce = CalculateDrag(fluid, immersion, GetArea(boundingBox));
@@ -45,7 +47,7 @@ namespace Physics.Forcers
 
 		private Vector3 CalculateDrag(Fluids.ISpatialFluid fluid, float immersion, float area)
 		{
-			return 0.5f * 1 * area * -(target.LinearVelocity.Normalized() * target.LinearVelocity.LengthSquared()) * immersion;
+			return 0.5f * DragCoefficient * area * -(target.LinearVelocity.Normalized() * target.LinearVelocity.LengthSquared()) * immersion;
 		}
 
 		private float GetArea(AABB boundingBox)

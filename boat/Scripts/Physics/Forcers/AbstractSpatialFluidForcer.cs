@@ -21,7 +21,9 @@ namespace Physics.Forcers
         public override void _PhysicsProcess(float delta)
         {
             var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector3.Zero, (s, d) => s + d);
-            target.ApplyImpulse(Translation, totalForce); // todo: figure out which locality the force needs to be in
+            var position = target.ToGlobal(Translation);
+            position -= target.GlobalTransform.origin;
+            target.ApplyImpulse(position, totalForce);
             base._PhysicsProcess(delta);
         }
     }
