@@ -49,8 +49,8 @@ shader_param/wave_map_size = 512.0
 shader_param/wave_angle_1 = Vector2( 1, 0 )
 shader_param/wave_angle_2 = Vector2( 0.5, 0.866 )
 shader_param/wave_angle_3 = Vector2( -0.5, 0.866 )
-shader_param/wave_speed = 8.0
-shader_param/wave_height_scale = 8.0
+shader_param/wave_speed = 10.0
+shader_param/wave_height_scale = 10.0
 shader_param/noise = SubResource( 4 )
 shader_param/wave_height_1 = SubResource( 8 )
 shader_param/wave_height_2 = SubResource( 10 )
@@ -63,10 +63,10 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, -0.905176, 0.425037, 0, -0.425037, -0.905176, 0, 4.29994, 0 )
 
 [node name="DebugCamera" type="Camera" parent="."]
-transform = Transform( 0.517146, -0.360689, 0.776185, -3.76775e-08, 0.906868, 0.421416, -0.855897, -0.217934, 0.468983, 12.1435, 14.8314, 6.80428 )
+transform = Transform( 0.517146, -0.360689, 0.776185, -3.76775e-08, 0.906867, 0.421416, -0.855897, -0.217934, 0.468983, 12.1435, 14.8314, 16.4215 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.3755, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.674, 0 )
 
 [node name="CameraHolder" type="Spatial" parent="Boat"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.63385, -1.4701 )

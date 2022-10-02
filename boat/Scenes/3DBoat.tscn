@@ -8,20 +8,24 @@
 extents = Vector3( 1, 1, 3.40442 )
 
 [node name="Boat" type="RigidBody"]
-mass = 70.0
+mass = 45.0
 script = ExtResource( 3 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.842308, -0.130645 )
-
-[node name="BuoyancyForcer" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67406, -0.824384 )
-DragCoefficient = 0.6
-
-[node name="BuoyancyForcer2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69766, 1.15177 )
-DragCoefficient = 0.6
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0720045, -0.130645 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.733249, 1.22884 )
 shape = SubResource( 1 )
+
+[node name="BuoyancyForcer" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.287552, -1.15656 )
+DragCoefficient = 0.8
+
+[node name="BuoyancyForcer2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.287552, 0.20582 )
+DragCoefficient = 0.8
+
+[node name="BuoyancyForcer3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.287552, 2.00831 )
+DragCoefficient = 0.8

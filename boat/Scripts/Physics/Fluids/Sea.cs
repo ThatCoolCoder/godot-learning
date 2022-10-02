@@ -51,14 +51,14 @@ namespace Physics.Fluids
 		public override void _PhysicsProcess(float delta)
 		{
 			time += delta;
-			material.SetShaderParam("global_time", time);
+			if (material != null) material.SetShaderParam("global_time", time);
 
 			base._Process(delta);
 		}
 
 		public float HeightAtPoint(Vector3 point)
 		{
-			if (time < 1)
+			if (time < 0.2f)
 			{
 				InitStuff();
 				return GlobalTransform.origin.y;
@@ -106,7 +106,7 @@ namespace Physics.Fluids
 			}
 			
 			var globalPos = GlobalTransform.origin;
-			return globalPos.y + HeightAtPos(new Vector2(globalPos.x, globalPos.z), time);
+			return globalPos.y + HeightAtPos(new Vector2(point.x, point.z), time);
 		}
 
 		public float DensityAtPoint(Vector3 point)
