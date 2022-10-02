@@ -1,3 +1,6 @@
+// IMPORTANT: when modifying the math, please modify Sea.cs to reflect the changes,
+// or physics and graphics will desync!
+
 shader_type spatial;
 render_mode diffuse_lambert, specular_schlick_ggx, world_vertex_coords;
 
