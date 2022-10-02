@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode diffuse_lambert, specular_schlick_ggx;
+render_mode diffuse_lambert, specular_schlick_ggx, world_vertex_coords;
 
 uniform vec4 color: hint_color;
 uniform float scale = 200.0;
@@ -61,11 +61,8 @@ void fragment() {
     NORMAL = normalize(cross(dFdx(VERTEX), dFdy(VERTEX)));
 
     float fresnel = sqrt(1.0 - dot(NORMAL, VIEW));
-    // fresnel = 0.;
     RIM = 0.2;
     METALLIC = 0.0;
     ROUGHNESS = 0.01 * (1.0 - fresnel);
-    // ROUGHNESS = 0.3;
     ALBEDO = color.rgb + (0.1 * fresnel);
-    ALPHA = 0.96;
 }
