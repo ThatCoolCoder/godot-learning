@@ -45,7 +45,6 @@ namespace Physics.Forcers
 		public override Vector3 CalculateForce(Fluids.ISpatialFluid fluid)
 		{
 			var waterLevel = fluid.HeightAtPoint(GlobalTransform.origin);
-			// GD.Print(fluid.HeightAtPoint(GlobalTransform.origin), ", ", fluid.HeightAtPoint(GlobalTransform.origin + Vector3.Forward * 58));
 			var waterDensity = fluid.DensityAtPoint(GlobalTransform.origin);
 
 			var boundingBox = mesh.GetTransformedAabb();
@@ -61,8 +60,7 @@ namespace Physics.Forcers
 				// immersion *= ImmersionProportion(immersion, waterLevel, mesh.GetAabb());
 				volume *= immersion;
 			}
-			var buoyantForce = Vector3.Zero;
-			buoyantForce.y = volume * waterDensity;
+			var buoyantForce = fluid.NormalAtPoint(GlobalTransform.origin) * volume * waterDensity;
 
 			var dragForce = CalculateDrag(fluid, immersion, GetArea(boundingBox));
 

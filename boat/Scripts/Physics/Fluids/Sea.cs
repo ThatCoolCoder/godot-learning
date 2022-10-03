@@ -14,6 +14,7 @@ namespace Physics.Fluids
 		[Export] public float BaseDensity { get; set; } = 1.0f;
 		[Export] public Vector3 Flow { get; set; } = Vector3.Zero;
 
+		#region WaveParameters
 		private ShaderMaterial material;
 
 		[Export] public float VertexScale;
@@ -37,6 +38,11 @@ namespace Physics.Fluids
 
 		[Export] public float WaveSpeed;
 		[Export] public float WaveHeightScale;
+		#endregion WaveParameters
+
+		private float normalSampleDistance = 0.1f;
+		private readonly Vector3 degrees120 = new Vector3(1, 0, 0).Rotated(Vector3.Up, 120);
+		private readonly Vector3 degrees240 = new Vector3(1, 0, 0).Rotated(Vector3.Up, 240);
 
 		public override void _Ready()
 		{
@@ -132,6 +138,12 @@ namespace Physics.Fluids
 			return globalPos.y + HeightAtPos(new Vector2(point.x, point.z), Time);
 		}
 
+		public Vector3 PositionAtPoint(Vector3 point)
+		{
+			// Like height at point but returned value is a vector including the coords of original value.
+			return new Vector3(point.x, HeightAtPoint(point), point.z);
+		}
+
 		public float DensityAtPoint(Vector3 point)
 		{
 			return BaseDensity;
@@ -140,6 +152,16 @@ namespace Physics.Fluids
 		public Vector3 VelocityAtPoint(Vector3 point)
 		{
 			return Flow;
+		}
+
+		public Vector3 NormalAtPoint(Vector3 point)
+		{
+			// todo: calc these from three samples around the water
+			var a = PositionAtPoint(new Vector3(1, 0, 0) * normalSampleDistance);
+			var b = PositionAtPoint(degrees120 * normalSampleDistance);
+			var c = PositionAtPoint(degrees240 * normalSampleDistance);
+
+			return (b - a).Cross(c - a).Normalized();
 		}
 
 		public FluidType Type { get; set; } = FluidType.Gas;

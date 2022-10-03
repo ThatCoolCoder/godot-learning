@@ -24,6 +24,10 @@ uniform float wave_speed = 1;
 uniform float wave_height_scale = 0.1;
 
 
+uniform float distance_fade_start;
+uniform float distance_fade_end;
+varying float z_dist;
+
 vec2 texture_pos_from_world(vec2 pos) {
     pos /= scale * 2.;
     pos += 0.5;
@@ -57,6 +61,8 @@ void vertex() {
     vec2 pos = VERTEX.xz;
     float height = height_at_pos(pos, global_time);
     VERTEX.y += height;
+
+    z_dist = -(MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).z;
 }
 
 void fragment() {
@@ -64,8 +70,15 @@ void fragment() {
     NORMAL = normalize(cross(dFdx(VERTEX), dFdy(VERTEX)));
 
     float fresnel = sqrt(1.0 - dot(NORMAL, VIEW));
+    ALBEDO = color.rgb + (0.1 * fresnel);
+
     RIM = 0.2;
     METALLIC = 0.0;
     ROUGHNESS = 0.01 * (1.0 - fresnel);
-    ALBEDO = color.rgb + (0.1 * fresnel);
+
+    if (z_dist >= distance_fade_start)
+    {
+        float proportion = (z_dist - distance_fade_start) / (distance_fade_end - distance_fade_start);
+        ALPHA = max(1. - proportion, 0.);
+    }
 }

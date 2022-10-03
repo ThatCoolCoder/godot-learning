@@ -17,6 +17,9 @@ namespace Physics.Fluids
         // Velocity of the fluid flow at any given point
         Vector3 VelocityAtPoint(Vector3 point);
 
+        // Calculate the normal vector at any given point
+        Vector3 NormalAtPoint(Vector3 point);
+
         public FluidType Type { get; set; }
     }
 }
