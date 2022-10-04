@@ -11,7 +11,6 @@ namespace Physics
 		public Vector3 VelocityAtPoint(Vector3 point)
 		{
 			var offset = point - GlobalTransform.origin;
-			// AngularVelocity.Cross(offset);
 			return LinearVelocity + AngularVelocity.Cross(offset);
 		}
 	}

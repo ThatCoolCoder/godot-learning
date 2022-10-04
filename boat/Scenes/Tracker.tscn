@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Tracker.cs" type="Script" id=1]
+
+[node name="Tracker" type="Spatial"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Object that moves itself to track another object."
+}
