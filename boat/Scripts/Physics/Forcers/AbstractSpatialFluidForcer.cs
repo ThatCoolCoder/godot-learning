@@ -6,7 +6,7 @@ namespace Physics.Forcers
     public abstract class AbstractSpatialFluidForcer : Spatial
     {
         // Path to the target of this forcer. If parent is a SpatialFluidEffectable and path is null, then parent is used
-        public NodePath TargetPath { get; set; }
+        [Export] public NodePath TargetPath { get; set; }
         protected SpatialFluidEffectable target { get; private set; }
 
         public override void _Ready()

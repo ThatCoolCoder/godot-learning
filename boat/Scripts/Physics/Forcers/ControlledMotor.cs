@@ -14,7 +14,7 @@ namespace Physics.Forcers
 		{
 			ThrustProportion = 0;
 			if (Input.IsActionPressed(ForwardActionName)) ThrustProportion = 1;
-			else if (Input.IsActionPressed(ForwardActionName)) ThrustProportion = -1;
+			else if (Input.IsActionPressed(BackwardActionName)) ThrustProportion = -1;
 			base._PhysicsProcess(delta);
 		}
 	}

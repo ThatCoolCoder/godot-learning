@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Forcers/ControlledMotor.tscn" type="PackedScene" id=4]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 1, 3.40442 )
+extents = Vector3( 1, 1, 3.60971 )
 
 [node name="Boat" type="RigidBody"]
 mass = 45.0
@@ -32,7 +32,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.287552, 2.00831 )
 DragCoefficient = 0.8
 
 [node name="ControlledMotor" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138738, -2.57221 )
-ExitSpeed = 10.0
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311, -2.57221 )
+Radius = 0.5
+ExitSpeed = 5.0
 ForwardActionName = "drive_forward"
 BackwardActionName = "drive_backward"
