@@ -16,7 +16,7 @@ public class PlayerGuidance : Spatial
 
 	public override void _Process(float delta)
 	{
-		var offset = goal.GlobalTransform.origin - GlobalTransform.origin;
+		var offset = goal.GlobalTransform.origin - GetParent<Spatial>().GlobalTransform.origin;
 		Translation = offset.Normalized().Rotated(Vector3.Up, -GetParent<Spatial>().GlobalTransform.basis.GetEuler().y) * distance;
 		if (offset.LengthSquared() < veryCloseDistance * veryCloseDistance)
 		{

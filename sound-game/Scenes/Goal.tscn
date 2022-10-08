@@ -5,6 +5,11 @@
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.858824, 0.886275, 0.2, 1 )
+emission_enabled = true
+emission = Color( 0.823529, 0.807843, 0.337255, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
 
 [node name="Goal" type="Spatial" groups=["Goal"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7029, 2.41014, 0 )

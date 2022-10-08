@@ -51,7 +51,5 @@ stream = ExtResource( 4 )
 unit_db = -7.273
 unit_size = 4.0
 
-[node name="CSGSphere" type="CSGSphere" parent="Guidance"]
-
 [connection signal="area_entered" from="Area" to="." method="OnBodyEntered"]
 [connection signal="body_entered" from="Area" to="." method="OnBodyEntered"]
