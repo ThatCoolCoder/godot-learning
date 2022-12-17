@@ -37,6 +37,10 @@ turn_right={
  ]
 }
 
+[mono]
+
+project/assembly_name="Boat"
+
 [physics]
 
 common/enable_pause_aware_picking=true

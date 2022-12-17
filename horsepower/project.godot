@@ -80,6 +80,10 @@ zoom_in={
  ]
 }
 
+[mono]
+
+project/assembly_name="Horsepower"
+
 [physics]
 
 common/enable_pause_aware_picking=true

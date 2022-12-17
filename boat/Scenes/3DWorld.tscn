@@ -106,6 +106,7 @@ script = ExtResource( 5 )
 
 [node name="Camera" type="Camera" parent="Boat/CameraHolder"]
 transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 0, 0 )
+current = true
 far = 2000.0
 
 [node name="Tracker" parent="." instance=ExtResource( 6 )]

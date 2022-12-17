@@ -60,7 +60,8 @@ namespace Physics.Forcers
 				// immersion *= ImmersionProportion(immersion, waterLevel, mesh.GetAabb());
 				volume *= immersion;
 			}
-			var buoyantForce = fluid.NormalAtPoint(GlobalTransform.origin) * volume * waterDensity;
+			var buoyantForce = Vector3.Up * volume * waterDensity;
+			// var buoyantForce = fluid.NormalAtPoint(GlobalTransform.origin) * volume * waterDensity;
 
 			var dragForce = CalculateDrag(fluid, immersion, GetArea(boundingBox));
 
