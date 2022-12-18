@@ -14,13 +14,14 @@ namespace Physics.Forcers
         {
             var density = fluid.DensityAtPoint(GlobalTransform.origin);
             var velocityRelativeToFluid = target.LinearVelocity - fluid.VelocityAtPoint(GlobalTransform.origin);
-            var entryVelocity = 0;
-            // var entryVelocity = ToLocal(velocityRelativeToFluid).z;
+            var entrySpeed = (GlobalTransform.basis.z * velocityRelativeToFluid).z;
+            var effectiveExitSpeed = ThrustProportion * ExitSpeed;
+            var deltaSpeed = effectiveExitSpeed - entrySpeed;
+            GD.Print(entrySpeed);
 
             var area = Mathf.Pi * Radius * Radius;
 
-            var force = 0.5f * density * area * (ExitSpeed * ExitSpeed - entryVelocity * entryVelocity);
-            force *= Mathf.Sign(ThrustProportion) * ThrustProportion * ThrustProportion;
+            var force = 0.5f * density * area * deltaSpeed;
 
             return GlobalTransform.basis.z * force;
         }

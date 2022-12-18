@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scenes/3DBoat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/World3D.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/CameraLook.cs" type="Script" id=5]
 [ext_resource path="res://Scenes/Tracker.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Body.cs" type="Script" id=9]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 1000, 1000 )
@@ -93,18 +94,22 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, -0.905176, 0.425037, 0, -0.425037, -0.905176, 0, 4.29994, 0 )
 
 [node name="DebugCamera" type="Camera" parent="."]
-transform = Transform( 0.517146, -0.360689, 0.776185, -3.76775e-08, 0.906867, 0.421416, -0.855897, -0.217934, 0.468983, 12.1435, 8.44171, 3.35993 )
+transform = Transform( 0.515517, -0.287628, 0.807163, -0.0410157, 0.932617, 0.358528, -0.855897, -0.217934, 0.468983, 12.1435, 8.44171, 3.35993 )
 current = true
 far = 1000.0
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.28431, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25527, 0 )
 
-[node name="CameraHolder" type="Spatial" parent="Boat"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.63385, -1.4701 )
+[node name="Body" type="Spatial" parent="Boat"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 0, 0 )
+script = ExtResource( 9 )
+
+[node name="Head" type="Spatial" parent="Boat/Body"]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0.752, -0.547 )
 script = ExtResource( 5 )
 
-[node name="Camera" type="Camera" parent="Boat/CameraHolder"]
+[node name="Camera" type="Camera" parent="Boat/Body/Head"]
 transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 0, 0 )
 current = true
 far = 2000.0

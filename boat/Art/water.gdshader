@@ -81,4 +81,8 @@ void fragment() {
         float proportion = (z_dist - distance_fade_start) / (distance_fade_end - distance_fade_start);
         ALPHA = max(1. - proportion, 0.);
     }
+    else
+    {
+        ALPHA = 1.;
+    }
 }

@@ -13,11 +13,15 @@ namespace Physics.Forcers
 		// or possibly this to start: https://godotforums.org/d/27725-creating-a-water-buoyancy-system/33
 
 		[Export] public float DragCoefficient { get; set; } = 0.5f;
+		[Export] public float NormalBuoyancyFactor { get; set; } = 0.1f; // Factor of normal of surface taken into account when calculating buoyant forces
 		private MeshInstance mesh;
+
+		private Label3D lab;
 
 		public override void _Ready()
 		{
 			mesh = GetNode<MeshInstance>("Mesh");
+			lab = GetNode<Label3D>("Label3D");
 			base._Ready();
 		}
 
@@ -53,36 +57,43 @@ namespace Physics.Forcers
 			var bottom = boundingBox.Position.y;
 
 			float immersion = 1;
-			float volume = mesh.GetAabb().GetArea();
+			float volume = mesh.GetTransformedAabb().GetArea();
+			var buoyancyDirection = Vector3.Up;
 			if (top > waterLevel)
 			{
 				immersion = Mathf.Max(0, waterLevel - bottom) / boundingBoxSize.y;
 				// immersion *= ImmersionProportion(immersion, waterLevel, mesh.GetAabb());
 				volume *= immersion;
+				buoyancyDirection += fluid.NormalAtPoint(GlobalTransform.origin) * NormalBuoyancyFactor;
 			}
-			var buoyantForce = Vector3.Up * volume * waterDensity;
-			// var buoyantForce = fluid.NormalAtPoint(GlobalTransform.origin) * volume * waterDensity;
+
+			var buoyantForce = buoyancyDirection * volume * waterDensity * (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
 			var dragForce = CalculateDrag(fluid, immersion, GetArea(boundingBox));
+			dragForce.x = 0;
+			dragForce.z = 0;
+
+			lab.Text = $"i: {Mathf.RoundToInt(immersion * 100):00}%\n vf: {volume:0.0}\n fb: {buoyantForce.y:0000}\n fd: {dragForce.y:0000}";
 
 			return buoyantForce + dragForce;
 		}
 
 		private Vector3 CalculateDrag(Fluids.ISpatialFluid fluid, float immersion, float area)
 		{
-			return 0.5f * DragCoefficient * area * -(target.LinearVelocity.Normalized() * target.LinearVelocity.LengthSquared()) * immersion;
+			var velocityDelta = target.VelocityAtPoint(GlobalTranslation) - fluid.VelocityAtPoint(GlobalTransform.origin);
+			return 0.5f * DragCoefficient * area * -(velocityDelta.Normalized() * velocityDelta.LengthSquared()) * immersion * fluid.DensityAtPoint(GlobalTransform.origin);
 		}
 
 		private float GetArea(AABB boundingBox)
 		{
-			var vel = target.LinearVelocity;
+			var vel = target.VelocityAtPoint(GlobalTranslation);
 			var components = new List<float>() { vel.x, vel.y, vel.z }.Select(x => Mathf.Abs(x));
 			var largest = components.Max();
 			var size = boundingBox.Size;
 
 			if (largest == vel.x) return size.y * size.z;
 			if (largest == vel.y) return size.x * size.z;
-			else return size.y * size.y;
+			else return size.x * size.y;
 		}
 
 		private float ImmersionProportion(float immersion, float waterHeight, AABB boundingBox)
@@ -95,7 +106,6 @@ namespace Physics.Forcers
 			var smaller = Mathf.Min(area1, area2);
 			var goodArea = immersion < 0.5f ? smaller : larger;
 
-			// GD.Print(goodArea);
 			return goodArea / rect.Area;
 		}
 	}
