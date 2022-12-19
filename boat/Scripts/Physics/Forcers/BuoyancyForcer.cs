@@ -73,8 +73,6 @@ namespace Physics.Forcers
 			dragForce.x = 0;
 			dragForce.z = 0;
 
-			lab.Text = $"i: {Mathf.RoundToInt(immersion * 100):00}%\n vf: {volume:0.0}\n fb: {buoyantForce.y:0000}\n fd: {dragForce.y:0000}";
-
 			return buoyantForce + dragForce;
 		}
 

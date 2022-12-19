@@ -17,6 +17,7 @@ namespace Physics.Forcers
             base._Ready();
         }
 
+        // Should return a force in global coordinates
         public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid);
 
         public override void _PhysicsProcess(float delta)
@@ -27,7 +28,6 @@ namespace Physics.Forcers
             var position = target.ToGlobal(Translation);
             position -= target.GlobalTransform.origin;
             target.ApplyImpulse(position, totalForce * delta);
-            // target.ApplyCentralImpulse(totalForce * delta);
             base._PhysicsProcess(delta);
         }
     }
