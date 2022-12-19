@@ -14,14 +14,16 @@ namespace Physics.Forcers
 
 		[Export] public float DragCoefficient { get; set; } = 0.5f;
 		[Export] public float NormalBuoyancyFactor { get; set; } = 0.1f; // Factor of normal of surface taken into account when calculating buoyant forces
+		[Export]
+		public Curve DepthToAreaCurve { get; set; } = null; // curve from 0 to 1 used as a multiplier of volume. todo: if object is inverted then invert curve.
+															// Used as a rough approximation for tapering hulls in absence of proper mesh-based volume detection.
+															// Should be seen as the running integral of the object's shape.
+															// todo: make method for calculating this running integral so then this can just match the shape of the side of the boat.
 		private MeshInstance mesh;
-
-		private Label3D lab;
 
 		public override void _Ready()
 		{
 			mesh = GetNode<MeshInstance>("Mesh");
-			lab = GetNode<Label3D>("Label3D");
 			base._Ready();
 		}
 
@@ -63,7 +65,9 @@ namespace Physics.Forcers
 			{
 				immersion = Mathf.Max(0, waterLevel - bottom) / boundingBoxSize.y;
 				// immersion *= ImmersionProportion(immersion, waterLevel, mesh.GetAabb());
+				// if (DepthToAreaCurve == null) volume *= immersion;
 				volume *= immersion;
+				if (DepthToAreaCurve != null) volume *= DepthToAreaCurve.Interpolate(immersion);
 				buoyancyDirection += fluid.NormalAtPoint(GlobalTransform.origin) * NormalBuoyancyFactor;
 			}
 
@@ -78,8 +82,8 @@ namespace Physics.Forcers
 
 		private Vector3 CalculateDrag(Fluids.ISpatialFluid fluid, float immersion, float area)
 		{
-			var velocityDelta = target.VelocityAtPoint(GlobalTranslation) - fluid.VelocityAtPoint(GlobalTransform.origin);
-			return 0.5f * DragCoefficient * area * -(velocityDelta.Normalized() * velocityDelta.LengthSquared()) * immersion * fluid.DensityAtPoint(GlobalTransform.origin);
+			var velocityDelta = target.VelocityAtPoint(GlobalTranslation) - fluid.VelocityAtPoint(GlobalTranslation);
+			return 0.5f * DragCoefficient * area * -(velocityDelta.Normalized() * velocityDelta.LengthSquared()) * immersion * fluid.DensityAtPoint(GlobalTranslation);
 		}
 
 		private float GetArea(AABB boundingBox)

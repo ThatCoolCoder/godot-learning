@@ -26,7 +26,7 @@ namespace Physics
 			// Godot inbuilt gravity appears to not be correct, so do it in a custom way
 
 			var force = (float)ProjectSettings.GetSetting("physics/3d/default_gravity") * Mass;
-			// ApplyCentralImpulse(Vector3.Down * force * delta);
+			ApplyCentralImpulse(Vector3.Down * force * delta);
 		}
 	}
 }
