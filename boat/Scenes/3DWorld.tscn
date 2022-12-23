@@ -99,7 +99,8 @@ current = true
 far = 1000.0
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27739, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.885078, 0 )
+linear_damp = 0.0
 
 [node name="Body" type="Spatial" parent="Boat"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 0, 0 )
@@ -111,6 +112,7 @@ script = ExtResource( 5 )
 
 [node name="Camera" type="Camera" parent="Boat/Body/Head"]
 transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 0, 0 )
+current = true
 far = 2000.0
 
 [node name="Tracker" parent="." instance=ExtResource( 6 )]

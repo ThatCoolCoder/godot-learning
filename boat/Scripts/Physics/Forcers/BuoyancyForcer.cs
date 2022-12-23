@@ -76,6 +76,9 @@ namespace Physics.Forcers
 			var dragForce = CalculateDrag(fluid, immersion, GetArea(boundingBox));
 			dragForce.x = 0;
 			dragForce.z = 0;
+			dragForce.y = 0;
+
+			if (buoyantForce.Length() > 3000) GD.Print(immersion, ", ", buoyantForce, target.LinearVelocity);
 
 			return buoyantForce + dragForce;
 		}

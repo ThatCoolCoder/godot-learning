@@ -25,7 +25,7 @@ namespace Physics.Forcers
             if (!Enabled) return;
 
             var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector3.Zero, (s, d) => s + d);
-            var position = target.ToGlobal(Translation);
+            var position = GlobalTranslation;
             position -= target.GlobalTransform.origin;
             target.ApplyImpulse(position, totalForce * delta);
             base._PhysicsProcess(delta);
