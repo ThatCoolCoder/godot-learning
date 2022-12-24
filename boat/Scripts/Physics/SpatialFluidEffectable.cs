@@ -8,6 +8,10 @@ namespace Physics
 	public class SpatialFluidEffectable : RigidBody
 	{
 		public List<Fluids.ISpatialFluid> Fluids { get; set; } = new();
+		private Vector3 v;
+
+		private List<Forcers.AbstractSpatialFluidForcer> registeredForcers = new();
+
 		public override void _Ready()
 		{
 			GravityScale = 0;
@@ -26,7 +30,24 @@ namespace Physics
 			// Godot inbuilt gravity appears to not be correct, so do it in a custom way
 
 			var force = (float)ProjectSettings.GetSetting("physics/3d/default_gravity") * Mass;
-			ApplyCentralImpulse(Vector3.Down * force * delta);
+			AddCentralForce(Vector3.Down * force);
+			v = LinearVelocity;
 		}
+
+		public override void _IntegrateForces(PhysicsDirectBodyState state)
+		{
+			registeredForcers.ForEach(f => f.Apply(state));
+		}
+
+		public void RegisterForcer(Forcers.AbstractSpatialFluidForcer forcer)
+		{
+			registeredForcers.Add(forcer);
+		}
+
+		public void UnregisterForcer(Forcers.AbstractSpatialFluidForcer forcer)
+		{
+			registeredForcers.Remove(forcer);
+		}
+
 	}
 }

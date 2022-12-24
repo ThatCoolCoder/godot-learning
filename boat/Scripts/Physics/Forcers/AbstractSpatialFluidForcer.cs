@@ -14,21 +14,39 @@ namespace Physics.Forcers
         {
             if (GetParent() is SpatialFluidEffectable t && TargetPath == null) target = t;
             else target = GetNode<SpatialFluidEffectable>(TargetPath);
+
+            target.RegisterForcer(this);
+
             base._Ready();
         }
 
         // Should return a force in global coordinates
-        public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid);
+        public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState state);
 
         public override void _PhysicsProcess(float delta)
         {
             if (!Enabled) return;
 
-            var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector3.Zero, (s, d) => s + d);
+            // var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector3.Zero, (s, d) => s + d);
+            // var position = GlobalTranslation;
+            // position -= target.GlobalTransform.origin;
+            // target.AddForce(totalForce, position);
+            // target.ApplyCentralImpulse(totalForce * delta);
+        }
+
+        public void Apply(PhysicsDirectBodyState state)
+        {
+            if (!Enabled) return;
+
+            var totalForce = target.Fluids.Select(x => CalculateForce(x, state)).Aggregate(Vector3.Zero, (s, d) => s + d);
             var position = GlobalTranslation;
             position -= target.GlobalTransform.origin;
-            target.ApplyImpulse(position, totalForce * delta);
-            base._PhysicsProcess(delta);
+            target.AddForce(totalForce, position);
+        }
+
+        public override void _ExitTree()
+        {
+            target.UnregisterForcer(this);
         }
     }
 }

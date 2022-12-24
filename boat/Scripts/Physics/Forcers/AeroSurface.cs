@@ -21,7 +21,7 @@ namespace Physics.Forcers
 		// Thickness of the wing - used for parasitic drag calculations
 		[Export] public float Thickness { get; set; }
 
-		public override Vector3 CalculateForce(ISpatialFluid fluid)
+		public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
 		{
 			var density = fluid.DensityAtPoint(GlobalTranslation);
 			var relativeVelocity = target.VelocityAtPoint(GlobalTranslation) - fluid.VelocityAtPoint(GlobalTranslation);

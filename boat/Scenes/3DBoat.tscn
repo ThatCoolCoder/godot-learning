@@ -24,7 +24,7 @@ bake_resolution = 1
 _data = [ Vector2( 0, 0.137423 ), 0.0, 0.140593, 0, 0, Vector2( 1, 1.28 ), 2.46932, 0.0, 0, 0 ]
 
 [node name="Boat" type="RigidBody"]
-mass = 400.0
+mass = 150.0
 can_sleep = false
 angular_damp = 0.0
 script = ExtResource( 3 )
@@ -37,57 +37,58 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.154936, 0.386765 )
 shape = SubResource( 1 )
 
 [node name="BuoyancyForcer" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.0296974, -1.19941 )
+transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.186389, -1.19941 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="BuoyancyForcer2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.0296974, -1.19941 )
+transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.186389, -1.19941 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="BuoyancyForcer3" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.0296974, -0.232649 )
+transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.186389, -0.232649 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="BuoyancyForcer4" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.0296974, -0.232649 )
+transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.186389, -0.232649 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="BuoyancyForcer5" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.0296974, 0.854917 )
+transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.186389, 0.854917 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="BuoyancyForcer6" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.0296974, 0.854917 )
+transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.186389, 0.854917 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="BuoyancyForcer7" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.380647, 0, 0, 0, 0.202828, 0, 0, 0, 0.582689, 0.0507505, 0.189401, 1.96968 )
+transform = Transform( 0.380647, 0, 0, 0, 0.202828, 0, 0, 0, 0.582689, 0.0507505, 0.346093, 1.96968 )
 TargetPath = NodePath("..")
-DragCoefficient = 10.0
+DragCoefficient = 3.0
 NormalBuoyancyFactor = 0.0
 DepthToAreaCurve = SubResource( 2 )
 
 [node name="Keel" parent="." instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 0, -0.471669, 0.21816 )
 TargetPath = NodePath("..")
+Enabled = false
 TotalLiftCoefficient = SubResource( 3 )
 ParasiticDragCoefficient = SubResource( 4 )
 Area = 0.25
@@ -107,6 +108,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.230226 )
 [node name="AeroSurface" parent="Rudder" instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, -1, 1, -4.37114e-08, -4.37114e-08, 0, -0.12711, 0 )
 TargetPath = NodePath("../..")
+Enabled = false
 TotalLiftCoefficient = SubResource( 3 )
 ParasiticDragCoefficient = SubResource( 4 )
 Area = 0.5
