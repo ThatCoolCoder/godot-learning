@@ -79,11 +79,10 @@ void fragment() {
     if (z_dist >= distance_fade_start)
     {
         float proportion = (z_dist - distance_fade_start) / (distance_fade_end - distance_fade_start);
-        ALPHA = max(1. - proportion, 0.);
+        ALPHA = max(1. - proportion, 0.) * color.a;
     }
     else
     {
-        ALPHA = .5;
-        // ALPHA = 1.;
+        ALPHA = color.a;
     }
 }

@@ -14,7 +14,7 @@ namespace Physics.Fluids
 		[Export] public float BaseDensity { get; set; } = 1000.0f;
 		[Export] public Vector3 Flow { get; set; } = Vector3.Zero;
 
-		#region WaveParameters
+		#region ShaderParameters
 		private ShaderMaterial material;
 
 		[Export] public float VertexScale;
@@ -38,7 +38,7 @@ namespace Physics.Fluids
 
 		[Export] public float WaveSpeed;
 		[Export] public float WaveHeightScale;
-		#endregion WaveParameters
+		#endregion ShaderParameters
 
 		private float normalSampleDistance = 0.1f;
 		private readonly Vector3 degrees120 = new Vector3(1, 0, 0).Rotated(Vector3.Up, 120);
@@ -168,6 +168,6 @@ namespace Physics.Fluids
 			return (b - a).Cross(c - a).Normalized();
 		}
 
-		public FluidType Type { get; set; } = FluidType.Gas;
+		public FluidType Type { get; set; } = FluidType.Liquid;
 	}
 }

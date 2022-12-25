@@ -1,5 +1,8 @@
-public enum FluidType
+namespace Physics.Fluids
 {
-    Liquid,
-    Gas,
+    public enum FluidType
+    {
+        Liquid,
+        Gas,
+    }
 }

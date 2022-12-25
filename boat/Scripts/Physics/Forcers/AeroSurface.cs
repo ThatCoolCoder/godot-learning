@@ -8,18 +8,36 @@ namespace Physics.Forcers
 	{
 		// Basically a wing, not restricted to operating in air though.
 		// Uses a model supporting lift, induced drag, and parasitic drag.
-		// Wing is oriented along the , and works symmetrically in all directions.
+		// Wing is oriented along the x/z plane, and works equally well when moved along that plane.
+		// Area/size is determined by the scale of the entity in the scene, although there is also an area multiplier.
+		// The multiplier's main use is to allow you to scale this to match size of a non-square object but still have correct area. EG use 0.5 for a triangle.
 
 		// Angle of attack ranges from 0 to tau, and should be normalised to the correct range by wrapping around.
 
 		// Curves have values from 0 to 1, where 1 is a quarter turn of positive aoa. Remaining values are interpolated by "mirroring" the curve.
 		[Export] public Curve TotalLiftCoefficient { get; set; } // Total lift points perpendicular to surface and causes both true lift and induced drag
 		[Export] public Curve ParasiticDragCoefficient { get; set; }
-		// Area of the wing, when viewed frmo above.
-		[Export] public float Area { get; set; }
+		[Export] public float AreaMultiplier { get; set; } = 1;
+
+
+		private float area
+		{
+			get
+			{
+				return Scale.x * Scale.z * AreaMultiplier;
+			}
+		}
+
 
 		// Thickness of the wing - used for parasitic drag calculations
 		[Export] public float Thickness { get; set; }
+
+		public override void _Ready()
+		{
+			GetNode<Spatial>("CSGBox").Visible = false;
+
+			base._Ready();
+		}
 
 		public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
 		{
@@ -34,7 +52,7 @@ namespace Physics.Forcers
 			var liftCoefficient = InterpolateFromQuarterAoaCurve(TotalLiftCoefficient, aoa);
 			var parasiticDragCoefficient = InterpolateFromQuarterAoaCurve(ParasiticDragCoefficient, aoa);
 
-			var liftMag = CalculateAeroForceMagnitude(liftCoefficient, Area, density, localSpeedSquared);
+			var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, density, localSpeedSquared);
 			var frontalArea = CalculateFrontalArea(aoa);
 			var dragMag = CalculateAeroForceMagnitude(parasiticDragCoefficient, frontalArea, density, localSpeedSquared);
 
@@ -94,8 +112,8 @@ namespace Physics.Forcers
 			if (aoa > Mathf.Pi) aoa -= Mathf.Pi;
 
 			var frontLipThickness = Thickness * Mathf.Cos(aoa);
-			var frontLipArea = Mathf.Abs(frontLipThickness * Mathf.Sqrt(Area));
-			var bodyArea = Mathf.Sin(aoa) * Area;
+			var frontLipArea = Mathf.Abs(frontLipThickness * Mathf.Sqrt(area));
+			var bodyArea = Mathf.Sin(aoa) * area;
 
 			return frontLipArea + bodyArea;
 		}

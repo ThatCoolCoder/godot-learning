@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Physics/Forcers/AeroSurface.cs" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.5 )
 
 [node name="AeroSurface" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="CSGBox" type="CSGBox" parent="."]
-visible = false
-width = 0.5
-height = 0.03
+width = 1.0
+height = 0.05
 depth = 1.0
+material = SubResource( 1 )
