@@ -2,7 +2,7 @@
 // or physics and graphics will desync!
 
 shader_type spatial;
-render_mode diffuse_lambert, specular_schlick_ggx, world_vertex_coords;
+render_mode diffuse_lambert, specular_schlick_ggx, world_vertex_coords, cull_disabled, depth_draw_always;
 
 uniform vec4 color: hint_color;
 uniform float scale = 200.0;
@@ -40,7 +40,7 @@ float wave_height_offset(vec2 pos, sampler2D height_map, vec2 wave_direction, fl
     vec2 normalized_pos = pos / wave_map_size;
 
     float height = texture(height_map, normalized_pos).x;
-    height = pow(height, 2.);
+    height -= .5;
     height *= wave_height_scale / height_scale;
     return height;
 }
@@ -49,12 +49,12 @@ float wave_height_offset(vec2 pos, sampler2D height_map, vec2 wave_direction, fl
 float height_at_pos(vec2 pos, float time) {
     vec2 normalized_pos = texture_pos_from_world(pos);
 
-    float height = texture(noise, normalized_pos).x;
+    float height = texture(noise, normalized_pos).x - 0.5f;
     height += wave_height_offset(pos, wave_height_1, wave_angle_1, time);
     height += wave_height_offset(pos, wave_height_2, wave_angle_2, time);
     height += wave_height_offset(pos, wave_height_3, wave_angle_3, time);
 
-    return (height - 0.5) * height_scale;
+    return height * height_scale;
 }
 
 void vertex() {
@@ -83,6 +83,7 @@ void fragment() {
     }
     else
     {
-        ALPHA = 1.;
+        ALPHA = .5;
+        // ALPHA = 1.;
     }
 }

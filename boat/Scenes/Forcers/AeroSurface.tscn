@@ -6,6 +6,7 @@
 script = ExtResource( 1 )
 
 [node name="CSGBox" type="CSGBox" parent="."]
+visible = false
 width = 0.5
 height = 0.03
 depth = 1.0

@@ -56,6 +56,7 @@ namespace Physics.Fluids
 
 			material.SetShaderParam("scale", VertexScale);
 			material.SetShaderParam("height_scale", HeightScale);
+			material.SetShaderParam("noise_size", NoiseSize);
 			material.SetShaderParam("noise", Noise);
 
 			material.SetShaderParam("wave_map_size", WaveMapSize);
@@ -83,7 +84,6 @@ namespace Physics.Fluids
 		public override void _PhysicsProcess(float delta)
 		{
 			Time += delta;
-			TryGetNoiseImagesFromGpu();
 			if (material != null) material.SetShaderParam("global_time", Time);
 
 			base._Process(delta);
@@ -91,14 +91,19 @@ namespace Physics.Fluids
 
 		public float HeightAtPoint(Vector3 point)
 		{
-			if (noiseImage == null || waveMap1Image == null || waveMap2Image == null || waveMap3Image == null) return GlobalTransform.origin.y;
+			if (noiseImage == null || waveMap1Image == null || waveMap2Image == null || waveMap3Image == null)
+			{
+				GD.Print("No data yet!");
+				TryGetNoiseImagesFromGpu();
+				// return GlobalTransform.origin.y;
+			}
 
 			float ReadPixelValue(Image image, Vector2 uv)
 			{
-				var x = Mathf.PosMod(uv.x, 1) * image.GetWidth();
-				var y = Mathf.PosMod(uv.y, 1) * image.GetHeight();
+				var x = Mathf.PosMod(uv.x * image.GetWidth(), image.GetWidth());
+				var y = Mathf.PosMod(uv.y * image.GetHeight(), image.GetHeight());
 				image.Lock();
-				var pixel = image.GetPixel((int)x, (int)y);
+				var pixel = image.GetPixelv(new Vector2(x, y));
 				image.Unlock();
 				return pixel.r;
 			}
@@ -115,10 +120,10 @@ namespace Physics.Fluids
 			{
 				var movement = waveDirection.Normalized() * time * WaveSpeed;
 				pos += movement;
-				var normalizedPos = pos / heightMap.GetSize().x;
+				var normalizedPos = pos / WaveMapSize;
 
 				var height = ReadPixelValue(heightMap, normalizedPos);
-				height *= height;
+				height -= 0.5f;
 				height *= WaveHeightScale / HeightScale;
 				return height;
 			}
@@ -126,12 +131,12 @@ namespace Physics.Fluids
 			float HeightAtPos(Vector2 pos, float time)
 			{
 				var normalizedPos = TexturePosFromWorld(pos);
-				float height = ReadPixelValue(noiseImage, normalizedPos);
+				float height = ReadPixelValue(noiseImage, normalizedPos) - 0.5f;
 				height += WaveHeightOffset(pos, waveMap1Image, WaveAngle1, time);
 				height += WaveHeightOffset(pos, waveMap2Image, WaveAngle2, time);
 				height += WaveHeightOffset(pos, waveMap3Image, WaveAngle3, time);
 
-				return (height - 0.5f) * HeightScale;
+				return height * HeightScale;
 			}
 
 			var globalPos = GlobalTransform.origin;
