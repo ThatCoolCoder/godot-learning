@@ -1,3 +1,6 @@
+using Godot;
+using System;
+
 public static class Utils
 {
     public static float MirrorNumber(float number, float mirrorValue)
@@ -12,5 +15,10 @@ public static class Utils
         while (number >= max) number -= delta;
         while (number < min) number += delta;
         return number;
+    }
+
+    public static float RoundNumber(float number, float roundTo)
+    {
+        return Mathf.Round(number / roundTo) * roundTo;
     }
 }

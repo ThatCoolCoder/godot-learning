@@ -9,7 +9,10 @@ public class World3D : Spatial
 		var air = GetNode<Physics.Fluids.ISpatialFluid>("Air");
 		var boat = GetNode<Physics.SpatialFluidEffectable>("Boat");
 		boat.Fluids.Add(water);
-		boat.Fluids.Add(air);
+		var sail = GetNode<Physics.SpatialFluidEffectable>("Boat/Sail");
+		sail.Fluids.Add(air);
+		var windSock = GetNode<Physics.SpatialFluidEffectable>("Boat/WindSock");
+		windSock.Fluids.Add(air);
 	}
 
 	public override void _Process(float delta)

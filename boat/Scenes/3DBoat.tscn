@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Art/Boat/Boat.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Forcers/BuoyancyForcer.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Art/Boat/Rudder.glb" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Art/Boat/Sail.glb" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/Physics/SailHinge.cs" type="Script" id=9]
+[ext_resource path="res://Scenes/temp.tres" type="Curve" id=10]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.599812, 0.288465, 0.911671 )
@@ -15,14 +17,17 @@ extents = Vector3( 0.599812, 0.288465, 0.911671 )
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 0 ), 0.0, 1.69461, 0, 0, Vector2( 1, 1 ), 0.623926, 0.0, 0, 0 ]
 
-[sub_resource type="Curve" id=3]
-max_value = 3.5
-_data = [ Vector2( 0, 0 ), 0.0, 8.80722, 0, 1, Vector2( 0.397401, 3.5 ), 8.80722, -1.73418, 1, 0, Vector2( 0.587366, 0.976994 ), -6.18405, -6.18405, 0, 0, Vector2( 1, 0.0177608 ), 0.821597, 0.0, 0, 0 ]
-
 [sub_resource type="Curve" id=4]
 max_value = 1.28
 bake_resolution = 1
 _data = [ Vector2( 0, 0.137423 ), 0.0, 0.140593, 0, 0, Vector2( 1, 1.28 ), 2.46932, 0.0, 0, 0 ]
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.0314924, 0.0489644, 0.198859 )
+
+[sub_resource type="Curve" id=7]
+max_value = 2.5
+_data = [ Vector2( 0.0754649, 0 ), 0.0, 7.20525, 0, 1, Vector2( 0.29578, 1.58742 ), 0.544339, 0.544339, 0, 0, Vector2( 0.427396, 1.6181 ), -1.98123, -1.98123, 0, 0, Vector2( 1, 0.119632 ), -0.867189, 0.0, 0, 0 ]
 
 [node name="Boat" type="RigidBody"]
 mass = 250.0
@@ -95,7 +100,7 @@ HullShapeCurve = SubResource( 5 )
 [node name="Keel" parent="." instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, -1, 0, -3.34567e-08, 1.46244e-15, -0.765399, 0.408228, -1.78442e-08, -1.78442e-08, 0, -0.619284, 0.317895 )
 TargetPath = NodePath("..")
-TotalLiftCoefficient = SubResource( 3 )
+TotalLiftCoefficient = ExtResource( 10 )
 ParasiticDragCoefficient = SubResource( 4 )
 Thickness = 0.1
 
@@ -113,7 +118,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.230226 )
 [node name="AeroSurface" parent="Rudder" instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, -1, 0, -4.16561e-08, 1.82085e-15, -0.952979, 0.314456, -1.37453e-08, -1.37453e-08, 0, -0.0991006, 0.0296607 )
 TargetPath = NodePath("../..")
-TotalLiftCoefficient = SubResource( 3 )
+TotalLiftCoefficient = ExtResource( 10 )
 ParasiticDragCoefficient = SubResource( 4 )
 Thickness = 0.1
 
@@ -126,22 +131,64 @@ FreeWheelWhenOff = true
 ForwardActionName = "drive_forward"
 BackwardActionName = "drive_backward"
 
-[node name="Sail" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.811571, 0.346757 )
-script = ExtResource( 5 )
-TurnLeftAction = "sail_to_left"
-TurnRightAction = "sail_to_right"
-MaxDeflectionDegrees = 90.0
-ActuationSpeedDegrees = 90.0
+[node name="Sail" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44044, -0.422103 )
+mass = 15.0
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Sail"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555255, 0 )
+shape = SubResource( 6 )
 
 [node name="AeroSurface" parent="Sail" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, -1, 0, -1.00901e-07, 4.41053e-15, -2.30835, 1.58744, -6.93893e-08, -6.93893e-08, 0, 1.15426, -0.797469 )
-TargetPath = NodePath("../..")
+transform = Transform( -4.37114e-08, -1, 0, -1.00901e-07, 4.41053e-15, -2.30835, 1.58744, -6.93893e-08, -6.93893e-08, 0, 0.525389, -0.0286093 )
+TargetPath = NodePath("..")
 ForLiquid = false
-TotalLiftCoefficient = SubResource( 3 )
+TotalLiftCoefficient = SubResource( 7 )
 ParasiticDragCoefficient = SubResource( 4 )
 AreaMultiplier = 0.5
 Thickness = 0.1
 
 [node name="Sail" parent="Sail" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.796376, -0.591611 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.167503, 0.177249 )
+
+[node name="SailHinge" type="HingeJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.47585, 0.330053 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../Sail")
+angular_limit/enable = true
+angular_limit/upper = 60.0
+angular_limit/lower = -60.0
+angular_limit/softness = 0.01
+script = ExtResource( 9 )
+CurrentMaximumAngle = 90.0
+IncreaseMaximumActionName = "loosen_sail"
+DecreaseMaximumActionName = "tighten_sail"
+MaximumOfMaximum = 90.0
+
+[node name="WindSock" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.617675, 2.08133 )
+mass = 0.1
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WindSock"]
+shape = SubResource( 6 )
+
+[node name="AeroSurface" parent="WindSock" instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, -1, 0, -4.07056e-09, 1.7793e-16, -0.0931235, 0.388592, -1.69859e-08, -1.69859e-08, 0, 0, 0 )
+TargetPath = NodePath("..")
+ForLiquid = false
+TotalLiftCoefficient = ExtResource( 10 )
+ParasiticDragCoefficient = SubResource( 4 )
+AreaMultiplier = 0.5
+Thickness = 0.1
+
+[node name="CSGBox" type="CSGBox" parent="WindSock"]
+width = 0.033856
+height = 0.0935072
+depth = 0.375584
+
+[node name="WindSockHinge" type="HingeJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.621443, 2.24179 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../WindSock")

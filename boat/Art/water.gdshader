@@ -23,7 +23,7 @@ uniform vec2 wave_angle_3 = vec2(-0.5, 0.866);
 uniform float wave_speed = 1;
 uniform float wave_height_scale = 0.1;
 
-
+uniform bool distance_fade_enabled = true;
 uniform float distance_fade_start;
 uniform float distance_fade_end;
 varying float z_dist;
@@ -76,7 +76,7 @@ void fragment() {
     METALLIC = 0.0;
     ROUGHNESS = 0.01 * (1.0 - fresnel);
 
-    if (z_dist >= distance_fade_start)
+    if (z_dist >= distance_fade_start && distance_fade_enabled)
     {
         float proportion = (z_dist - distance_fade_start) / (distance_fade_end - distance_fade_start);
         ALPHA = max(1. - proportion, 0.) * color.a;
