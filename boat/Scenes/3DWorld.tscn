@@ -44,7 +44,7 @@ noise = SubResource( 11 )
 shader = ExtResource( 2 )
 shader_param/color = Color( 0.352941, 0.411765, 0.568627, 1 )
 shader_param/scale = 25.0
-shader_param/height_scale = 0.1
+shader_param/height_scale = 0.01
 shader_param/noise_size = 512.0
 shader_param/global_time = 0.0
 shader_param/wave_map_size = 32.0
@@ -52,7 +52,7 @@ shader_param/wave_angle_1 = Vector2( 1, 0 )
 shader_param/wave_angle_2 = Vector2( 0.5, 0.866 )
 shader_param/wave_angle_3 = Vector2( -0.5, 0.866 )
 shader_param/wave_speed = 2.0
-shader_param/wave_height_scale = 0.467
+shader_param/wave_height_scale = 0.0
 shader_param/distance_fade_start = 50.0
 shader_param/distance_fade_end = 100.0
 shader_param/noise = SubResource( 4 )
@@ -99,8 +99,10 @@ current = true
 far = 1000.0
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.765881, 0 )
+transform = Transform( 0.998366, -0.00338045, -0.0570411, 0.0571364, 0.0461114, 0.997301, -0.000741081, -0.998931, 0.0462292, -0.0439472, 2.54628, -0.0696011 )
 linear_damp = 0.0
+angular_velocity = Vector3( 3, 0, 0 )
+angular_damp = 0.0
 
 [node name="Body" type="Spatial" parent="Boat"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 0, 0 )
@@ -125,11 +127,10 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 2 )
 script = ExtResource( 3 )
 VertexScale = 25.0
-HeightScale = 2.5
+HeightScale = 0.01
 Noise = SubResource( 14 )
 NoiseSize = 200
 WaveMapSize = 64
 WaveMap1 = SubResource( 17 )
 WaveMap2 = SubResource( 19 )
 WaveMap3 = SubResource( 21 )
-WaveHeightScale = 0.467

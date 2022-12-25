@@ -16,8 +16,9 @@ namespace Physics.Forcers
             if (ThrustProportion == 0 && FreeWheelWhenOff) return Vector3.Zero;
 
             var density = fluid.DensityAtPoint(GlobalTransform.origin);
-            var velocityRelativeToFluid = target.VelocityAtPoint(GlobalTranslation) - fluid.VelocityAtPoint(GlobalTransform.origin);
-            var entrySpeed = (GlobalTransform.basis.z * velocityRelativeToFluid).z;
+            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTransform.origin);
+            var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
+            var entrySpeed = localVelocity.z;
             var effectiveExitSpeed = ThrustProportion * ExitSpeed;
             var deltaSpeed = effectiveExitSpeed - entrySpeed;
 

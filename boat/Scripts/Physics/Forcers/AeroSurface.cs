@@ -24,7 +24,7 @@ namespace Physics.Forcers
 		public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
 		{
 			var density = fluid.DensityAtPoint(GlobalTranslation);
-			var relativeVelocity = target.VelocityAtPoint(GlobalTranslation) - fluid.VelocityAtPoint(GlobalTranslation);
+			var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
 
 			// Velocity relative to the rotation of self
 			var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
@@ -42,7 +42,6 @@ namespace Physics.Forcers
 			var dragVector = -relativeVelocity.Normalized() * dragMag;
 
 			return liftVector + dragVector;
-			// return Vector3.Zero;
 		}
 
 		private float CalculateAngleOfAttack(Vector3 localVelocity)

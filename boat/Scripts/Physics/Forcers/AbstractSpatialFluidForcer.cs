@@ -23,17 +23,6 @@ namespace Physics.Forcers
         // Should return a force in global coordinates
         public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState state);
 
-        public override void _PhysicsProcess(float delta)
-        {
-            if (!Enabled) return;
-
-            // var totalForce = target.Fluids.Select(x => CalculateForce(x)).Aggregate(Vector3.Zero, (s, d) => s + d);
-            // var position = GlobalTranslation;
-            // position -= target.GlobalTransform.origin;
-            // target.AddForce(totalForce, position);
-            // target.ApplyCentralImpulse(totalForce * delta);
-        }
-
         public void Apply(PhysicsDirectBodyState state)
         {
             if (!Enabled) return;
@@ -41,7 +30,7 @@ namespace Physics.Forcers
             var totalForce = target.Fluids.Select(x => CalculateForce(x, state)).Aggregate(Vector3.Zero, (s, d) => s + d);
             var position = GlobalTranslation;
             position -= target.GlobalTransform.origin;
-            target.AddForce(totalForce, position);
+            state.AddForce(totalForce, position);
         }
 
         public override void _ExitTree()

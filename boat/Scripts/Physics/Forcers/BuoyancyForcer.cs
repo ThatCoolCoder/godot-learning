@@ -4,118 +4,100 @@ using System.Linq;
 
 namespace Physics.Forcers
 {
-    public class BuoyancyForcer : AbstractSpatialFluidForcer
-    {
-        // Basic buoyancy and also drag forcer
-        // Added drag because it needs damping or oscillates too much
+	public class BuoyancyForcer : AbstractSpatialFluidForcer
+	{
+		// Basic buoyancy and also vertical drag forcer
+		// Added vertical drag because it needs damping or oscillates too much
 
-        // todo: port this over: https://github.com/saurus/Buoyancy.
-        // or possibly this to start: https://godotforums.org/d/27725-creating-a-water-buoyancy-system/33
+		[Export] public float DragCoefficient { get; set; } = 0.5f;
+		[Export] public float NormalBuoyancyFactor { get; set; } = 0.1f; // Factor of normal of surface taken into account when calculating buoyant forces
 
-        [Export] public float DragCoefficient { get; set; } = 0.5f;
-        [Export] public float NormalBuoyancyFactor { get; set; } = 0.1f; // Factor of normal of surface taken into account when calculating buoyant forces
-        [Export]
-        public Curve DepthToAreaCurve { get; set; } = null; // curve from 0 to 1 used as a multiplier of volume. todo: if object is inverted then invert curve.
-                                                            // Used as a rough approximation for tapering hulls in absence of proper mesh-based volume detection.
-                                                            // Should be seen as the running integral of the object's shape.
-                                                            // todo: make method for calculating this running integral so then this can just match the shape of the side of the boat.
-        private MeshInstance mesh;
+		// Do not change while simulation is going, must only set it at the start.
+		// Curve from 0 to 1 that mimics the side profile of the hull, allowing us to approximate tapered/curved hulls without doing full mesh-based volume calculation
+		[Export] public Curve HullShapeCurve { get; set; } = null;
+		private Curve depthToAreaCurve = null;
+		private const int numDepthSampleValues = 100;
+		private MeshInstance mesh;
 
-        public override void _Ready()
-        {
-            mesh = GetNode<MeshInstance>("Mesh");
-            base._Ready();
-        }
+		public override void _Ready()
+		{
+			mesh = GetNode<MeshInstance>("Mesh");
 
-        // public override void _PhysicsProcess(float delta)
-        // {
-        // 	var fluid = GetNode<Fluids.ISpatialFluid>("../Water");
-        // 	var waterLevel = fluid.HeightAtPoint(GlobalTransform.origin);
-        // 	var waterDensity = fluid.DensityAtPoint(GlobalTransform.origin);
+			if (HullShapeCurve != null) CalculateDepthToAreaCurve();
 
-        // 	var boundingBox = mesh.GetTransformedAabb();
-        // 	var boundingBoxSize = boundingBox.Size;
-        // 	var top = boundingBox.Position.y + boundingBoxSize.y;
-        // 	var bottom = boundingBox.Position.y;
+			base._Ready();
 
-        // 	float immersion = 1;
-        // 	float volume = mesh.GetAabb().GetArea();
-        // 	if (top > waterLevel)
-        // 	{
-        // 		immersion = Mathf.Max(0, waterLevel - bottom) / boundingBoxSize.y;
-        // 		immersion *= ImmersionProportion(immersion, waterLevel, mesh.GetAabb());
-        // 		volume *= immersion;
-        // 	}
-        // }
+		}
 
-        public override Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState state)
-        {
-            var waterLevel = fluid.HeightAtPoint(GlobalTransform.origin);
-            var waterDensity = fluid.DensityAtPoint(GlobalTransform.origin);
+		private void CalculateDepthToAreaCurve()
+		{
+			// convert hull shape curve to area curve
 
-            var boundingBox = mesh.GetTransformedAabb();
-            var boundingBoxSize = boundingBox.Size;
-            var top = boundingBox.Position.y + boundingBoxSize.y;
-            var bottom = boundingBox.Position.y;
+			depthToAreaCurve = new Curve();
+			float runningTotal = 0;
+			float interval = 1.0f / (float)numDepthSampleValues;
+			for (int i = 0; i < numDepthSampleValues + 1; i++)
+			{
+				float xPos = interval * i;
+				runningTotal += HullShapeCurve.Interpolate(xPos) / numDepthSampleValues;
+				depthToAreaCurve.AddPoint(new Vector2(xPos, runningTotal), leftMode: Curve.TangentMode.Linear, rightMode: Curve.TangentMode.Linear);
+			}
+		}
 
-            float immersion = 1;
-            float volume = mesh.GetTransformedAabb().GetArea();
-            var buoyancyDirection = Vector3.Up;
-            if (top > waterLevel)
-            {
-                immersion = Mathf.Max(0, waterLevel - bottom) / boundingBoxSize.y;
-                // immersion *= ImmersionProportion(immersion, waterLevel, mesh.GetAabb());
-                // if (DepthToAreaCurve == null) volume *= immersion;
-                volume *= immersion;
-                if (DepthToAreaCurve != null) volume *= DepthToAreaCurve.Interpolate(immersion);
-                buoyancyDirection += fluid.NormalAtPoint(GlobalTransform.origin) * NormalBuoyancyFactor;
-            }
 
-            var buoyantForce = buoyancyDirection * volume * waterDensity * (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
+		public override Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState state)
+		{
+			var waterLevel = fluid.HeightAtPoint(GlobalTransform.origin);
+			var waterDensity = fluid.DensityAtPoint(GlobalTransform.origin);
 
-            var dragForce = CalculateDrag(state, fluid, immersion, GetArea(boundingBox));
-            dragForce.x = 0;
-            dragForce.z = 0;
-            // dragForce.y = 0;
-            // GD.Print(dragForce.y);
+			var boundingBox = mesh.GetTransformedAabb();
+			var boundingBoxSize = boundingBox.Size;
+			var top = boundingBox.Position.y + boundingBoxSize.y;
+			var bottom = boundingBox.Position.y;
 
-            // buoyantForce = Vector3.Zero;
+			float immersion = 1;
+			float volume = mesh.GetTransformedAabb().GetArea();
+			var buoyancyDirection = Vector3.Up;
+			if (top > waterLevel)
+			{
+				immersion = Mathf.Max(0, waterLevel - bottom) / boundingBoxSize.y;
+				if (depthToAreaCurve != null) immersion = depthToAreaCurve.Interpolate(immersion);
+				buoyancyDirection += fluid.NormalAtPoint(GlobalTransform.origin) * NormalBuoyancyFactor;
+			}
 
-            return buoyantForce + dragForce;
-        }
+			volume *= immersion;
 
-        private Vector3 CalculateDrag(PhysicsDirectBodyState state, Fluids.ISpatialFluid fluid, float immersion, float area)
-        {
-            var velocityDelta = state.GetVelocityAtLocalPosition(target.ToLocal(GlobalTranslation)) - fluid.VelocityAtPoint(GlobalTranslation);
-            var force = 0.5f * DragCoefficient * area * velocityDelta.LengthSquared() * immersion * fluid.DensityAtPoint(GlobalTranslation);
-            return velocityDelta.Normalized() * -force;
-        }
+			var buoyantForce = buoyancyDirection * volume * waterDensity * (float)ProjectSettings.GetSetting("physics/3d/default_gravity");
 
-        private float GetArea(AABB boundingBox)
-        {
-            var vel = target.VelocityAtPoint(GlobalTranslation);
-            var components = new List<float>() { vel.x, vel.y, vel.z }.Select(x => Mathf.Abs(x));
-            var largest = components.Max();
-            var size = boundingBox.Size;
+			// Calculate area to be X * Z because that's the face we care about
+			var dragForce = CalculateDrag(state, fluid, immersion, boundingBox.Size.x * boundingBox.Size.z);
 
-            return size.x * size.z;
+			return buoyantForce + dragForce;
+		}
 
-            if (largest == vel.x) return size.y * size.z;
-            if (largest == vel.y) return size.x * size.z;
-            else return size.x * size.y;
-        }
+		private Vector3 CalculateDrag(PhysicsDirectBodyState state, Fluids.ISpatialFluid fluid, float immersion, float area)
+		{
+			var velocityDelta = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
+			var force = 0.5f * DragCoefficient * immersion * area * velocityDelta.LengthSquared() * fluid.DensityAtPoint(GlobalTranslation);
+			var result = velocityDelta.Normalized() * -force;
 
-        private float ImmersionProportion(float immersion, float waterHeight, AABB boundingBox)
-        {
-            // proportion of immersion taking into account rotation of the AABB
+			// We only need vertical drag in this forcer
+			result.x = 0;
+			result.z = 0;
+			return result;
+		}
 
-            var rect = new Rect2(boundingBox.Position.z, boundingBox.Position.y, boundingBox.Size.z, boundingBox.Size.y);
-            var (area1, area2) = Geometry.LineIntersectRotatedRectangleAreas(new Vector2(-100, waterHeight), new Vector2(100, waterHeight), rect, Rotation.x);
-            var larger = Mathf.Max(area1, area2);
-            var smaller = Mathf.Min(area1, area2);
-            var goodArea = immersion < 0.5f ? smaller : larger;
+		private float ImmersionProportion(float immersion, float waterHeight, AABB boundingBox)
+		{
+			// proportion of immersion taking into account rotation of the AABB
 
-            return goodArea / rect.Area;
-        }
-    }
+			var rect = new Rect2(boundingBox.Position.z, boundingBox.Position.y, boundingBox.Size.z, boundingBox.Size.y);
+			var (area1, area2) = Geometry.LineIntersectRotatedRectangleAreas(new Vector2(-100, waterHeight), new Vector2(100, waterHeight), rect, Rotation.x);
+			var larger = Mathf.Max(area1, area2);
+			var smaller = Mathf.Min(area1, area2);
+			var goodArea = immersion < 0.5f ? smaller : larger;
+
+			return goodArea / rect.Area;
+		}
+	}
 }

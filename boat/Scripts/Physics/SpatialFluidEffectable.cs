@@ -5,49 +5,26 @@ using System.Collections.Generic;
 
 namespace Physics
 {
-	public class SpatialFluidEffectable : RigidBody
-	{
-		public List<Fluids.ISpatialFluid> Fluids { get; set; } = new();
-		private Vector3 v;
+    public class SpatialFluidEffectable : RigidBody
+    {
+        public List<Fluids.ISpatialFluid> Fluids { get; set; } = new();
 
-		private List<Forcers.AbstractSpatialFluidForcer> registeredForcers = new();
+        private List<Forcers.AbstractSpatialFluidForcer> registeredForcers = new();
 
-		public override void _Ready()
-		{
-			GravityScale = 0;
-		}
+        public override void _IntegrateForces(PhysicsDirectBodyState state)
+        {
+            registeredForcers.ForEach(f => f.Apply(state));
+        }
 
-		public Vector3 VelocityAtPoint(Vector3 point)
-		{
-			// Point should be in global coordinates
+        public void RegisterForcer(Forcers.AbstractSpatialFluidForcer forcer)
+        {
+            registeredForcers.Add(forcer);
+        }
 
-			var offset = point - GlobalTransform.origin;
-			return LinearVelocity + AngularVelocity.Cross(offset);
-		}
+        public void UnregisterForcer(Forcers.AbstractSpatialFluidForcer forcer)
+        {
+            registeredForcers.Remove(forcer);
+        }
 
-		public override void _PhysicsProcess(float delta)
-		{
-			// Godot inbuilt gravity appears to not be correct, so do it in a custom way
-
-			var force = (float)ProjectSettings.GetSetting("physics/3d/default_gravity") * Mass;
-			AddCentralForce(Vector3.Down * force);
-			v = LinearVelocity;
-		}
-
-		public override void _IntegrateForces(PhysicsDirectBodyState state)
-		{
-			registeredForcers.ForEach(f => f.Apply(state));
-		}
-
-		public void RegisterForcer(Forcers.AbstractSpatialFluidForcer forcer)
-		{
-			registeredForcers.Add(forcer);
-		}
-
-		public void UnregisterForcer(Forcers.AbstractSpatialFluidForcer forcer)
-		{
-			registeredForcers.Remove(forcer);
-		}
-
-	}
+    }
 }
