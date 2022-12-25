@@ -22,6 +22,7 @@ namespace Physics.Forcers
 		public override void _Ready()
 		{
 			mesh = GetNode<MeshInstance>("Mesh");
+			mesh.Visible = false;
 
 			if (HullShapeCurve != null) CalculateDepthToAreaCurve();
 

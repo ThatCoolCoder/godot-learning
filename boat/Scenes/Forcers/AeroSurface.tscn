@@ -1,10 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Physics/Forcers/AeroSurface.cs" type="Script" id=1]
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_transparent = true
-albedo_color = Color( 1, 1, 1, 0.5 )
+[ext_resource path="res://Art/ForcerPreview.tres" type="Material" id=2]
 
 [node name="AeroSurface" type="Spatial"]
 script = ExtResource( 1 )
@@ -13,4 +10,4 @@ script = ExtResource( 1 )
 width = 1.0
 height = 0.05
 depth = 1.0
-material = SubResource( 1 )
+material = ExtResource( 2 )
