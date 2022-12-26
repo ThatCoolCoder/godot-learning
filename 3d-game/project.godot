@@ -92,6 +92,10 @@ grapple={
 3d_physics/layer_1="general"
 3d_physics/layer_2="grappleable"
 
+[mono]
+
+project/assembly_name="3D Game"
+
 [physics]
 
 common/enable_pause_aware_picking=true
