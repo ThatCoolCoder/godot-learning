@@ -7,9 +7,13 @@ namespace Physics
 {
 	public class SpatialFluidEffectable : RigidBody
 	{
-		public List<Fluids.ISpatialFluid> Fluids { get; set; } = new();
-
+		public List<Fluids.ISpatialFluid> Fluids { get; private set; } = new();
 		private List<Forcers.AbstractSpatialFluidForcer> registeredForcers = new();
+
+		public override void _Ready()
+		{
+			Fluids = Physics.Fluids.SpatialFluidRepository.FindSpatialFluidRepository(GetTree()).Fluids;
+		}
 
 		public override void _IntegrateForces(PhysicsDirectBodyState state)
 		{

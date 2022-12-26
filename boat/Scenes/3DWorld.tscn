@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scenes/3DBoat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://Scripts/CameraLook.cs" type="Script" id=5]
 [ext_resource path="res://Scenes/Tracker.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Body.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=10]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 250, 250 )
@@ -100,8 +102,11 @@ transform = Transform( 0.515517, -0.287628, 0.807163, -0.0410157, 0.932617, 0.35
 current = true
 far = 1000.0
 
+[node name="SpatialFluidRepository" type="Spatial" parent="."]
+script = ExtResource( 10 )
+
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0439472, 0.15131, -0.0696011 )
+transform = Transform( 0.734666, 0, -0.678429, 0, 1, 0, 0.678429, 0, 0.734666, -0.0439472, 0.15131, -0.0696011 )
 
 [node name="Body" type="Spatial" parent="Boat"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 0, 0 )
@@ -137,6 +142,12 @@ WaveMap3 = SubResource( 21 )
 WaveSpeed = 1.0
 WaveHeightScale = 0.4
 
+[node name="SpatialFluidBeacon" type="Spatial" parent="Tracker/Water"]
+script = ExtResource( 8 )
+
 [node name="Air" type="Spatial" parent="."]
 script = ExtResource( 7 )
-Flow = Vector3( 0, 0, 8 )
+Flow = Vector3( 0, 0, 15 )
+
+[node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
+script = ExtResource( 8 )
