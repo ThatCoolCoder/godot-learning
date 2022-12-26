@@ -13,8 +13,10 @@ namespace Audio
         private Physics.Fluids.Air air;
 
         private OpenSimplexNoise volumeNoise = new();
-        private float volumeNoiseFrequency = 50;
-        private float volumeNoiseFactor = 1.0f;
+        private float volumeNoiseFrequency = 150;
+        private float volumeNoiseFactor = 0.5f;
+
+        private float approximatePitch = 50;
 
         private Vector3 previousPosition;
         private float airSpeed = 0;
@@ -28,11 +30,13 @@ namespace Audio
             base._Ready();
 
             previousPosition = GetParent<Spatial>().GlobalTranslation;
+
+            volumeNoise.Octaves = 1;
         }
 
         protected override Vector2 ComputeAudioValue()
         {
-            var baseValue = GD.Randf() * (1 - sineWaveFactor);
+            var baseValue = (volumeNoise.GetNoise1d(time * 2000 * approximatePitch) / 2 + 0.5f) * 0.75f;
             baseValue += sineWave.Sample(sampleHz) * sineWaveFactor;
             sineWave.Frequency = 1600 + volumeNoise.GetNoise1d(time * 10000) * 200;
             var volumeMultiplier2 = 1 + volumeNoise.GetNoise1d(volumeNoiseFrequency * time) * volumeNoiseFactor;

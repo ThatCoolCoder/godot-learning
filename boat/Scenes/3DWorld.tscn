@@ -162,6 +162,3 @@ DirectionChangeFrequency = 20.0
 
 [node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
 script = ExtResource( 8 )
-
-[node name="CSGBox" type="CSGBox" parent="Air"]
-transform = Transform( 0.24129, 0, 0, 0, 0.24129, 0, 0, 0, 0.24129, 0, 0.0297468, -6.45111 )
