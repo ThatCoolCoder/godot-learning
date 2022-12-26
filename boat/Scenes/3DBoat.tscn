@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Art/Boat/Boat.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Forcers/BuoyancyForcer.tscn" type="PackedScene" id=2]
@@ -9,10 +9,13 @@
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Art/Boat/Sail.glb" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Physics/SailHinge.cs" type="Script" id=9]
-[ext_resource path="res://Scenes/temp.tres" type="Curve" id=10]
+[ext_resource path="res://Art/WingLiftCoefficient.tres" type="Curve" id=10]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.599812, 0.288465, 0.911671 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0 ), 0.0, 1.95376, 0, 0, Vector2( 1, 1 ), 0.414046, 0.0, 0, 0 ]
 
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 1, Vector2( 1, 1 ), 0.0, 0.0, 1, 0 ]
@@ -46,56 +49,56 @@ transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716,
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, -1.19941 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer3" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.112403, -0.232649 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer4" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, -0.232649 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer5" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.112403, 0.854917 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer6" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, 0.854917 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer7" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.112403, 1.87354 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="BuoyancyForcer8" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, 1.87354 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 5 )
+HullShapeCurve = SubResource( 8 )
 
 [node name="MastFloater" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 3.17373, 0.362 )
