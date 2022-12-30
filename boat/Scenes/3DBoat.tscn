@@ -134,7 +134,7 @@ ForwardActionName = "drive_forward"
 BackwardActionName = "drive_backward"
 
 [node name="Sail" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44044, -0.112338 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23481, -0.112338 )
 mass = 15.0
 script = ExtResource( 3 )
 

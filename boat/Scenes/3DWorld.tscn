@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scenes/3DBoat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://Scripts/Body.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Audio/WindNoise.cs" type="Script" id=11]
+
+[sub_resource type="BoxShape" id=22]
+extents = Vector3( 0.35181, 0.415773, 0.324475 )
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 250, 250 )
@@ -107,25 +110,33 @@ far = 1000.0
 script = ExtResource( 10 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.932318, 0, -0.361641, 0, 1, 0, 0.361641, 0, 0.932318, -0.0439472, 0.15131, -0.0696011 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0439472, 0.15131, -0.0696011 )
 
-[node name="Body" type="Spatial" parent="Boat"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 0, 0 )
+[node name="Player" type="RigidBody" parent="Boat"]
+mass = 80.0
+
+[node name="Body" type="CollisionShape" parent="Boat/Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574, 0.519, -0.362 )
+shape = SubResource( 22 )
 script = ExtResource( 9 )
 
-[node name="Head" type="Spatial" parent="Boat/Body"]
-transform = Transform( 0.918322, 0, -0.395834, 0, 1, 0, 0.395834, 0, 0.918322, 0, 0.752, -0.547 )
+[node name="Head" type="Spatial" parent="Boat/Player/Body"]
+transform = Transform( 0.918322, 0, -0.395834, 0, 1, 0, 0.395834, 0, 0.918322, 0, 0.251428, 0 )
 script = ExtResource( 5 )
 
-[node name="Camera" type="Camera" parent="Boat/Body/Head"]
-transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0, 0, 0 )
+[node name="Camera" type="Camera" parent="Boat/Player/Body/Head"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 current = true
 far = 2000.0
 
-[node name="WindNoise" type="AudioStreamPlayer3D" parent="Boat/Body/Head"]
+[node name="WindNoise" type="AudioStreamPlayer3D" parent="Boat/Player/Body/Head"]
 script = ExtResource( 11 )
 VolumeMultiplier = 0.01
-AirPath = NodePath("../../../../Air")
+AirPath = NodePath("../../../../../Air")
+
+[node name="Generic6DOFJoint" type="Generic6DOFJoint" parent="Boat"]
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../Player")
 
 [node name="Tracker" parent="." instance=ExtResource( 6 )]
 YAxis = false
