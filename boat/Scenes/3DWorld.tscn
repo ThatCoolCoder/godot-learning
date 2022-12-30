@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Scenes/3DBoat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
@@ -29,6 +29,15 @@ height = 200
 seamless = true
 noise = SubResource( 3 )
 
+[sub_resource type="OpenSimplexNoise" id=23]
+
+[sub_resource type="NoiseTexture" id=24]
+width = 1024
+height = 1024
+as_normalmap = true
+bump_strength = 32.0
+noise = SubResource( 23 )
+
 [sub_resource type="OpenSimplexNoise" id=7]
 
 [sub_resource type="NoiseTexture" id=8]
@@ -49,7 +58,7 @@ noise = SubResource( 11 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 2 )
-shader_param/color = Color( 0.352941, 0.411765, 0.568627, 0.854902 )
+shader_param/color = Color( 0.0941176, 0.262745, 0.364706, 0.854902 )
 shader_param/scale = 25.0
 shader_param/height_scale = 0.01
 shader_param/noise_size = 200.0
@@ -60,6 +69,8 @@ shader_param/wave_angle_2 = Vector2( 0.5, 0.866 )
 shader_param/wave_angle_3 = Vector2( -0.5, 0.866 )
 shader_param/wave_speed = 1.0
 shader_param/wave_height_scale = 0.4
+shader_param/normal_detail_scale = 0.155
+shader_param/normal_detail_factor = 0.4
 shader_param/distance_fade_enabled = false
 shader_param/distance_fade_start = 50.0
 shader_param/distance_fade_end = 100.0
@@ -67,6 +78,7 @@ shader_param/noise = SubResource( 4 )
 shader_param/wave_height_1 = SubResource( 8 )
 shader_param/wave_height_2 = SubResource( 10 )
 shader_param/wave_height_3 = SubResource( 12 )
+shader_param/normal_detail_noise = SubResource( 24 )
 
 [sub_resource type="OpenSimplexNoise" id=15]
 period = 22.3
