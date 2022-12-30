@@ -21,7 +21,8 @@ namespace Audio
         private Vector3 previousPosition;
         private float airSpeed = 0;
 
-        private Primitives.SineOscillator sineWave = new() { Frequency = 1600 };
+        private Primitives.SineOscillator sineWave = new() { Frequency = 500 };
+        private Primitives.SquareOscillator saw = new() { Frequency = 500 };
         private float sineWaveFactor = 0.05f;
 
         public override void _Ready()
@@ -36,12 +37,10 @@ namespace Audio
 
         protected override Vector2 ComputeAudioValue()
         {
-            var baseValue = (volumeNoise.GetNoise1d(time * 2000 * approximatePitch) / 2 + 0.5f) * 0.75f;
-            baseValue += sineWave.Sample(sampleHz) * sineWaveFactor;
-            sineWave.Frequency = 1600 + volumeNoise.GetNoise1d(time * 10000) * 200;
-            var volumeMultiplier2 = 1 + volumeNoise.GetNoise1d(volumeNoiseFrequency * time) * volumeNoiseFactor;
+            var baseValue = (volumeNoise.GetNoise1d(time * 2000 * approximatePitch) / 2 + 0.5f);
+            var periodicVolumeMultiplier = 1 + volumeNoise.GetNoise1d(volumeNoiseFrequency * time) * volumeNoiseFactor;
             baseValue *= airSpeed;
-            return Vector2.One * baseValue * VolumeMultiplier * volumeMultiplier2;
+            return Vector2.One * baseValue * VolumeMultiplier * periodicVolumeMultiplier;
         }
 
         public override void _Process(float delta)
