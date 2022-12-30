@@ -9,28 +9,19 @@
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Art/Boat/Sail.glb" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Physics/SailHinge.cs" type="Script" id=9]
-[ext_resource path="res://Art/WingLiftCoefficient.tres" type="Curve" id=10]
+[ext_resource path="res://Resources/WingLiftCoefficient.tres" type="Curve" id=10]
+[ext_resource path="res://Resources/WingDragCoefficient.tres" type="Curve" id=11]
+[ext_resource path="res://Resources/SailLiftCoefficient.tres" type="Curve" id=12]
+[ext_resource path="res://Resources/HullShape.tres" type="Curve" id=13]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.599812, 0.288465, 0.911671 )
 
-[sub_resource type="Curve" id=8]
-_data = [ Vector2( 0, 0 ), 0.0, 1.95376, 0, 0, Vector2( 1, 1 ), 0.414046, 0.0, 0, 0 ]
-
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 1, Vector2( 1, 1 ), 0.0, 0.0, 1, 0 ]
 
-[sub_resource type="Curve" id=4]
-max_value = 1.28
-bake_resolution = 1
-_data = [ Vector2( 0, 0.137423 ), 0.0, 0.140593, 0, 0, Vector2( 1, 1.28 ), 2.46932, 0.0, 0, 0 ]
-
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.0314924, 0.0489644, 0.198859 )
-
-[sub_resource type="Curve" id=7]
-max_value = 2.5
-_data = [ Vector2( 0.0754649, 0 ), 0.0, 7.20525, 0, 1, Vector2( 0.29578, 1.58742 ), 0.544339, 0.544339, 0, 0, Vector2( 0.427396, 1.6181 ), -1.98123, -1.98123, 0, 0, Vector2( 1, 0.119632 ), -0.867189, 0.0, 0, 0 ]
 
 [node name="Boat" type="RigidBody"]
 mass = 250.0
@@ -49,73 +40,74 @@ transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716,
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, -1.19941 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer3" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.112403, -0.232649 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer4" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, -0.232649 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer5" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.112403, 0.854917 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer6" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, 0.854917 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer7" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, 0.364716, 0.112403, 1.87354 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="BuoyancyForcer8" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.271917, 0, 0, 0, 0.292737, 0, 0, 0, 0.414982, -0.331214, 0.112403, 1.87354 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
-HullShapeCurve = SubResource( 8 )
+HullShapeCurve = ExtResource( 13 )
 
 [node name="MastFloater" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 3.17373, 0.362 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 4.07898, 0.743454 )
 TargetPath = NodePath("..")
 DragCoefficient = 10.0
 NormalBuoyancyFactor = 0.0
 HullShapeCurve = SubResource( 5 )
 
-[node name="Keel" parent="." instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, -1, 0, -3.34567e-08, 1.46244e-15, -0.765399, 0.408228, -1.78442e-08, -1.78442e-08, 0, -0.619284, 0.317895 )
+[node name="Centerboard" parent="." instance=ExtResource( 7 )]
+transform = Transform( -4.37114e-08, -1, 0, -3.34567e-08, 1.46244e-15, -0.765399, 0.408228, -1.78442e-08, -1.78442e-08, 0, -0.619284, 0.139881 )
 TargetPath = NodePath("..")
 TotalLiftCoefficient = ExtResource( 10 )
-ParasiticDragCoefficient = SubResource( 4 )
+ParasiticDragCoefficient = ExtResource( 11 )
+AreaMultiplier = 0.5
 Thickness = 0.1
 
 [node name="Rudder" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.76994 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0340611, -1.76994 )
 script = ExtResource( 5 )
 TurnLeftAction = "turn_left"
 TurnRightAction = "turn_right"
@@ -126,10 +118,10 @@ ActuationSpeedDegrees = 90.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.105756 )
 
 [node name="AeroSurface" parent="Rudder" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, -1, 0, -4.16561e-08, 1.82085e-15, -0.952979, 0.314456, -1.37453e-08, -1.37453e-08, 0, -0.0991006, -0.0948094 )
+transform = Transform( -4.37114e-08, -1, 0, -4.16561e-08, 1.82085e-15, -0.952979, 0.314456, -1.37453e-08, -1.37453e-08, 0, -0.31975, -0.0948094 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 10 )
-ParasiticDragCoefficient = SubResource( 4 )
+ParasiticDragCoefficient = ExtResource( 11 )
 Thickness = 0.1
 
 [node name="ControlledMotor" parent="Rudder" instance=ExtResource( 4 )]
@@ -142,7 +134,7 @@ ForwardActionName = "drive_forward"
 BackwardActionName = "drive_backward"
 
 [node name="Sail" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44044, -0.422103 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44044, -0.112338 )
 mass = 15.0
 script = ExtResource( 3 )
 
@@ -151,19 +143,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555255, 0 )
 shape = SubResource( 6 )
 
 [node name="AeroSurface" parent="Sail" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, -1, 0, -1.00901e-07, 4.41053e-15, -2.30835, 1.58744, -6.93893e-08, -6.93893e-08, 0, 0.525389, -0.0286093 )
+transform = Transform( -4.37114e-08, -1, 0, -1.07177e-07, 4.68484e-15, -2.45192, 1.61288, -7.05011e-08, -7.05011e-08, 0, 0.855061, -0.0413494 )
 TargetPath = NodePath("..")
 ForLiquid = false
-TotalLiftCoefficient = SubResource( 7 )
-ParasiticDragCoefficient = SubResource( 4 )
+TotalLiftCoefficient = ExtResource( 12 )
+ParasiticDragCoefficient = ExtResource( 11 )
 AreaMultiplier = 0.5
 Thickness = 0.1
 
 [node name="Sail" parent="Sail" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.167503, 0.177249 )
+transform = Transform( 0.97227, 0, 0, 0, 0.796204, 0, 0, 0, 0.799531, 0, 0.489583, 0.21214 )
 
 [node name="SailHinge" type="HingeJoint" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.47585, 0.330053 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.47585, 0.649855 )
 nodes/node_a = NodePath("..")
 nodes/node_b = NodePath("../Sail")
 angular_limit/enable = true
@@ -175,6 +167,30 @@ CurrentMaximumAngle = 90.0
 IncreaseMaximumActionName = "loosen_sail"
 DecreaseMaximumActionName = "tighten_sail"
 MaximumOfMaximum = 90.0
+
+[node name="Jib" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.845802, 0.533496, 0, -0.533496, 0.845802, 0, 1.81281, 1.44399 )
+visible = false
+
+[node name="Rotator" type="Spatial" parent="Jib"]
+script = ExtResource( 5 )
+TurnLeftAction = "jib_to_left"
+TurnRightAction = "jib_to_right"
+MaxDeflectionDegrees = 75.0
+ActuationSpeedDegrees = 45.0
+
+[node name="AeroSurface" parent="Jib/Rotator" instance=ExtResource( 7 )]
+transform = Transform( -1.02629e-07, 1, 0, -2.20075, -4.09724e-08, -0.828408, -1.36483, -2.54097e-08, 1.32454, 0, 0.26024, -0.068331 )
+TargetPath = NodePath("../../..")
+Enabled = false
+ForLiquid = false
+TotalLiftCoefficient = ExtResource( 12 )
+ParasiticDragCoefficient = ExtResource( 11 )
+AreaMultiplier = 0.5
+Thickness = 0.1
+
+[node name="Sail" parent="Jib/Rotator" instance=ExtResource( 8 )]
+transform = Transform( -0.97227, 0, -8.49985e-08, -3.3935e-08, 0.714655, 0.388172, 5.38004e-08, 0.450774, -0.615405, 0, 0.0441578, -0.501288 )
 
 [node name="WindSock" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.617675, 2.08133 )
@@ -189,7 +205,7 @@ transform = Transform( -4.37114e-08, -1, 0, -4.07056e-09, 1.7793e-16, -0.0931235
 TargetPath = NodePath("..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 10 )
-ParasiticDragCoefficient = SubResource( 4 )
+ParasiticDragCoefficient = ExtResource( 11 )
 AreaMultiplier = 0.5
 Thickness = 0.1
 

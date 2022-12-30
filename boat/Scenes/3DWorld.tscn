@@ -107,7 +107,7 @@ far = 1000.0
 script = ExtResource( 10 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.999976, 0, 0.00699872, 0, 1, 0, -0.00699872, 0, 0.999976, -0.0439472, 0.15131, -0.0696011 )
+transform = Transform( 0.932318, 0, -0.361641, 0, 1, 0, 0.361641, 0, 0.932318, -0.0439472, 0.15131, -0.0696011 )
 
 [node name="Body" type="Spatial" parent="Boat"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.503, 0, 0 )
