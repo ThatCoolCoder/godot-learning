@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Scenes/3DBoat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/water.gdshader" type="Shader" id=2]
@@ -11,6 +11,21 @@
 [ext_resource path="res://Scripts/Body.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Audio/WindNoise.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/Player.cs" type="Script" id=12]
+
+[sub_resource type="Animation" id=25]
+resource_name = "LeftToRight"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Body:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0.574, -0.25, 0, 1.1, -0.0289274, -0.574, -1.2, 0.0119751, 1.4, 0.000672877 ),
+"times": PoolRealArray( 0, 1.5 )
+}
 
 [sub_resource type="BoxShape" id=22]
 extents = Vector3( 0.35181, 0.415773, 0.324475 )
@@ -126,6 +141,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0439472, 0.15131, -0.069601
 
 [node name="Player" type="RigidBody" parent="Boat"]
 mass = 80.0
+script = ExtResource( 12 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boat/Player"]
+playback_speed = -1.0
+anims/LeftToRight = SubResource( 25 )
 
 [node name="Body" type="CollisionShape" parent="Boat/Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574, 0.519, -0.362 )

@@ -77,10 +77,6 @@ void vertex() {
 }
 
 void fragment() {
-    // Generate normals for flat shading based on other vertices 
-    // NORMAL = normalize(cross(dFdx(VERTEX), dFdy(VERTEX)));
-
-
     vec3 world_vertex = (CAMERA_MATRIX * vec4(VERTEX, 1.0)).xyz;
     NORMAL = normalize(NORMAL + texture(normal_detail_noise, world_vertex.xz * normal_detail_scale).xyz * normal_detail_factor);
 
