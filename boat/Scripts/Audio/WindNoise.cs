@@ -21,6 +21,8 @@ namespace Audio
 
         private Vector3 previousPosition;
         private float airSpeed = 0;
+        private float leftAudioFactor;
+        private float rightAudioFactor;
 
         private Primitives.SineOscillator sineWave = new() { Frequency = 500 };
         private Primitives.SquareOscillator saw = new() { Frequency = 500 };
@@ -45,20 +47,27 @@ namespace Audio
             var baseValue = pinkNoise.GetNoise1d(time * 50000) / 2 + 0.5f;
             var periodicVolumeMultiplier = 1 + volumeNoise.GetNoise1d(volumeNoiseFrequency * time) * volumeNoiseFactor;
             baseValue *= airSpeed;
-            return Vector2.One * baseValue * VolumeMultiplier * periodicVolumeMultiplier;
+            baseValue *= VolumeMultiplier * periodicVolumeMultiplier;
+
+            return new Vector2(leftAudioFactor * baseValue, rightAudioFactor * baseValue);
         }
 
         public override void _Process(float delta)
         {
-            var globalVelocity = (GetParent<Spatial>().GlobalTranslation - previousPosition) / delta;
-            var relativeVelocity = globalVelocity - air.VelocityAtPoint(GetParent<Spatial>().GlobalTranslation);
+            var globalVelocity = (GlobalTranslation - previousPosition) / delta;
+            var relativeVelocity = globalVelocity - air.VelocityAtPoint(GlobalTranslation);
             var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
 
+            // Might as well calculate all this in process and not the audio value computer since velocity only makes sense to update that fast anyway
             airSpeed = localVelocity.Length();
+            var airDirection = new Vector2(localVelocity.x, localVelocity.z).Angle();
+            airDirection += Mathf.Pi / 2;
+            leftAudioFactor = Mathf.Sin(-airDirection) / 2 + 0.5f;
+            rightAudioFactor = Mathf.Sin(airDirection) / 2 + 0.5f;
 
-            GlobalTranslation = GetParent<Spatial>().GlobalTranslation + relativeVelocity.Normalized();
+            // GlobalTranslation = GetParent<Spatial>().GlobalTranslation + relativeVelocity.Normalized();
 
-            previousPosition = GetParent<Spatial>().GlobalTranslation;
+            previousPosition = GlobalTranslation;
             base._Process(delta);
         }
     }
