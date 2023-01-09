@@ -138,7 +138,7 @@ script = ExtResource( 10 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0439472, 0.15131, -0.0696011 )
-sleeping = true
+mode = 1
 
 [node name="Player" type="RigidBody" parent="Boat"]
 mass = 80.0
@@ -162,10 +162,14 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 current = true
 far = 2000.0
 
-[node name="WindNoise" type="AudioStreamPlayer3D" parent="Boat/Player/Body/Head"]
+[node name="WindNoise" type="AudioStreamPlayer3D" parent="Boat/Player/Body/Head/Camera"]
+transform = Transform( -1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, -1, 0, 0, 0 )
+attenuation_model = 1
 script = ExtResource( 11 )
-VolumeMultiplier = 0.01
-AirPath = NodePath("../../../../../Air")
+AirPath = NodePath("../../../../../../Air")
+
+[node name="CSGBox" type="CSGBox" parent="Boat/Player/Body/Head/Camera/WindNoise"]
+transform = Transform( 0.0699117, 0, 0, 0, 0.0699117, 0, 0, 0, 0.0699117, 0, 0, 0 )
 
 [node name="Generic6DOFJoint" type="Generic6DOFJoint" parent="Boat"]
 nodes/node_a = NodePath("..")

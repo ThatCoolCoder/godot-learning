@@ -6,7 +6,6 @@ namespace Audio
     public class WindNoise : ProceduralSpatialAudio
     {
         // sorry this is very messy due to the process of experimentation - it's basically an auditory shader, what did you expect?
-        // so yes, we are using the volume noise function to also mess with the pitch of a sine wave in an attempt to make a howling noise
 
         [Export] public float VolumeMultiplier { get; set; } = 0.1f;
         [Export] public NodePath AirPath { get; set; }
@@ -14,7 +13,9 @@ namespace Audio
 
         private OpenSimplexNoise volumeNoise = new();
         private float volumeNoiseFrequency = 150;
-        private float volumeNoiseFactor = 0.5f;
+        private float volumeNoiseFactor = 0.25f;
+
+        private OpenSimplexNoise pinkNoise = new();
 
         private float approximatePitch = 50;
 
@@ -33,11 +34,15 @@ namespace Audio
             previousPosition = GetParent<Spatial>().GlobalTranslation;
 
             volumeNoise.Octaves = 1;
+
+            pinkNoise.Octaves = 5;
+            pinkNoise.Lacunarity = 2;
+            pinkNoise.Persistence = 0.25f;
         }
 
         protected override Vector2 ComputeAudioValue()
         {
-            var baseValue = (volumeNoise.GetNoise1d(time * 2000 * approximatePitch) / 2 + 0.5f);
+            var baseValue = pinkNoise.GetNoise1d(time * 50000) / 2 + 0.5f;
             var periodicVolumeMultiplier = 1 + volumeNoise.GetNoise1d(volumeNoiseFrequency * time) * volumeNoiseFactor;
             baseValue *= airSpeed;
             return Vector2.One * baseValue * VolumeMultiplier * periodicVolumeMultiplier;

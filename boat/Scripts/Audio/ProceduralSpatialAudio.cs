@@ -10,7 +10,7 @@ namespace Audio
 
         protected static float sampleHz { get; private set; } = 44100;
 
-        // time in seconds. note that this is only updated at rate of process
+        // time in seconds
         protected float time { get; private set; } = 0;
 
         public override void _Ready()

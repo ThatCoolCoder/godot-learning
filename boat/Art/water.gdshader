@@ -2,7 +2,7 @@
 // or physics and graphics will desync!
 
 shader_type spatial;
-render_mode diffuse_lambert, specular_schlick_ggx, world_vertex_coords, cull_disabled, depth_draw_always;
+render_mode diffuse_lambert, specular_schlick_ggx, world_vertex_coords, cull_back;
 
 uniform vec4 color: hint_color;
 uniform float scale = 200.0;
