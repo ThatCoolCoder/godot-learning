@@ -138,7 +138,6 @@ script = ExtResource( 10 )
 
 [node name="Boat" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0439472, 0.15131, -0.0696011 )
-mode = 1
 
 [node name="Player" type="RigidBody" parent="Boat"]
 mass = 80.0

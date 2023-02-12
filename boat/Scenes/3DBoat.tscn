@@ -143,7 +143,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555255, 0 )
 shape = SubResource( 6 )
 
 [node name="AeroSurface" parent="Sail" instance=ExtResource( 7 )]
-transform = Transform( -4.37114e-08, -1, 0, -1.07177e-07, 4.68484e-15, -2.45192, 1.61288, -7.05011e-08, -7.05011e-08, 0, 0.855061, -0.0413494 )
+transform = Transform( -4.37114e-08, -1, 0, -1.44109e-07, 6.29919e-15, -3.29683, 2.05812, -8.99633e-08, -8.99633e-08, 0, 1.03082, -0.185648 )
 TargetPath = NodePath("..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 12 )
@@ -152,7 +152,7 @@ AreaMultiplier = 0.5
 Thickness = 0.1
 
 [node name="Sail" parent="Sail" instance=ExtResource( 8 )]
-transform = Transform( 0.97227, 0, 0, 0, 0.796204, 0, 0, 0, 0.799531, 0, 0.489583, 0.21214 )
+transform = Transform( 0.97227, 0, 0, 0, 1.08763, 0, 0, 0, 0.927594, 0, 0.518139, 0.119233 )
 
 [node name="SailHinge" type="HingeJoint" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.47585, 0.649855 )
