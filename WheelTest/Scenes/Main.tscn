@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/Vehicle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/FreeCamera.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Main.cs" type="Script" id=3]
+
+[sub_resource type="OpenSimplexNoise" id=4]
+period = 4.4
+
+[sub_resource type="NoiseTexture" id=5]
+noise = SubResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = SubResource( 5 )
+
+[sub_resource type="ProceduralSky" id=2]
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 2 )
+background_energy = 1.23
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_sky_contribution = 0.0
+
+[node name="Main" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+use_collision = true
+width = 100.0
+height = 0.139259
+depth = 100.0
+material = SubResource( 1 )
+
+[node name="Vehicle" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0.686925, 0 )
+
+[node name="Camera" type="Camera" parent="Vehicle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45069, 3.45189 )
+script = ExtResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.362178, 0.932109, 0, -0.932109, -0.362178, 0.13083, 2.37423, 0.0315812 )
+light_energy = 0.5
+shadow_enabled = true

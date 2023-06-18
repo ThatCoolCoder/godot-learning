@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Vehicle.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Wheel.tscn" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.3, 0.1, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.580392, 0.196078, 0.196078, 1 )
+
+[node name="Vehicle" type="RigidBody"]
+mass = 0.5
+script = ExtResource( 1 )
+Steerables = [ NodePath("WheelFL"), NodePath("WheelFR") ]
+Powereds = [ NodePath("WheelBR"), NodePath("WheelBL") ]
+Brakeds = [ NodePath("WheelFL"), NodePath("WheelFR"), NodePath("WheelBL"), NodePath("WheelBR") ]
+PowerTorque = 2.0
+BrakeTorque = 3.0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 0.173796, 0, 0, 0, 0.173796, 0, 0, 0, 0.173796, 0, 0, 0 )
+width = 3.43832
+height = 1.23989
+depth = 5.83388
+material = SubResource( 2 )
+
+[node name="WheelFL" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.424718, 0, -0.330534 )
+spring_length = 0.25
+SpringStrength = 2.0
+SpringDamp = 0.5
+Mass = 0.05
+targetPath = NodePath("..")
+
+[node name="WheelFR" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.463557, 0, -0.330534 )
+spring_length = 0.25
+SpringStrength = 2.0
+SpringDamp = 0.5
+Mass = 0.05
+targetPath = NodePath("..")
+
+[node name="WheelBL" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.424718, 0, 0.363991 )
+spring_length = 0.25
+SpringStrength = 2.0
+SpringDamp = 0.5
+Mass = 0.05
+targetPath = NodePath("..")
+
+[node name="WheelBR" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.463557, 0, 0.363991 )
+spring_length = 0.25
+SpringStrength = 2.0
+SpringDamp = 0.5
+Mass = 0.05
+targetPath = NodePath("..")
